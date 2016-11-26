@@ -1,4 +1,4 @@
-# XLAF(XueLan Application Framework) 文档
+# XLAF(XueLan's Application Framework) 文档
 XLAF中的命名规则：
 
 ①一般变量使用小驼峰 thisIsVariable
