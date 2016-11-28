@@ -60,8 +60,10 @@ public class #SCRIPTNAME# : Storyboard {
     {
     }
 
+    #if UNITY_ANDROID
     public override void AndroidGoBack ()
     {
     }
+    #endif
     #endregion
 }

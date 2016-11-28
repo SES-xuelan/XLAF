@@ -6,7 +6,7 @@ using System;
 
 namespace XLAF.Public
 {
-    public class ModUtils : MonoBehaviour
+    public class ModUtils
 	{
         public class TimeStamp
         {

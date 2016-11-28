@@ -14,7 +14,7 @@ namespace XLAF.Public
 
         static MgrScene ()
         {
-            SCENES = new Dictionary<string, GameObject> ();
+            SCENES = new Dictionary<string, SceneObject> ();
             instance = (new GameObject ("MgrScene")).AddComponent<MgrScene> ();
 
         }
@@ -25,14 +25,14 @@ namespace XLAF.Public
 
 
         private static bool animating = false;
-        private static GameObject currentScene = null;
+        private static SceneObject currentScene = null;
         private static Transform sceneViewRoot = null;
         private static CanvasGroup sceneViewRootCanvas = null;
 
         private static float screenWidth;
         private static float screenHeight;
 
-        private static Dictionary<string,GameObject> SCENES;
+        private static Dictionary<string,SceneObject> SCENES;
 
         public static void SetViewRoot (Transform grp)
         {
@@ -53,41 +53,69 @@ namespace XLAF.Public
             return sceneViewRootCanvas;
         }
 
-        public static GameObject GetCurrentScene ()
+        public static SceneObject GetCurrentScene ()
         {
             return currentScene;
         }
 
-        public static Dictionary<string,GameObject> GetAllScenes ()
+        public static Dictionary<string,SceneObject> GetAllScenes ()
         {
             return SCENES;
         }
 
-        public static bool isAnimating {
+        public static bool isSceneChanging {
             get {
                 return animating;
             }
         }
 
         /// <summary>
-        ///  加载scene  用于scene的东西比较多，需要提前加载的情况
+        /// Loads the scene.
+        /// 用于scene的东西比较多，需要提前加载的情况
         /// </summary>
         /// <param name="sceneName">Scene name.</param>
-        public static void LoadScene (string sceneName)
+        /// <param name="data">Data.</param>
+        public static void LoadScene (string sceneName, object data)
         {
 
             if (SCENES.ContainsKey (sceneName))
                 return;
-            
-            UnityEngine.Object _prefab = Resources.Load (sceneName);
-            GameObject scene = (GameObject)Instantiate (_prefab);
-            scene.name = sceneName;
-            SCENES.Add (sceneName, scene);
-            scene.transform.SetParent (sceneViewRoot, false);
-            scene.SetActive (false);
-            scene.transform.SetAsFirstSibling ();//置底
+            SceneObject sceneObj = new SceneObject (sceneName);
+            SCENES.Add (sceneName, sceneObj);
+            sceneObj.script.CreatScene (data);
+
+            sceneObj.scene.transform.SetParent (sceneViewRoot, false);
+            sceneObj.scene.SetActive (false);
+            sceneObj.scene.transform.SetAsFirstSibling ();//置底
 
         }
+
+        /// <summary>
+        /// Loads the scene.
+        /// 用于scene的东西比较多，需要提前加载的情况
+        /// </summary>
+        /// <param name="sceneName">Scene name.</param>
+        public static void LoadScene (string sceneName)
+        {
+            LoadScene (sceneName, "");
+        }
+
+        /// <summary>
+        /// Returns null if the scene object does not exist
+        /// </summary>
+        /// <returns>The scene.</returns>
+        /// <param name="sceneName">Scene name.</param>
+        public static SceneObject GetScene (string sceneName)
+        {
+            if (!SCENES.ContainsKey (sceneName)) {
+                return null;
+            }
+            return SCENES [sceneName];
+
+            
+        }
+
+        #region GotoScene functions
 
         public static void GotoScene (SceneParams par)
         {
@@ -103,7 +131,7 @@ namespace XLAF.Public
             Log.Debug ("GotoScene (SceneParams par)", par.ToString ());
 
             if (currentScene != null) {
-                currentScene.AddComponent<ignoreUIListener> ();
+                currentScene.DisableUIListener ();
             }
 
             animating = true;
@@ -225,69 +253,73 @@ namespace XLAF.Public
             GotoScene (sceneName, animation, 0.5f, 0.5f, XLAF_Tween.EaseType.defaultType, cb);
         }
 
+        #endregion
+
         /////////////////////////////////////////////////// private functions  /////////////////////////////////////////////////////////////////
 
-        private static void _UnloadOldScene (GameObject scene = null)
+        private static void _UnloadOldScene (SceneObject sceneObj = null)
         {
-            if (scene == null)
+            if (sceneObj == null)
                 return;
 		
             if (destoryOnSceneChange) {
-                scene.SendMessage ("DestoryScene");
-                Destroy (scene.gameObject);
-                SCENES.Remove (scene.name);
+                //scene.SendMessage ("DestoryScene");
+                string sceneName = sceneObj.script.sceneName;
+                sceneObj.script.DestoryScene ();
+                Destroy (sceneObj.scene.gameObject);
+                SCENES.Remove (sceneName);
             } else {
-                scene.SetActive (false);
+                sceneObj.scene.SetActive (false);
             }
         }
 
         private static void _LoadNewScene (string sceneName, object data)
         {
             if (currentScene != null) {
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.EnableUIListener ();
             }
 
             if (!SCENES.ContainsKey (sceneName)) {
-                UnityEngine.Object _prefab = Resources.Load (sceneName);
-                GameObject scene = (GameObject)Instantiate (_prefab);
-                scene.name = sceneName;
-                currentScene = scene;
-                SCENES.Add (sceneName, currentScene);
-                currentScene.SendMessage ("CreatScene", data);
+                SceneObject sceneObj = new SceneObject (sceneName);
+                currentScene = sceneObj;
+                SCENES.Add (sceneName, sceneObj);
+                currentScene.script.CreatScene (data);
+                //currentScene.SendMessage ("CreatScene", data);
             } else {
                 currentScene = SCENES [sceneName];
             }
-            currentScene.AddComponent<ignoreUIListener> ();
-            currentScene.transform.SetParent (sceneViewRoot, false);
-            currentScene.SetActive (true);
-            currentScene.transform.SetAsLastSibling ();//置顶
-            currentScene.SendMessage ("WillEnterScene", data);
+            currentScene.DisableUIListener ();
+            currentScene.scene.transform.SetParent (sceneViewRoot, false);
+            currentScene.scene.SetActive (true);
+            currentScene.scene.transform.SetAsLastSibling ();//置顶
+            //currentScene.SendMessage ("WillEnterScene", data);
+            currentScene.script.WillEnterScene (data);
         }
 
         private void _AnimationNone (string sceneName, object data, Action cb)
         {
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);
             if (oldScene != null) {
-                oldScene.SendMessage ("WillExitScene");
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.WillExitScene ();
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
             }
             if (cb != null)
                 cb ();
-            currentScene.SendMessage ("EnterScene", data);
-            Destroy (currentScene.GetComponent<ignoreUIListener> ());
+            currentScene.script.EnterScene (data);
+            currentScene.EnableUIListener ();
             animating = false;
         }
 
         private void _AnimationFade (string sceneName, object data, float fadeInTime, float fadeOutTime, Action cb)
         {
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             if (oldScene != null) {
-                oldScene.SendMessage ("WillExitScene");
+                oldScene.script.WillExitScene ();
                 //恢复到透明度1
                 sceneViewRootCanvas.alpha = 1f;
-                XLAF_Tween.ValueTo (oldScene, XLAF_Tween.Hash (
+                XLAF_Tween.ValueTo (oldScene.scene, XLAF_Tween.Hash (
                     "from", 1,
                     "to", 0,
                     "time", fadeInTime,
@@ -295,10 +327,10 @@ namespace XLAF.Public
                     sceneViewRootCanvas.alpha = alpha;
                 }),
                     "oncomplete", (Action)(() => {
-                    oldScene.SendMessage ("ExitScene");
+                    oldScene.script.ExitScene ();
                     _UnloadOldScene (oldScene);
                     _LoadNewScene (sceneName, data);
-                    XLAF_Tween.ValueTo (currentScene, XLAF_Tween.Hash (
+                    XLAF_Tween.ValueTo (currentScene.scene, XLAF_Tween.Hash (
                         "from", 0,
                         "to", 1,
                         "time", fadeOutTime,
@@ -308,8 +340,8 @@ namespace XLAF.Public
                         "oncomplete", (Action)(() => {
                         if (cb != null)
                             cb ();
-                        currentScene.SendMessage ("EnterScene", data);
-                        Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                        currentScene.script.EnterScene (data);
+                        currentScene.EnableUIListener ();
                         animating = false;
                     })
                     ));
@@ -318,7 +350,7 @@ namespace XLAF.Public
             } else {
                 _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
                 //show
-                XLAF_Tween.ValueTo (currentScene, XLAF_Tween.Hash (
+                XLAF_Tween.ValueTo (currentScene.scene, XLAF_Tween.Hash (
                     "from", 0,
                     "to", 1,
                     "time", fadeOutTime,
@@ -328,8 +360,8 @@ namespace XLAF.Public
                     "oncomplete", (Action)(() => {
                     if (cb != null)
                         cb ();
-                    currentScene.SendMessage ("EnterScene", data);
-                    Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                    currentScene.script.EnterScene (data);
+                    currentScene.EnableUIListener ();
                     animating = false;
                 })
                 ));
@@ -347,28 +379,28 @@ namespace XLAF.Public
             }
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
 
-            float nomalX = currentScene.transform.position.x;
-            float nomalY = currentScene.transform.position.y;
+            float nomalX = currentScene.scene.transform.position.x;
+            float nomalY = currentScene.scene.transform.position.y;
             float newSceneStartX = nomalX - screenWidth;
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
 
-            RectTransform tmpRT = currentScene.GetComponent<RectTransform> ();
+            RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (newSceneStartX, nomalY);
 
-            oldScene.SendMessage ("WillExitScene");
-            XLAF_Tween.MoveTo (currentScene, XLAF_Tween.Hash (
+            oldScene.script.WillExitScene ();
+            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
                 "x", nomalX,
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -384,30 +416,30 @@ namespace XLAF.Public
             }
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
 
-            float nomalX = currentScene.transform.position.x;
-            float nomalY = currentScene.transform.position.y;
+            float nomalX = currentScene.scene.transform.position.x;
+            float nomalY = currentScene.scene.transform.position.y;
             float newSceneStartX = nomalX + screenWidth;
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
 
 
 
-            RectTransform tmpRT = currentScene.GetComponent<RectTransform> ();
+            RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (newSceneStartX, nomalY);
 
-            oldScene.SendMessage ("WillExitScene");
-            XLAF_Tween.MoveTo (currentScene, XLAF_Tween.Hash (
+            oldScene.script.WillExitScene ();
+            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
                 "x", nomalX,
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -423,30 +455,30 @@ namespace XLAF.Public
             }
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
 
-            float nomalX = currentScene.transform.position.x;
-            float nomalY = currentScene.transform.position.y;
+            float nomalX = currentScene.scene.transform.position.x;
+            float nomalY = currentScene.scene.transform.position.y;
             float newSceneStartY = nomalY + screenHeight;
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
 
 
 
-            RectTransform tmpRT = currentScene.GetComponent<RectTransform> ();
+            RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (nomalX, newSceneStartY);
 
-            oldScene.SendMessage ("WillExitScene");
-            XLAF_Tween.MoveTo (currentScene, XLAF_Tween.Hash (
+            oldScene.script.WillExitScene ();
+            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
                 "y", nomalY,
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -462,30 +494,30 @@ namespace XLAF.Public
             }
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
 
-            float nomalX = currentScene.transform.position.x;
-            float nomalY = currentScene.transform.position.y;
+            float nomalX = currentScene.scene.transform.position.x;
+            float nomalY = currentScene.scene.transform.position.y;
             float newSceneStartY = nomalY - screenHeight;
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
 
 
 
-            RectTransform tmpRT = currentScene.GetComponent<RectTransform> ();
+            RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (nomalX, newSceneStartY);
 
-            oldScene.SendMessage ("WillExitScene");
-            XLAF_Tween.MoveTo (currentScene, XLAF_Tween.Hash (
+            oldScene.script.WillExitScene ();
+            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
                 "y", nomalY,
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -501,37 +533,37 @@ namespace XLAF.Public
             }
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
             
-            float nomalX = currentScene.transform.position.x;
-            float nomalY = currentScene.transform.position.y;
+            float nomalX = currentScene.scene.transform.position.x;
+            float nomalY = currentScene.scene.transform.position.y;
             float newSceneStartX = nomalX + screenWidth;
             float oldSceneEndX = nomalX - screenWidth;
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
 
 
 
-            RectTransform tmpRT = currentScene.GetComponent<RectTransform> ();
+            RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (newSceneStartX, nomalY);
 
-            oldScene.SendMessage ("WillExitScene");
-            XLAF_Tween.MoveTo (oldScene, XLAF_Tween.Hash (
+            oldScene.script.WillExitScene ();
+            XLAF_Tween.MoveTo (oldScene.scene, XLAF_Tween.Hash (
                 "x", oldSceneEndX,
                 "time", newSceneTime,
                 "easetype", ease
             ));
 
-            XLAF_Tween.MoveTo (currentScene, XLAF_Tween.Hash (
+            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
                 "x", nomalX,
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -547,35 +579,35 @@ namespace XLAF.Public
             }
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
 
-            float nomalX = currentScene.transform.position.x;
-            float nomalY = currentScene.transform.position.y;
+            float nomalX = currentScene.scene.transform.position.x;
+            float nomalY = currentScene.scene.transform.position.y;
             float newSceneStartX = nomalX - screenWidth;
             float oldSceneEndX = nomalX + screenWidth;
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
 
-            RectTransform tmpRT = currentScene.GetComponent<RectTransform> ();
+            RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (newSceneStartX, nomalY);
 
-            oldScene.SendMessage ("WillExitScene");
-            XLAF_Tween.MoveTo (oldScene, XLAF_Tween.Hash (
+            oldScene.script.WillExitScene ();
+            XLAF_Tween.MoveTo (oldScene.scene, XLAF_Tween.Hash (
                 "x", oldSceneEndX,
                 "time", newSceneTime,
                 "easetype", ease
             ));
 
-            XLAF_Tween.MoveTo (currentScene, XLAF_Tween.Hash (
+            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
                 "x", nomalX,
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -591,36 +623,36 @@ namespace XLAF.Public
             }
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
 
-            float nomalX = currentScene.transform.position.x;
-            float nomalY = currentScene.transform.position.y;
+            float nomalX = currentScene.scene.transform.position.x;
+            float nomalY = currentScene.scene.transform.position.y;
             float newSceneStartY = nomalY - screenHeight;
             float oldSceneEndY = nomalY + screenHeight;
 
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
 
-            RectTransform tmpRT = currentScene.GetComponent<RectTransform> ();
+            RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (nomalX, newSceneStartY);
 
-            oldScene.SendMessage ("WillExitScene");
-            XLAF_Tween.MoveTo (oldScene, XLAF_Tween.Hash (
+            oldScene.script.WillExitScene ();
+            XLAF_Tween.MoveTo (oldScene.scene, XLAF_Tween.Hash (
                 "y", oldSceneEndY,
                 "time", newSceneTime,
                 "easetype", ease
             ));
 
-            XLAF_Tween.MoveTo (currentScene, XLAF_Tween.Hash (
+            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
                 "y", nomalY,
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -635,36 +667,36 @@ namespace XLAF.Public
             }
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
 
-            float nomalX = currentScene.transform.position.x;
-            float nomalY = currentScene.transform.position.y;
+            float nomalX = currentScene.scene.transform.position.x;
+            float nomalY = currentScene.scene.transform.position.y;
             float newSceneStartY = nomalY + screenHeight;
             float oldSceneEndY = nomalY - screenHeight;
 
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
 
-            RectTransform tmpRT = currentScene.GetComponent<RectTransform> ();
+            RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (nomalX, newSceneStartY);
 
-            oldScene.SendMessage ("WillExitScene");
-            XLAF_Tween.MoveTo (oldScene, XLAF_Tween.Hash (
+            oldScene.script.WillExitScene ();
+            XLAF_Tween.MoveTo (oldScene.scene, XLAF_Tween.Hash (
                 "y", oldSceneEndY,
                 "time", newSceneTime,
                 "easetype", ease
             ));
 
-            XLAF_Tween.MoveTo (currentScene, XLAF_Tween.Hash (
+            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
                 "y", nomalY,
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -674,21 +706,21 @@ namespace XLAF.Public
         {
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutBack : easeType;
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
-            currentScene.transform.localScale = new Vector3 (1f, 1f);
-            oldScene.SendMessage ("WillExitScene");
-            XLAF_Tween.ScaleFrom (currentScene, XLAF_Tween.Hash (
+            currentScene.scene.transform.localScale = new Vector3 (1f, 1f);
+            oldScene.script.WillExitScene ();
+            XLAF_Tween.ScaleFrom (currentScene.scene, XLAF_Tween.Hash (
                 "scale", new Vector3 (0f, 0f),
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -699,25 +731,25 @@ namespace XLAF.Public
         {
             XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeInBack : easeType;
 
-            GameObject oldScene = currentScene;
+            SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
-            currentScene.transform.localScale = new Vector3 (1f, 1f);
-            oldScene.SendMessage ("WillExitScene");
-            oldScene.transform.SetAsLastSibling ();//旧的scene在最上
-            XLAF_Tween.ScaleTo (oldScene, XLAF_Tween.Hash (
+            currentScene.scene.transform.localScale = new Vector3 (1f, 1f);
+            oldScene.script.WillExitScene ();
+            oldScene.scene.transform.SetAsLastSibling ();//旧的scene在最上
+            XLAF_Tween.ScaleTo (oldScene.scene, XLAF_Tween.Hash (
                 "scale", new Vector3 (0f, 0f),
                 "time", newSceneTime,
                 "easetype", ease,
                 "oncomplete", (Action)(() => {
-                oldScene.SendMessage ("ExitScene");
+                oldScene.script.ExitScene ();
                 _UnloadOldScene (oldScene);
                 if (!destoryOnSceneChange) {
-                    oldScene.transform.localScale = new Vector3 (1f, 1f);
+                    oldScene.scene.transform.localScale = new Vector3 (1f, 1f);
                 }
                 if (cb != null)
                     cb ();
-                currentScene.SendMessage ("EnterScene", data);
-                Destroy (currentScene.GetComponent<ignoreUIListener> ());
+                currentScene.script.EnterScene (data);
+                currentScene.EnableUIListener ();
                 animating = false;
             })
             ));
@@ -726,22 +758,6 @@ namespace XLAF.Public
         ////////////////////////////////////////////////////  others  ////////////////////////////////////////////////////////////////////////////
 
 
-    }
-
-    /// <summary>
-    /// AddComponent<ignoreUIListener> ()之后就不响应界面的事件了
-    /// Destroy (currentScene.GetComponent<ignoreUIListener> ());之后就继续响应界面的事件了
-    /// 
-    /// 界面切换期间不响应事件，所以add上，界面切换完毕响应事件，所以destory它
-    /// </summary>
-    public class ignoreUIListener : MonoBehaviour ,ICanvasRaycastFilter
-    {
-        public bool IsFocus = false;
-
-        public bool IsRaycastLocationValid (Vector2 sp, Camera eventCamera)
-        {
-            return IsFocus;
-        }
     }
 
 
@@ -790,5 +806,7 @@ namespace XLAF.Public
         }
 
     }
+
+
 }
 

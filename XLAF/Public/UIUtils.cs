@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace XLAF.Public
 {
-	public class UIUtils : MonoBehaviour
+	public class UIUtils
 	{
 
 		public static T getChild<T> (Transform parent, string childName)
