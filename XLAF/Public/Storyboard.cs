@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace XLAF.Public
 {
@@ -8,6 +10,9 @@ namespace XLAF.Public
 
     //SceneObject是界面部分
 
+    /// <summary>
+    /// Storyboard. 脚本部分
+    /// </summary>
     public class Storyboard : MonoBehaviour
     {
         private string _sceneName;
@@ -30,7 +35,7 @@ namespace XLAF.Public
             if (string.IsNullOrEmpty (this._sceneName)) {
                 this._sceneName = name;
             } else {
-                Log.Warning ("You shouldn't change sceneName");
+                Log.Warning ("You can't change sceneName");
             }
         }
 
@@ -87,32 +92,52 @@ namespace XLAF.Public
 
         #endregion
 
+
+
+        public virtual void OnUIEvent (UIEvent e)
+        {
+            
+        }
+
+
     }
 
+    /// <summary>
+    /// Scene object. 界面部分
+    /// </summary>
     public class SceneObject
     {
+        
+
+        public SceneObject (string sceneName)
+        {
+            UnityEngine.Object _prefab = Resources.Load (sceneName);
+            GameObject scene = (GameObject)UnityEngine.Object.Instantiate (_prefab);
+            scene.name = sceneName;
+            this.scene = scene;
+            this.script = scene.GetComponent<Storyboard> ();
+            this._sceneName = sceneName;
+            this.script.SetSceneName (sceneName);
+            this._BindingEvents ();
+
+        }
+
         public GameObject scene;
         public Storyboard script;
 
+        /// <summary>
+        /// Gets the name of the scene.(Read only)
+        /// </summary>
+        /// <value>The name of the scene.</value>
         public string sceneName { 
             get {
                 return this._sceneName;
             }
         }
 
-        public SceneObject (string sceneName)
-        {
-
-            UnityEngine.Object _prefab = Resources.Load (sceneName);
-            GameObject scene = (GameObject)UnityEngine.Object.Instantiate (_prefab);
-            this.scene = scene;
-            this.script = scene.GetComponent<Storyboard> ();
-            this._sceneName = sceneName;
-            this.script.SetSceneName (sceneName);
-
-        }
-
-
+        /// <summary>
+        /// Enables the UI listener.
+        /// </summary>
         public void EnableUIListener ()
         {
             if (this.scene.GetComponent<ignoreUIListener> () != null) {
@@ -120,6 +145,9 @@ namespace XLAF.Public
             }
         }
 
+        /// <summary>
+        /// Disables the UI listener.
+        /// </summary>
         public void DisableUIListener ()
         {
             if (this.scene.GetComponent<ignoreUIListener> () == null) {
@@ -149,5 +177,37 @@ namespace XLAF.Public
         }
 
         private string _sceneName = "";
+
+        private void _BindingEvents ()
+        {
+            //绑定button的click事件
+            Button[] buttons = this.scene.GetComponentsInChildren<Button> (true);
+            foreach (Button b in buttons) {
+                b.onClick.AddListener (() => {
+                    UIEvent e = new UIEvent ();
+                    e.target = b.gameObject;
+                    e.targetType = "button";
+                    e.phase = TouchPhase.Ended;
+                    this.script.OnUIEvent (e);
+                });
+            }
+            //todo 可以继续绑定其他的事件
+        }
+    }
+
+    public class UIEvent
+    {
+        public GameObject target;
+        public string targetType;
+        public TouchPhase phase;
+
+        public override string ToString ()
+        {
+            string str = "\n";
+            str = str + "tatget:" + target.name + "\n";
+            str = str + "targetType:" + targetType + "\n";
+            str = str + "phase:" + phase.ToString () + "\n";
+            return str;
+        }
     }
 }

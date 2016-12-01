@@ -7,6 +7,9 @@ using System;
 
 namespace XLAF.Public
 {
+    /// <summary>
+    /// scene管理
+    /// </summary>
     public class MgrScene : MonoBehaviour
     {
         public static bool destoryOnSceneChange = false;
@@ -20,8 +23,17 @@ namespace XLAF.Public
         }
 
 
+        /// <summary>
+        /// 调用Init会触发构造函数，可以用于统一初始化的时候
+        /// </summary>
+        public static void Init ()
+        {
+
+        }
+
 
         private static MgrScene instance = null;
+        private static readonly string scenePathFormat = "_Scenes/{0}";
 
 
         private static bool animating = false;
@@ -34,6 +46,10 @@ namespace XLAF.Public
 
         private static Dictionary<string,SceneObject> SCENES;
 
+        /// <summary>
+        /// Sets the view root.
+        /// </summary>
+        /// <param name="grp">Transform.</param>
         public static void SetViewRoot (Transform grp)
         {
             sceneViewRoot = grp;
@@ -43,26 +59,46 @@ namespace XLAF.Public
             screenWidth = Screen.width;
         }
 
+        /// <summary>
+        /// Gets the view root.
+        /// </summary>
+        /// <returns>The view root.</returns>
         public static Transform GetViewRoot ()
         {
             return sceneViewRoot;
         }
 
+        /// <summary>
+        /// Gets the view root canvas.
+        /// </summary>
+        /// <returns>The view root canvas.</returns>
         public static CanvasGroup GetViewRootCanvas ()
         {
             return sceneViewRootCanvas;
         }
 
+        /// <summary>
+        /// Gets the current scene.
+        /// </summary>
+        /// <returns>The current scene.</returns>
         public static SceneObject GetCurrentScene ()
         {
             return currentScene;
         }
 
+        /// <summary>
+        /// Gets all scenes.
+        /// </summary>
+        /// <returns>The all scenes.</returns>
         public static Dictionary<string,SceneObject> GetAllScenes ()
         {
             return SCENES;
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="XLAF.Public.MgrScene"/> is scene changing.
+        /// </summary>
+        /// <value><c>true</c> if is scene changing; otherwise, <c>false</c>.</value>
         public static bool isSceneChanging {
             get {
                 return animating;
@@ -74,14 +110,14 @@ namespace XLAF.Public
         /// 用于scene的东西比较多，需要提前加载的情况
         /// </summary>
         /// <param name="sceneName">Scene name.</param>
-        /// <param name="data">Data.</param>
+        /// <param name="data">要传递给scene的数据</param>
         public static void LoadScene (string sceneName, object data)
         {
-
-            if (SCENES.ContainsKey (sceneName))
+            string fullSceneNamePath = string.Format (scenePathFormat, sceneName);
+            if (SCENES.ContainsKey (fullSceneNamePath))
                 return;
-            SceneObject sceneObj = new SceneObject (sceneName);
-            SCENES.Add (sceneName, sceneObj);
+            SceneObject sceneObj = new SceneObject (fullSceneNamePath);
+            SCENES.Add (fullSceneNamePath, sceneObj);
             sceneObj.script.CreatScene (data);
 
             sceneObj.scene.transform.SetParent (sceneViewRoot, false);
@@ -115,8 +151,9 @@ namespace XLAF.Public
             
         }
 
-        #region GotoScene functions
+        #region public GotoScene functions
 
+        // goto the scene
         public static void GotoScene (SceneParams par)
         {
             string sceneName = par.sceneName;
@@ -255,7 +292,7 @@ namespace XLAF.Public
 
         #endregion
 
-        /////////////////////////////////////////////////// private functions  /////////////////////////////////////////////////////////////////
+        #region  private functions (animation functions)
 
         private static void _UnloadOldScene (SceneObject sceneObj = null)
         {
@@ -279,14 +316,15 @@ namespace XLAF.Public
                 currentScene.EnableUIListener ();
             }
 
-            if (!SCENES.ContainsKey (sceneName)) {
-                SceneObject sceneObj = new SceneObject (sceneName);
+            string fullSceneNamePath = string.Format (scenePathFormat, sceneName);
+            if (!SCENES.ContainsKey (fullSceneNamePath)) {
+                SceneObject sceneObj = new SceneObject (fullSceneNamePath);
                 currentScene = sceneObj;
-                SCENES.Add (sceneName, sceneObj);
+                SCENES.Add (fullSceneNamePath, sceneObj);
                 currentScene.script.CreatScene (data);
                 //currentScene.SendMessage ("CreatScene", data);
             } else {
-                currentScene = SCENES [sceneName];
+                currentScene = SCENES [fullSceneNamePath];
             }
             currentScene.DisableUIListener ();
             currentScene.scene.transform.SetParent (sceneViewRoot, false);
@@ -755,12 +793,16 @@ namespace XLAF.Public
             ));
         }
 
-        ////////////////////////////////////////////////////  others  ////////////////////////////////////////////////////////////////////////////
+        #endregion
+
+
 
 
     }
 
-
+    /// <summary>
+    /// Scene 的动画效果
+    /// </summary>
     public enum SceneAnimation
     {
         //无任何效果
@@ -784,6 +826,9 @@ namespace XLAF.Public
         //还需要什么效果，可以在下面添加
     }
 
+    /// <summary>
+    /// Scene parameters.
+    /// </summary>
     public class SceneParams
     {
         public 	string sceneName;

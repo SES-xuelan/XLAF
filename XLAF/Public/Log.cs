@@ -6,22 +6,38 @@ using System.IO;
 using UnityEditor;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using SimpleJSON;
 
 namespace XLAF.Public
 {
+    /// <summary>
+    /// Log
+    /// </summary>
     public class Log
     {
 
         public static bool debugOn = true;
         public static bool isWriteToFile = true;
+        public static bool isPrintInfo = true;
 
-        private static string debug_file = "debug.log";
-        private static string error_file = "error.log";
+        private static string debug_file;
+        private static string error_file;
 
         static  Log ()
         {
-		
+            debug_file = ModUtils.documentsDirectory + "/debug.log";
+            error_file = ModUtils.documentsDirectory + "/error.log";
         }
+
+
+        /// <summary>
+        /// 调用Init会触发构造函数，可以用于统一初始化的时候
+        /// </summary>
+        public static void Init ()
+        {
+
+        }
+
 
         public static void Debug (params object[] objs)
         {
@@ -55,17 +71,30 @@ namespace XLAF.Public
                 ModUtils.WriteToFile (debug_file, s + "\n");
         }
 
+        public static void PrintInfo (params object[] objs)
+        {
+            if (!isPrintInfo)
+                return;
+            
+            string time = System.DateTime.Now.ToString ("MM-dd HH:mm:ss:fff");
+            string line = _GetCodeLineAndFile (3);
+            string s = time + "|PrintInfo|" + line + _ParamsToString (objs);
+            UnityEngine.Debug.Log (s);
+        }
+
         private static string _ParamsToString (params object[] objs)
         {
             string s = "";
             for (int i = 0; i < objs.Length; i++) {
-                if (objs [i] != null)
+                if (objs [i] != null) {
                     s = s + objs [i].ToString () + "\t";
-                else
+                } else {
                     s = s + "null\t";
+                }
             }
             return s;
         }
+
 
         private static string _GetCodeLineAndFile (int deep = 2)
         {
@@ -117,12 +146,14 @@ namespace XLAF.Public
             if (consoleWindowInstance != null) {
                 if ((object)EditorWindow.focusedWindow == consoleWindowInstance) {
                     //get listViewState in consuleWindow
-                    var listViewStateType = typeof(EditorWindow).Assembly.GetType ("UnityEditor.ListViewState");
-                    fieldInfo = consoleWindowType.GetField ("m_ListView", BindingFlags.Instance | BindingFlags.NonPublic);
-                    object listView = fieldInfo.GetValue (consoleWindowInstance);
+
+                    //    var listViewStateType = typeof(EditorWindow).Assembly.GetType ("UnityEditor.ListViewState");
+                    //    fieldInfo = consoleWindowType.GetField ("m_ListView", BindingFlags.Instance | BindingFlags.NonPublic);
+                    //    object listView = fieldInfo.GetValue (consoleWindowInstance);
+
                     //get row in listViewState
-                    fieldInfo = listViewStateType.GetField ("row", BindingFlags.Instance | BindingFlags.Public);
-                    int row = (int)fieldInfo.GetValue (listView);
+                    //    fieldInfo = listViewStateType.GetField ("row", BindingFlags.Instance | BindingFlags.Public);
+                    //    int row = (int)fieldInfo.GetValue (listView);
                     //get m_ActiveText in consoleWindow
                     fieldInfo = consoleWindowType.GetField ("m_ActiveText", BindingFlags.Instance | BindingFlags.NonPublic);
                     string activeText = fieldInfo.GetValue (consoleWindowInstance).ToString ();

@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace XLAF.Public
 {
+    /// <summary>
+    /// FPS、内存信息（调试用）
+    /// </summary>
     public class MgrFPS : MonoBehaviour
     {
 
@@ -28,6 +31,14 @@ namespace XLAF.Public
             instance = (new GameObject ("MgrFPS")).AddComponent<MgrFPS> ();
         }
 
+        /// <summary>
+        /// 调用Init会触发构造函数，可以用于统一初始化的时候
+        /// </summary>
+        public static void Init ()
+        {
+
+        }
+
         public static void ShowFPS ()
         {
             instance.showFPS = true;
@@ -37,6 +48,9 @@ namespace XLAF.Public
         {
             instance.showFPS = false;
         }
+
+
+
 
         void Update ()
         {
