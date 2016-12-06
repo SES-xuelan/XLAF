@@ -8,7 +8,7 @@ using System;
 namespace XLAF.Public
 {
     /// <summary>
-    /// scene管理
+    /// scene管理，和MgrDialog代码差不多
     /// </summary>
     public class MgrScene : MonoBehaviour
     {
@@ -20,6 +20,8 @@ namespace XLAF.Public
             SCENES = new Dictionary<string, SceneObject> ();
             instance = (new GameObject ("MgrScene")).AddComponent<MgrScene> ();
 
+            screenHeight = Screen.height;
+            screenWidth = Screen.width;
         }
 
 
@@ -55,8 +57,6 @@ namespace XLAF.Public
             sceneViewRoot = grp;
             sceneViewRootCanvas = sceneViewRoot.transform.GetComponent<CanvasGroup> ();
 
-            screenHeight = Screen.height;
-            screenWidth = Screen.width;
         }
 
         /// <summary>
@@ -106,6 +106,16 @@ namespace XLAF.Public
         }
 
         /// <summary>
+        /// Gets a value indicating whether this <see cref="XLAF.Public.MgrScene"/> is scene or dialog changing.
+        /// </summary>
+        /// <value><c>true</c> if is scene or dialog changing; otherwise, <c>false</c>.</value>
+        public static bool isSceneOrDialogChanging {
+            get {
+                return animating || MgrDialog.isDialogChanging;
+            }
+        }
+
+        /// <summary>
         /// Loads the scene.
         /// 用于scene的东西比较多，需要提前加载的情况
         /// </summary>
@@ -113,11 +123,10 @@ namespace XLAF.Public
         /// <param name="data">要传递给scene的数据</param>
         public static void LoadScene (string sceneName, object data)
         {
-            string fullSceneNamePath = string.Format (scenePathFormat, sceneName);
-            if (SCENES.ContainsKey (fullSceneNamePath))
+            if (SCENES.ContainsKey (sceneName))
                 return;
-            SceneObject sceneObj = new SceneObject (fullSceneNamePath);
-            SCENES.Add (fullSceneNamePath, sceneObj);
+            SceneObject sceneObj = new SceneObject (string.Format (scenePathFormat, sceneName));
+            SCENES.Add (sceneName, sceneObj);
             sceneObj.script.CreatScene (data);
 
             sceneObj.scene.transform.SetParent (sceneViewRoot, false);
@@ -316,15 +325,14 @@ namespace XLAF.Public
                 currentScene.EnableUIListener ();
             }
 
-            string fullSceneNamePath = string.Format (scenePathFormat, sceneName);
-            if (!SCENES.ContainsKey (fullSceneNamePath)) {
-                SceneObject sceneObj = new SceneObject (fullSceneNamePath);
+            if (!SCENES.ContainsKey (sceneName)) {
+                SceneObject sceneObj = new SceneObject (string.Format (scenePathFormat, sceneName));
                 currentScene = sceneObj;
-                SCENES.Add (fullSceneNamePath, sceneObj);
+                SCENES.Add (sceneName, sceneObj);
                 currentScene.script.CreatScene (data);
                 //currentScene.SendMessage ("CreatScene", data);
             } else {
-                currentScene = SCENES [fullSceneNamePath];
+                currentScene = SCENES [sceneName];
             }
             currentScene.DisableUIListener ();
             currentScene.scene.transform.SetParent (sceneViewRoot, false);
@@ -356,24 +364,25 @@ namespace XLAF.Public
             if (oldScene != null) {
                 oldScene.script.WillExitScene ();
                 //恢复到透明度1
-                sceneViewRootCanvas.alpha = 1f;
+                oldScene.ChangeAlpha (1f);
                 XLAF_Tween.ValueTo (oldScene.scene, XLAF_Tween.Hash (
                     "from", 1,
                     "to", 0,
                     "time", fadeInTime,
                     "onupdate", (Action<float>)((alpha) => {
-                    sceneViewRootCanvas.alpha = alpha;
+                    oldScene.ChangeAlpha (alpha);
                 }),
                     "oncomplete", (Action)(() => {
                     oldScene.script.ExitScene ();
                     _UnloadOldScene (oldScene);
                     _LoadNewScene (sceneName, data);
+                    currentScene.ChangeAlpha (0f);
                     XLAF_Tween.ValueTo (currentScene.scene, XLAF_Tween.Hash (
                         "from", 0,
                         "to", 1,
                         "time", fadeOutTime,
                         "onupdate", (Action<float>)((alpha) => {
-                        sceneViewRootCanvas.alpha = alpha;
+                        currentScene.ChangeAlpha (alpha);
                     }),
                         "oncomplete", (Action)(() => {
                         if (cb != null)
@@ -393,7 +402,7 @@ namespace XLAF.Public
                     "to", 1,
                     "time", fadeOutTime,
                     "onupdate", (Action<float>)((alpha) => {
-                    sceneViewRootCanvas.alpha = alpha;
+                    currentScene.ChangeAlpha (alpha);
                 }),
                     "oncomplete", (Action)(() => {
                     if (cb != null)
@@ -839,6 +848,12 @@ namespace XLAF.Public
         public 	Action cb = null;
         public object data = "";
 
+        /// <summary>
+        /// The background alpha.
+        /// Only useful for dialog
+        /// </summary>
+        public float bgAlpha = 0.8f;
+
         public override string ToString ()
         {
             return  " sceneName:" + sceneName
@@ -846,6 +861,7 @@ namespace XLAF.Public
             + "\t oldSceneTime:" + oldSceneTime
             + "\t newSceneTime:" + newSceneTime
             + "\t EaseType:" + ease.ToString ()
+            + "\t bgAlpha:" + bgAlpha.ToString ()
             + "\t data:" + data.ToString ()
             + "\t callback is null:" + (cb == null);
         }

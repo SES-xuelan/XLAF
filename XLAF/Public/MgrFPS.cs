@@ -29,6 +29,7 @@ namespace XLAF.Public
         static MgrFPS ()
         {
             instance = (new GameObject ("MgrFPS")).AddComponent<MgrFPS> ();
+            instance.showFPS = false;
         }
 
         /// <summary>

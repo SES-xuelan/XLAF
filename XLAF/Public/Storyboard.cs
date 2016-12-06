@@ -109,21 +109,26 @@ namespace XLAF.Public
     {
         
 
-        public SceneObject (string sceneName)
+        public SceneObject (string fullSceneNamePath)
         {
-            UnityEngine.Object _prefab = Resources.Load (sceneName);
+            string[] tmp = fullSceneNamePath.Split ('/');
+            this._sceneName = tmp [tmp.Length - 1];////非完整路径
+
+            UnityEngine.Object _prefab = Resources.Load (fullSceneNamePath);
             GameObject scene = (GameObject)UnityEngine.Object.Instantiate (_prefab);
-            scene.name = sceneName;
+            scene.name = _sceneName;
             this.scene = scene;
+            this.cg = scene.transform.GetComponent<CanvasGroup> ();
             this.script = scene.GetComponent<Storyboard> ();
-            this._sceneName = sceneName;
-            this.script.SetSceneName (sceneName);
+            this.script.SetSceneName (this._sceneName);
             this._BindingEvents ();
 
         }
 
         public GameObject scene;
         public Storyboard script;
+
+        private CanvasGroup cg;
 
         /// <summary>
         /// Gets the name of the scene.(Read only)
@@ -134,6 +139,7 @@ namespace XLAF.Public
                 return this._sceneName;
             }
         }
+
 
         /// <summary>
         /// Enables the UI listener.
@@ -155,8 +161,17 @@ namespace XLAF.Public
             }
         }
 
+        public void ChangeAlpha (float alphaValue)
+        {
+            this.cg.alpha = alphaValue;
+        }
 
 
+        public void AddDialogBackground (float bgAlphaValue)
+        {
+            Image image = this.scene.AddComponent<Image> ();
+            image.color = new Color (0, 0, 0, bgAlphaValue);
+        }
 
 
 
@@ -182,7 +197,8 @@ namespace XLAF.Public
         {
             //绑定button的click事件
             Button[] buttons = this.scene.GetComponentsInChildren<Button> (true);
-            foreach (Button b in buttons) {
+            for (int i = 0; i < buttons.Length; i++) {
+                Button b = buttons [i];
                 b.onClick.AddListener (() => {
                     UIEvent e = new UIEvent ();
                     e.target = b.gameObject;

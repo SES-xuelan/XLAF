@@ -9,6 +9,15 @@ namespace XLAF.Public
     /// </summary>
     public class ModUIUtils
     {
+
+        /// <summary>
+        /// 调用Init会触发构造函数，可以用于统一初始化的时候
+        /// </summary>
+        public static void Init ()
+        {
+
+        }
+
         /// <summary>
         /// Gets the child form a transform.
         /// </summary>

@@ -1,5 +1,9 @@
 # XLAF(XueLan's Application Framework) 文档
-XLAF中的命名规则：
+
+## 简介
+XLAF是一个2D游戏/应用框架
+
+## XLAF中的命名规则：
 
 ①一般变量使用小驼峰 thisIsVariable
 
