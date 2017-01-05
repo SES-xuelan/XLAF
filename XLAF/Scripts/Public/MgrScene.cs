@@ -20,8 +20,13 @@ namespace XLAF.Public
             SCENES = new Dictionary<string, SceneObject> ();
             instance = (new GameObject ("MgrScene")).AddComponent<MgrScene> ();
 
-            screenHeight = Screen.height;
-            screenWidth = Screen.width;
+
+
+            _screenHeight = Camera.main.orthographicSize * 2;
+            float aspectRatio = (float)Screen.width / Screen.height;
+            _screenWidth = _screenHeight * aspectRatio;
+
+            Log.Debug ("screenHeight,screenWidth", screenHeight, screenWidth);
         }
 
 
@@ -35,7 +40,7 @@ namespace XLAF.Public
 
 
         private static MgrScene instance = null;
-        private static readonly string scenePathFormat = "_Scenes/{0}";
+        private static readonly string scenePathFormat = "Scenes/{0}";
 
 
         private static bool animating = false;
@@ -43,8 +48,14 @@ namespace XLAF.Public
         private static Transform sceneViewRoot = null;
         private static CanvasGroup sceneViewRootCanvas = null;
 
-        private static float screenWidth;
-        private static float screenHeight;
+        public static float screenWidth{ get { return _screenWidth; } }
+
+        public static float screenHeight{ get { return _screenHeight; } }
+
+        public static float screenScale{ get { return  (float)_screenHeight / Screen.height; } }
+
+        private static float _screenWidth;
+        private static float _screenHeight;
 
         private static Dictionary<string,SceneObject> SCENES;
 
@@ -59,6 +70,7 @@ namespace XLAF.Public
 
         }
 
+
         /// <summary>
         /// Gets the view root.
         /// </summary>
@@ -66,6 +78,15 @@ namespace XLAF.Public
         public static Transform GetViewRoot ()
         {
             return sceneViewRoot;
+        }
+
+        /// <summary>
+        /// Gets the root.
+        /// </summary>
+        /// <returns>The root.</returns>
+        public static RectTransform GetRoot ()
+        {
+            return sceneViewRoot.parent.GetComponent<RectTransform> ();
         }
 
         /// <summary>
@@ -128,6 +149,7 @@ namespace XLAF.Public
             SceneObject sceneObj = new SceneObject (string.Format (scenePathFormat, sceneName));
             SCENES.Add (sceneName, sceneObj);
             sceneObj.script.CreatScene (data);
+            sceneObj.script.UpdateLanguage ();
 
             sceneObj.scene.transform.SetParent (sceneViewRoot, false);
             sceneObj.scene.SetActive (false);
@@ -160,9 +182,9 @@ namespace XLAF.Public
             
         }
 
-        #region public GotoScene functions
+        #region public GotoScene functions [override 49 times]
 
-        // goto the scene
+        // 1 group parameter => 2
         public static void GotoScene (SceneParams par)
         {
             string sceneName = par.sceneName;
@@ -223,46 +245,457 @@ namespace XLAF.Public
 
         }
 
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float oldSceneTime = 0.5f, float newSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void GotoScene (string sceneName)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            GotoScene (sp);
+        }
+
+        // 2 group parameter => 6
+        public static void GotoScene (string sceneName, object data)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation animation)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        // 3 group parameter => 14
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.cb = cb;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime)
         {
             SceneParams sp = new SceneParams ();
             sp.sceneName = sceneName;
             sp.animation = animation;
             sp.oldSceneTime = oldSceneTime;
             sp.newSceneTime = newSceneTime;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation animation, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation animation, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation animation, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float eachSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        // 4 group parameter => 16
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.cb = cb;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float eachSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
             sp.ease = ease;
             sp.cb = cb;
             sp.data = data;
             GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void GotoScene (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
         {
-            GotoScene (sceneName, data, animation, eachSceneTime, eachSceneTime, ease, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, Action cb = null)
+        public static void GotoScene (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime, Action cb)
         {
-            GotoScene (sceneName, data, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType)
+        public static void GotoScene (string sceneName, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease)
         {
-            GotoScene (sceneName, data, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void GotoScene (string sceneName, SceneAnimation animation, float eachSceneTime, Action cb)
         {
-            GotoScene (sceneName, data, animation, 0.5f, 0.5f, ease, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, Action cb = null)
+        public static void GotoScene (string sceneName, SceneAnimation animation, XLAF_Tween.EaseType ease, Action cb)
         {
-            GotoScene (sceneName, data, animation, 0.5f, 0.5f, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
         }
 
+        public static void GotoScene (string sceneName, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
 
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, float oldSceneTime = 0.5f, float newSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void GotoScene (string sceneName, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        // 5 group parameter => 9
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
             SceneParams sp = new SceneParams ();
             sp.sceneName = sceneName;
@@ -274,29 +707,43 @@ namespace XLAF.Public
             GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void GotoScene (string sceneName, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
-            GotoScene (sceneName, animation, eachSceneTime, eachSceneTime, ease, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, Action cb = null)
+        // 6 group parameter => 2
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
-            GotoScene (sceneName, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType)
+        public static void GotoScene (string sceneName, object data, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
-            GotoScene (sceneName, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType);
-        }
-
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
-        {
-            GotoScene (sceneName, animation, 0.5f, 0.5f, ease, cb);
-        }
-
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, Action cb = null)
-        {
-            GotoScene (sceneName, animation, 0.5f, 0.5f, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
         }
 
         #endregion
@@ -330,7 +777,7 @@ namespace XLAF.Public
                 currentScene = sceneObj;
                 SCENES.Add (sceneName, sceneObj);
                 currentScene.script.CreatScene (data);
-                //currentScene.SendMessage ("CreatScene", data);
+                currentScene.script.UpdateLanguage ();
             } else {
                 currentScene = SCENES [sceneName];
             }
@@ -592,7 +1039,6 @@ namespace XLAF.Public
 
             RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (newSceneStartX, nomalY);
-
             oldScene.script.WillExitScene ();
             XLAF_Tween.MoveTo (oldScene.scene, XLAF_Tween.Hash (
                 "x", oldSceneEndX,
@@ -805,7 +1251,20 @@ namespace XLAF.Public
         #endregion
 
 
-
+        void Update ()
+        {
+            #if UNITY_ANDROID
+            if (MgrDialog.hasDialog) {
+                return;
+            }
+            if (Input.GetKeyDown (KeyCode.Escape)) { //android back
+                SceneObject curr = MgrScene.GetCurrentScene ();
+                if (curr != null) {
+                    curr.script.AndroidGoBack ();
+                }
+            }
+            #endif
+        }
 
     }
 
@@ -868,6 +1327,6 @@ namespace XLAF.Public
 
     }
 
-
+   
 }
 

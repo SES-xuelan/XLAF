@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 
 namespace XLAF.Public
@@ -13,10 +14,15 @@ namespace XLAF.Public
         //        private static MgrAudio instance;
         private static AudioSource musicSource;
         private static AudioSource soundSource;
-        private static string audioNameFormat = "_Audios/{0}";
+        private static string audioNameFormat = "Audios/{0}";
         private static GameObject audioObject;
         private static float maxMusicVolume = 0.5f;
         private static float maxSoundVolume = 0.5f;
+        #if UNITY_EDITOR
+        #elif UNITY_ANDROID
+        private static AndroidJavaObject audioCenter;
+        private static Dictionary<string,int> androidSoundIds = new Dictionary<string, int> ();
+        #endif
 
         static MgrAudio ()
         {
@@ -30,8 +36,10 @@ namespace XLAF.Public
             if (GameObject.FindObjectOfType<AudioListener> () == null) {
                 audioObject.AddComponent<AudioListener> ();
             }
-
-
+            #if UNITY_EDITOR
+            #elif UNITY_ANDROID
+            audioCenter = new AndroidJavaObject ("plugin.albert.audiocenter.AudioCenter", 5);
+            #endif
         }
 
         /// <summary>
@@ -53,18 +61,33 @@ namespace XLAF.Public
         }
 
 
-        public static void PreloadAudio ()
+        #if UNITY_EDITOR
+        #elif UNITY_ANDROID
+        
+        /// <summary>
+        /// Preloads the audio.
+        /// </summary>
+        /// <param name="soundName">Sound name. (with ext  e.g. click.mp3)</param>
+        public static void PreloadAudio (string soundName)
         {
-            
+            if (soundName.IndexOf (".") < 0) {
+                Log.Warning ("You must use soundName's extension, for example \"click.mp3\"");
+                return;
+            }
+        int id = audioCenter.Call<int> ("LoadSound", _GetAudioSource (soundName));
+            androidSoundIds.Add (soundName, id);
         }
-
+        #endif
         public static void PlayMusic (string musicName, bool loop = true, float fadeInTime = 0f)
         {
             if (!MgrData.GetBool (MgrData.appSettingsName, "XLAF.music", true)) {
                 return;
             }
-
-            AudioClip clip = Resources.Load<AudioClip> (_GetAudioSource (musicName));
+            if (musicName.IndexOf (".") < 0) {
+                Log.Warning ("You must use musicName's extension, for example \"click.mp3\"");
+                return;
+            }
+            AudioClip clip = Resources.Load<AudioClip> (_GetAudioSource (musicName.Split (new char[]{ '.' }) [0]));
             musicSource.loop = loop;
             musicSource.clip = clip;
             musicSource.Play ();
@@ -113,22 +136,41 @@ namespace XLAF.Public
             }
         }
 
-
+        /// <summary>
+        /// Plaies the sound.
+        /// </summary>
+        /// <param name="soundName">Sound name. (with ext  e.g. click.mp3)</param>
         public static void PlaySound (string soundName)
+        {
+            PlaySound (soundName, maxSoundVolume);
+        }
+
+        /// <summary>
+        /// Plaies the sound.
+        /// </summary>
+        /// <param name="soundName">Sound name. (with ext  e.g. click.mp3)</param>
+        /// <param name="valume">Valume.</param>
+        public static void PlaySound (string soundName, float valume)
         {
             if (!MgrData.GetBool (MgrData.appSettingsName, "XLAF.sound", true)) {
                 return;
             }
-            
-//            #if UNITY_ANDROID && !UNITY_EDITOR
-//            PluginAndroid.PlaySound (GetAudioSource(soundName));
-//            #else
-            AudioClip clip = Resources.Load<AudioClip> (_GetAudioSource (soundName));
+            if (soundName.IndexOf (".") < 0) {
+                Log.Warning ("You must use soundName's extension, for example \"click.mp3\"");
+                return;
+            }
+            #if UNITY_ANDROID  && !UNITY_EDITOR
+            int soundId = 0;
+            if (androidSoundIds.TryGetValue (soundName, out soundId)) {
+                audioCenter.Call ("PlaySound", soundId, valume);
+            }
+            #else
+            AudioClip clip = Resources.Load<AudioClip> (_GetAudioSource (soundName.Split (new char[]{ '.' }) [0]));
             if (clip != null) {
-                soundSource.volume = maxSoundVolume;
+                soundSource.volume = valume;
                 soundSource.PlayOneShot (clip);
             }
-//            #endif
+            #endif
         }
 
         public static void StopSound ()

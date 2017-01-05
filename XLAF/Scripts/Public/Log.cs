@@ -68,7 +68,7 @@ namespace XLAF.Public
         {
             string time = System.DateTime.Now.ToString ("MM-dd HH:mm:ss:fff");
             string line = _GetCodeLineAndFile (3);
-            string s = time + "|warning|" + line + _ParamsToString (objs);
+            string s = "<color=yellow>" + time + "|warning|" + line + _ParamsToString (objs) + "</color>";
             UnityEngine.Debug.LogWarning (s);
             if (isWriteToFile)
                 ModUtils.WriteToFile (debug_file, s + "\n");

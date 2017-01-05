@@ -76,11 +76,15 @@ namespace XLAF.Public
         {
         }
 
-        public virtual void OverlayBegan (object obj)
+        public virtual void OverlayBegan (string overlaySceneceneName)
         {
         }
 
-        public virtual void OverlayEnded (object obj)
+        public virtual void OverlayEnded (string overlaySceneceneName)
+        {
+        }
+
+        public virtual void UpdateLanguage ()
         {
         }
 
@@ -195,19 +199,7 @@ namespace XLAF.Public
 
         private void _BindingEvents ()
         {
-            //绑定button的click事件
-            Button[] buttons = this.scene.GetComponentsInChildren<Button> (true);
-            for (int i = 0; i < buttons.Length; i++) {
-                Button b = buttons [i];
-                b.onClick.AddListener (() => {
-                    UIEvent e = new UIEvent ();
-                    e.target = b.gameObject;
-                    e.targetType = "button";
-                    e.phase = TouchPhase.Ended;
-                    this.script.OnUIEvent (e);
-                });
-            }
-            //todo 可以继续绑定其他的事件
+            ModUtils.BindingUIEvents (this.scene, this.script.OnUIEvent);
         }
     }
 

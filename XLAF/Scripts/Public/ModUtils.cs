@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System;
 using SimpleJSON;
+using UnityEngine.UI;
 
 namespace XLAF.Public
 {
@@ -174,6 +175,94 @@ namespace XLAF.Public
         public static string storagePath { get { return "/storage/emulated/0"; } }
         #endif
 
+
+        public static void ShowAlert (string title, string message, string okLabel, string cancelLabel, string neutralLabel, 
+                                      Action actionOK, Action actionCancel, Action actionNeutral)
+        {
+            Log.Debug (title, message);
+
+        }
+
+        public static void ShowAlert (string title, string message, string okLabel, string cancelLabel, 
+                                      Action actionOK, Action actionCancel)
+        {
+            Log.Debug (title, message);
+        }
+
+
+        public static void ShowAlert (string title, string message, string okLabel, Action actionOK)
+        {
+            Log.Debug (title, message);
+        }
+
+        public static void BindingButtonEvent (GameObject parent, Action<UIEvent> OnUIEvent)
+        {
+            //绑定button的click事件
+            Button[] buttons = parent.GetComponentsInChildren<Button> (true);
+            for (int i = 0; i < buttons.Length; i++) {
+                Button b = buttons [i];
+                b.onClick.AddListener (() => {
+                    UIEvent e = new UIEvent ();
+                    e.target = b.gameObject;
+                    e.targetType = "button";
+                    e.phase = TouchPhase.Ended;
+                    OnUIEvent (e);
+                });
+            }
+            //!!TODO!! 可以继续绑定其他的事件
+        }
+
+        public static void ReplaceButtonEvent (GameObject parent, Action<UIEvent> OnUIEvent)
+        {
+            //绑定button的click事件
+            Button[] buttons = parent.GetComponentsInChildren<Button> (true);
+            for (int i = 0; i < buttons.Length; i++) {
+                Button b = buttons [i];
+                b.onClick.RemoveAllListeners ();
+                b.onClick.AddListener (() => {
+                    UIEvent e = new UIEvent ();
+                    e.target = b.gameObject;
+                    e.targetType = "button";
+                    e.phase = TouchPhase.Ended;
+                    OnUIEvent (e);
+                });
+            }
+            //!!TODO!! 可以继续绑定其他的事件
+        }
+
+        public static void BindingUIEvents (GameObject parent, Action<UIEvent> OnUIEvent)
+        {
+            BindingButtonEvent (parent, OnUIEvent);
+        }
+        public static void ReplaceUIEvents (GameObject parent, Action<UIEvent> OnUIEvent)
+        {
+            ReplaceButtonEvent (parent, OnUIEvent);
+        }
+
+
+        public static int Character2Ascii (string character)
+        {
+            if (character.Length == 1) {
+                System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding ();
+                int asciiCode = (int)asciiEncoding.GetBytes (character) [0];
+                return asciiCode;
+            } else {
+                throw new Exception ("character is not valid.");
+            }
+        }
+
+
+        public static string Ascii2Character (int asciiCode)
+        {
+            if (asciiCode >= 0 && asciiCode <= 255) {
+                System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding ();
+                byte[] byteArray = new byte[]{ (byte)asciiCode };
+                string character = asciiEncoding.GetString (byteArray);
+                return character;
+            } else {
+                throw new Exception ("ASCII code is not valid.");
+            }
+        }
 
     }
 

@@ -25,7 +25,7 @@ namespace XLAF.Public
         private static CanvasGroup dialogViewRootCanvas = null;
         private static bool dialogViewVisible = true;
         private static MgrDialog instance = null;
-        private static readonly string dialogPathFormat = "_Dialogs/{0}";
+        private static readonly string dialogPathFormat = "Dialogs/{0}";
         private static bool animating = false;
 
         private static float screenWidth;
@@ -139,6 +139,7 @@ namespace XLAF.Public
             SceneObject sceneObj = new SceneObject (string.Format (dialogPathFormat, sceneName));
             DIALOGS.Add (sceneName, sceneObj);
             sceneObj.script.CreatScene (data);
+            sceneObj.script.UpdateLanguage ();
 
             sceneObj.scene.transform.SetParent (dialogViewRoot, false);
             sceneObj.scene.SetActive (false);
@@ -206,14 +207,19 @@ namespace XLAF.Public
         }
 
         /// <summary>
+        /// Gets a value indicating whether this <see cref="XLAF.Public.MgrDialog"/> has dialog.
+        /// </summary>
+        /// <value><c>true</c> if has dialog; otherwise, <c>false</c>.</value>
+        public static bool hasDialog{ get { return DIALOGS_STACK.Count > 0; } }
+
+        /// <summary>
         /// Gets the dialog count.
         /// </summary>
         /// <value>The dialog count.</value>
         public static int dialogCount{ get { return DIALOGS_STACK.Count; } }
 
 
-
-        #region public ShowDialog functions
+        #region public ShowDialog functions [override 49 times]
 
         public static void ShowDialog (SceneParams par)
         {
@@ -232,8 +238,8 @@ namespace XLAF.Public
             if (currentDialog != null) {
                 currentDialog.DisableUIListener ();
             }
-
             animating = true;
+
             switch (animation) {
 
             case SceneAnimation.none:
@@ -281,46 +287,457 @@ namespace XLAF.Public
 
         }
 
-        public static void ShowDialog (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float oldSceneTime = 0.5f, float newSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void ShowDialog (string sceneName)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            ShowDialog (sp);
+        }
+
+        // 2 group parameter => 6
+        public static void ShowDialog (string sceneName, object data)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, SceneAnimation animation)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        // 3 group parameter => 14
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.cb = cb;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime)
         {
             SceneParams sp = new SceneParams ();
             sp.sceneName = sceneName;
             sp.animation = animation;
             sp.oldSceneTime = oldSceneTime;
             sp.newSceneTime = newSceneTime;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, SceneAnimation animation, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, SceneAnimation animation, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, SceneAnimation animation, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, float eachSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        // 4 group parameter => 16
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.cb = cb;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, float eachSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
             sp.ease = ease;
             sp.cb = cb;
             sp.data = data;
             ShowDialog (sp);
         }
 
-        public static void ShowDialog (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void ShowDialog (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
         {
-            ShowDialog (sceneName, data, animation, eachSceneTime, eachSceneTime, ease, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            ShowDialog (sp);
         }
 
-        public static void ShowDialog (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, Action cb = null)
+        public static void ShowDialog (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime, Action cb)
         {
-            ShowDialog (sceneName, data, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            ShowDialog (sp);
         }
 
-        public static void ShowDialog (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType)
+        public static void ShowDialog (string sceneName, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease)
         {
-            ShowDialog (sceneName, data, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            ShowDialog (sp);
         }
 
-        public static void ShowDialog (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void ShowDialog (string sceneName, SceneAnimation animation, float eachSceneTime, Action cb)
         {
-            ShowDialog (sceneName, data, animation, 0.5f, 0.5f, ease, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            ShowDialog (sp);
         }
 
-        public static void ShowDialog (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, Action cb = null)
+        public static void ShowDialog (string sceneName, SceneAnimation animation, XLAF_Tween.EaseType ease, Action cb)
         {
-            ShowDialog (sceneName, data, animation, 0.5f, 0.5f, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            sp.cb = cb;
+            ShowDialog (sp);
         }
 
+        public static void ShowDialog (string sceneName, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
 
-        public static void ShowDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, float oldSceneTime = 0.5f, float newSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void ShowDialog (string sceneName, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        // 5 group parameter => 9
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.data = data;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.data = data;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, object data, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            ShowDialog (sp);
+        }
+
+        public static void ShowDialog (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
             SceneParams sp = new SceneParams ();
             sp.sceneName = sceneName;
@@ -332,36 +749,51 @@ namespace XLAF.Public
             ShowDialog (sp);
         }
 
-        public static void ShowDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void ShowDialog (string sceneName, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
-            ShowDialog (sceneName, animation, eachSceneTime, eachSceneTime, ease, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            ShowDialog (sp);
         }
 
-        public static void ShowDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, Action cb = null)
+        // 6 group parameter => 2
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
-            ShowDialog (sceneName, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            ShowDialog (sp);
         }
 
-        public static void ShowDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType)
+        public static void ShowDialog (string sceneName, object data, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
-            ShowDialog (sceneName, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType);
-        }
-
-        public static void ShowDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
-        {
-            ShowDialog (sceneName, animation, 0.5f, 0.5f, ease, cb);
-        }
-
-        public static void ShowDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, Action cb = null)
-        {
-            ShowDialog (sceneName, animation, 0.5f, 0.5f, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            ShowDialog (sp);
         }
 
         #endregion
 
 
-        #region public HideDialog functions
+        #region public HideDialog functions [override 25 times]
 
+        // 1 group parameter => 2
         public static void HideDialog (SceneParams par)
         {
             string sceneName = par.sceneName;
@@ -429,7 +861,222 @@ namespace XLAF.Public
 
         }
 
-        public static void HideDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, float oldSceneTime = 0.5f, float newSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void HideDialog (string sceneName)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            HideDialog (sp);
+        }
+        // 2 group parameter => 5
+        public static void HideDialog (string sceneName, SceneAnimation animation)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+
+        // 3 group parameter => 9
+        public static void HideDialog (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, SceneAnimation animation, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, SceneAnimation animation, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, SceneAnimation animation, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, float eachSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+        // 4 group parameter => 7
+
+        public static void HideDialog (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, SceneAnimation animation, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, SceneAnimation animation, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.ease = ease;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+
+        public static void HideDialog (string sceneName, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            HideDialog (sp);
+        }
+        // 5 group parameter => 2
+
+        public static void HideDialog (string sceneName, SceneAnimation animation, float oldSceneTime, float newSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
             SceneParams sp = new SceneParams ();
             sp.sceneName = sceneName;
@@ -441,31 +1088,17 @@ namespace XLAF.Public
             HideDialog (sp);
         }
 
-        public static void HideDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void HideDialog (string sceneName, SceneAnimation animation, float eachSceneTime, XLAF_Tween.EaseType ease, Action cb)
         {
-            HideDialog (sceneName, animation, eachSceneTime, eachSceneTime, ease, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.animation = animation;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            HideDialog (sp);
         }
-
-        public static void HideDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, Action cb = null)
-        {
-            HideDialog (sceneName, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType, cb);
-        }
-
-        public static void HideDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType)
-        {
-            HideDialog (sceneName, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType);
-        }
-
-        public static void HideDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
-        {
-            HideDialog (sceneName, animation, 0.5f, 0.5f, ease, cb);
-        }
-
-        public static void HideDialog (string sceneName, SceneAnimation animation = SceneAnimation.fade, Action cb = null)
-        {
-            HideDialog (sceneName, animation, 0.5f, 0.5f, XLAF_Tween.EaseType.defaultType, cb);
-        }
-
 
         #endregion
 
@@ -480,6 +1113,13 @@ namespace XLAF.Public
             //scene.SendMessage ("DestoryScene");
             string sceneName = sceneObj.script.sceneName;
             sceneObj.script.DestoryScene ();
+
+            //OverlayEnded event
+            SceneObject currScene = MgrScene.GetCurrentScene ();
+            if (currScene != null) {
+                currScene.script.OverlayEnded (sceneName);
+            }
+
             if (DIALOGS_STACK.Contains (sceneObj)) {
                 DIALOGS_STACK.Remove (sceneObj);
             }
@@ -500,9 +1140,17 @@ namespace XLAF.Public
                 DIALOGS_STACK.Add (sceneObj);
                 DIALOGS.Add (sceneName, sceneObj);
                 sceneObj.script.CreatScene (data);
+                sceneObj.script.UpdateLanguage ();
             } else {
                 sceneObj = DIALOGS [sceneName];
             }
+
+            //OverlayBegan event
+            SceneObject currScene = MgrScene.GetCurrentScene ();
+            if (currScene != null) {
+                currScene.script.OverlayBegan (sceneName);
+            }
+
             sceneObj.DisableUIListener ();
             sceneObj.scene.transform.SetParent (dialogViewRoot, false);
             sceneObj.scene.SetActive (true);
@@ -822,7 +1470,15 @@ namespace XLAF.Public
         {
             if (dialogViewRoot == null)
                 return;
-            SetDialogViewVisible (!(GetTop () == null));
+            SetDialogViewVisible (hasDialog);
+            #if UNITY_ANDROID
+            if (Input.GetKeyDown (KeyCode.Escape)) { //android back
+                SceneObject curr = MgrDialog.GetTop ();
+                if (curr != null) {
+                    curr.script.AndroidGoBack ();
+                }
+            }
+            #endif
         }
 
     }

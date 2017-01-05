@@ -36,8 +36,13 @@ namespace XLAF.Public
 
         static XLAFMain ()
         {
-            //以下这些都可以调用，也可以不调用，主要作用是触发各class的static构造函数，一般情况下不建议调用；个别情况下需要调用
+            #if UNITY_EDITOR
+            #elif UNITY_ANDROID
+            MgrAudio.PreloadAudio("s_click.mp3");
+            #endif
 
+
+            //以下这些都可以调用，也可以不调用，主要作用是触发各class的static构造函数，一般情况下不建议调用；个别情况下需要调用
             /*
             MgrData.Init ();
             MgrAudio.Init ();

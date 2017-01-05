@@ -1,0 +1,1427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>doc</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>doc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/appyeast.html">appyeast</a></li>
+  <li><a href="../modules/class_Keyboard.html">class_Keyboard</a></li>
+  <li><a href="../modules/dmc_objects.html">dmc_objects</a></li>
+  <li><a href="../modules/dmc_utils.html">dmc_utils</a></li>
+  <li><a href="../modules/enc.html">enc</a></li>
+  <li><a href="../modules/fps.html">fps</a></li>
+  <li><a href="../modules/lib_text_candy.html">lib_text_candy</a></li>
+  <li><a href="../modules/log.html">log</a></li>
+  <li><a href="../modules/mgr_audio.html">mgr_audio</a></li>
+  <li><a href="../modules/mgr_gamenetworks.html">mgr_gamenetworks</a></li>
+  <li><a href="../modules/mgr_lang.html">mgr_lang</a></li>
+  <li><a href="../modules/mgr_level.html">mgr_level</a></li>
+  <li><a href="../modules/mgr_levelhelper.html">mgr_levelhelper</a></li>
+  <li><a href="../modules/mgr_popup.html">mgr_popup</a></li>
+  <li><a href="../modules/mgr_res.html">mgr_res</a></li>
+  <li><a href="../modules/mgr_tui.html">mgr_tui</a></li>
+  <li><a href="../modules/mgr_tutorial.html">mgr_tutorial</a></li>
+  <li><a href="../modules/mod_random.html">mod_random</a></li>
+  <li><strong>mod_utils</strong></li>
+  <li><a href="../modules/syscfg.html">syscfg</a></li>
+  <li><a href="../modules/ui_label.html">ui_label</a></li>
+  <li><a href="../modules/ui_slide.html">ui_slide</a></li>
+  <li><a href="../modules/ui_text.html">ui_text</a></li>
+  <li><a href="../modules/utf8.html">utf8</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../topics/readme.md.html">readme</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>mod_utils</code></h1>
+<p>公用函数库.</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Copyright</strong>: 2014</li>
+        <li><strong>Author</strong>: fred,faye</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#get_target">get_target ()</a></td>
+	<td class="summary">获得平台信息</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_target_type">get_target_type ()</a></td>
+	<td class="summary">获得平台类型，1-apple  2-google  3-amazon</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_simulator">is_simulator ()</a></td>
+	<td class="summary">是否为模拟器</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_device">get_device ()</a></td>
+	<td class="summary">获去设备类型</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_device_type">get_device_type ()</a></td>
+	<td class="summary">获取设备类型，1-mobile 2-tablet</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_device_id">get_device_id ()</a></td>
+	<td class="summary">获取设备的deviceID（唯一编号？）</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_orientation_type">get_orientation_type ()</a></td>
+	<td class="summary">获取屏幕方向  1-portrait   2-landscape</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#read_file_content">read_file_content (file_path)</a></td>
+	<td class="summary">读取文件的内容</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file_exists">file_exists (filename, dir)</a></td>
+	<td class="summary">判断文件是否存在</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_appyeast_image_path">get_appyeast_image_path (path, style)</a></td>
+	<td class="summary">按照优先级 获取图片路径</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#path_for_file_safe">path_for_file_safe (filename, dir)</a></td>
+	<td class="summary">对system.pathForFile的优化，功能与system.pathForFile一致</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hook_func">hook_func (obj, func_name, func)</a></td>
+	<td class="summary">钩子技术...</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dispatch_event_to_all_scene_and_popup">dispatch_event_to_all_scene_and_popup (event)</a></td>
+	<td class="summary">把事件发送给所有的scene和弹出界面(popup界面)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_smartbanner_height">get_smartbanner_height ()</a></td>
+	<td class="summary">获取banner广告的高度</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#scall">scall (func, ...)</a></td>
+	<td class="summary">safe call</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#delay_scall">delay_scall (func)</a></td>
+	<td class="summary">延时100ms,然后再safe call</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_9sprite">create_9sprite (parent, file, box_width, box_height, insettop, insetright, insetbottom, insetleft, opt)</a></td>
+	<td class="summary">创建九宫图（应该是）</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#safe_call">safe_call (info, onError, func[, arg1[, arg2[, arg3[, arg4[, arg5[, arg6]]]]]])</a></td>
+	<td class="summary">safe call</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#split_string">split_string (str, delim, maxNb)</a></td>
+	<td class="summary">分割字符串</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#split">split (div, str, n)</a></td>
+	<td class="summary">分割字符串,too
+ 和上面的区别是分隔符和要分割的字符串参数位置互换了...</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table_size">table_size (table)</a></td>
+	<td class="summary">获取table的长度</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table2str">table2str (t, maxlevel)</a></td>
+	<td class="summary">把table转换成字符串</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table_find">table_find (t, value)</a></td>
+	<td class="summary">检查某个值value是否存在于数组t中</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_graphic2">is_graphic2 ()</a></td>
+	<td class="summary">判断是不是graphic2</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#safe_jsn_decode">safe_jsn_decode (str_data)</a></td>
+	<td class="summary">json->table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_string_from_file">load_string_from_file (ffn)</a></td>
+	<td class="summary">读取文件信息</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table_copy">table_copy (t)</a></td>
+	<td class="summary">复制数组</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#split_file_name">split_file_name (fn)</a></td>
+	<td class="summary">分割文件名</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#begin_with">begin_with (s1, s2)</a></td>
+	<td class="summary">判断s1是否以s2开头（字符串）</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_android">is_android ()</a></td>
+	<td class="summary">判断是不是android系统</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_apple">is_apple ()</a></td>
+	<td class="summary">判断是不是apple设备</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table_remove_value">table_remove_value (array, value)</a></td>
+	<td class="summary">在数组中删除某值</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rm_begin_with">rm_begin_with (s1, s2)</a></td>
+	<td class="summary">截断字符串s1头部s2的部分</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#copy_file">copy_file (srcfilePath, desfilePath)</a></td>
+	<td class="summary">复制文件</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#remove_last_slash">remove_last_slash (fn)</a></td>
+	<td class="summary">删除路径中的最后一个斜线，windows无效</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#split_file_name">split_file_name (fn)</a></td>
+	<td class="summary">分割文件路径（先删除最后的斜线，再分割）</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_path">get_path (fn)</a></td>
+	<td class="summary">获取文件(夹)的所属路径</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#forcemkdir">forcemkdir (path)</a></td>
+	<td class="summary">递归创建文件目录</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#forcemkfiledir">forcemkfiledir (path)</a></td>
+	<td class="summary">递归创建文件目录</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#array_to_urlvaluepair">array_to_urlvaluepair (params)</a></td>
+	<td class="summary">table->url的get方法的传值</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_play_seconds">get_play_seconds ()</a></td>
+	<td class="summary">返回玩游戏的总时间</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_max_level">get_max_level ()</a></td>
+	<td class="summary">从配置文件中获取最大关卡数</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#truncate_app_name">truncate_app_name (appname, char_max_num)</a></td>
+	<td class="summary">如果appname大于一定的字数则用...代替</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_main_appname">get_main_appname (appname)</a></td>
+	<td class="summary">获取appname的主字段</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_curr_utc_time">get_curr_utc_time ()</a></td>
+	<td class="summary">获取当前日期时间</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#parse_php_date">parse_php_date (date)</a></td>
+	<td class="summary">处理php服务器的数据</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#protect_press_func">protect_press_func (protectedms, func)</a></td>
+	<td class="summary">按钮的保护时间相关 event.phase == "ended"</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#protect_release_func">protect_release_func (protectedms, func)</a></td>
+	<td class="summary">按钮的保护时间相关 event.phase == "release"</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_use_ayextads">is_use_ayextads ()</a></td>
+	<td class="summary">是否使用ayext广告</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "get_target"></a>
+    <strong>get_target ()</strong>
+    </dt>
+    <dd>
+    获得平台信息
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_target_type"></a>
+    <strong>get_target_type ()</strong>
+    </dt>
+    <dd>
+    获得平台类型，1-apple  2-google  3-amazon
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        int
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_simulator"></a>
+    <strong>is_simulator ()</strong>
+    </dt>
+    <dd>
+    是否为模拟器
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_device"></a>
+    <strong>get_device ()</strong>
+    </dt>
+    <dd>
+    获去设备类型
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string "tablet" or "mobile"
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_device_type"></a>
+    <strong>get_device_type ()</strong>
+    </dt>
+    <dd>
+    获取设备类型，1-mobile 2-tablet
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        int
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_device_id"></a>
+    <strong>get_device_id ()</strong>
+    </dt>
+    <dd>
+    获取设备的deviceID（唯一编号？）
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_orientation_type"></a>
+    <strong>get_orientation_type ()</strong>
+    </dt>
+    <dd>
+    获取屏幕方向  1-portrait   2-landscape
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        int
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "read_file_content"></a>
+    <strong>read_file_content (file_path)</strong>
+    </dt>
+    <dd>
+    读取文件的内容
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">file_path</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file_exists"></a>
+    <strong>file_exists (filename, dir)</strong>
+    </dt>
+    <dd>
+    判断文件是否存在
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+
+        </li>
+        <li><span class="parameter">dir</span>
+        local file_path = system.pathForFile( srcFileName)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_appyeast_image_path"></a>
+    <strong>get_appyeast_image_path (path, style)</strong>
+    </dt>
+    <dd>
+    按照优先级 获取图片路径
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+         图片相对路径
+        </li>
+        <li><span class="parameter">style</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "path_for_file_safe"></a>
+    <strong>path_for_file_safe (filename, dir)</strong>
+    </dt>
+    <dd>
+    对system.pathForFile的优化，功能与system.pathForFile一致
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+
+        </li>
+        <li><span class="parameter">dir</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hook_func"></a>
+    <strong>hook_func (obj, func_name, func)</strong>
+    </dt>
+    <dd>
+    钩子技术...
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">obj</span>
+         要hook的对象
+        </li>
+        <li><span class="parameter">func_name</span>
+         要hook的对象的函数名
+        </li>
+        <li><span class="parameter">func</span>
+         function，看例子
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+  <span class="keyword">function</span> createSceneHookFunc(func_old,scene,event)
+    <span class="global">print</span>(<span class="string">"before old func"</span>)
+    <span class="keyword">local</span> ret=func_old(scene,event)
+    <span class="global">print</span>(<span class="string">"after old func"</span>)
+    <span class="keyword">return</span> ret
+  <span class="keyword">end</span>
+  mod_utils.hook_func(scene,<span class="string">"createScene"</span>,createSceneHookFunc)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "dispatch_event_to_all_scene_and_popup"></a>
+    <strong>dispatch_event_to_all_scene_and_popup (event)</strong>
+    </dt>
+    <dd>
+    把事件发送给所有的scene和弹出界面(popup界面)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">event</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_smartbanner_height"></a>
+    <strong>get_smartbanner_height ()</strong>
+    </dt>
+    <dd>
+    获取banner广告的高度
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        int
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "scall"></a>
+    <strong>scall (func, ...)</strong>
+    </dt>
+    <dd>
+    safe call
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+
+        </li>
+        <li><span class="parameter">...</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "delay_scall"></a>
+    <strong>delay_scall (func)</strong>
+    </dt>
+    <dd>
+    延时100ms,然后再safe call
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_9sprite"></a>
+    <strong>create_9sprite (parent, file, box_width, box_height, insettop, insetright, insetbottom, insetleft, opt)</strong>
+    </dt>
+    <dd>
+    创建九宫图（应该是）
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">parent</span>
+         parent group
+        </li>
+        <li><span class="parameter">file</span>
+         图片路径+名字
+        </li>
+        <li><span class="parameter">box_width</span>
+          9宫格的宽度
+        </li>
+        <li><span class="parameter">box_height</span>
+          9宫格的高度
+        </li>
+        <li><span class="parameter">insettop</span>
+         上面不被拉伸的大小（从上往下insettop个像素是不被拉伸的区域，下面的类似）
+        </li>
+        <li><span class="parameter">insetright</span>
+         右面不被拉伸的大小
+        </li>
+        <li><span class="parameter">insetbottom</span>
+         下面不被拉伸的大小
+        </li>
+        <li><span class="parameter">insetleft</span>
+         左面不被拉伸的大小
+        </li>
+        <li><span class="parameter">opt</span>
+         可选，其他的参数，包括：imageWidth, imageHeight, return_obj
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "safe_call"></a>
+    <strong>safe_call (info, onError, func[, arg1[, arg2[, arg3[, arg4[, arg5[, arg6]]]]]])</strong>
+    </dt>
+    <dd>
+    safe call
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">info</span>
+         出错的提示信息
+        </li>
+        <li><span class="parameter">onError</span>
+         function 出错以后调用的function
+        </li>
+        <li><span class="parameter">func</span>
+         安全调用的function
+        </li>
+        <li><span class="parameter">arg1</span>
+
+        </li>
+        <li><span class="parameter">arg2</span>
+
+        </li>
+        <li><span class="parameter">arg3</span>
+
+        </li>
+        <li><span class="parameter">arg4</span>
+
+        </li>
+        <li><span class="parameter">arg5</span>
+
+        </li>
+        <li><span class="parameter">arg6</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "split_string"></a>
+    <strong>split_string (str, delim, maxNb)</strong>
+    </dt>
+    <dd>
+    分割字符串
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+        </li>
+        <li><span class="parameter">delim</span>
+
+        </li>
+        <li><span class="parameter">maxNb</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "split"></a>
+    <strong>split (div, str, n)</strong>
+    </dt>
+    <dd>
+    分割字符串,too
+ 和上面的区别是分隔符和要分割的字符串参数位置互换了...
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">div</span>
+
+        </li>
+        <li><span class="parameter">str</span>
+
+        </li>
+        <li><span class="parameter">n</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table_size"></a>
+    <strong>table_size (table)</strong>
+    </dt>
+    <dd>
+    获取table的长度
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">table</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        int
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table2str"></a>
+    <strong>table2str (t, maxlevel)</strong>
+    </dt>
+    <dd>
+    把table转换成字符串
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+        </li>
+        <li><span class="parameter">maxlevel</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table_find"></a>
+    <strong>table_find (t, value)</strong>
+    </dt>
+    <dd>
+    检查某个值value是否存在于数组t中
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        int
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_graphic2"></a>
+    <strong>is_graphic2 ()</strong>
+    </dt>
+    <dd>
+    判断是不是graphic2
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "safe_jsn_decode"></a>
+    <strong>safe_jsn_decode (str_data)</strong>
+    </dt>
+    <dd>
+    json->table
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str_data</span>
+         要解析的字符串
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_string_from_file"></a>
+    <strong>load_string_from_file (ffn)</strong>
+    </dt>
+    <dd>
+    读取文件信息
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ffn</span>
+         文件
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil or string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table_copy"></a>
+    <strong>table_copy (t)</strong>
+    </dt>
+    <dd>
+    复制数组
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "split_file_name"></a>
+    <strong>split_file_name (fn)</strong>
+    </dt>
+    <dd>
+    分割文件名
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "begin_with"></a>
+    <strong>begin_with (s1, s2)</strong>
+    </dt>
+    <dd>
+    判断s1是否以s2开头（字符串）
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s1</span>
+
+        </li>
+        <li><span class="parameter">s2</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_android"></a>
+    <strong>is_android ()</strong>
+    </dt>
+    <dd>
+    判断是不是android系统
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_apple"></a>
+    <strong>is_apple ()</strong>
+    </dt>
+    <dd>
+    判断是不是apple设备
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table_remove_value"></a>
+    <strong>table_remove_value (array, value)</strong>
+    </dt>
+    <dd>
+    在数组中删除某值
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">array</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rm_begin_with"></a>
+    <strong>rm_begin_with (s1, s2)</strong>
+    </dt>
+    <dd>
+    截断字符串s1头部s2的部分
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s1</span>
+
+        </li>
+        <li><span class="parameter">s2</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">s1= itm_level10   s2=itm_level     rm_begin_width(s1,s2)  返回值为<span class="number">10</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "copy_file"></a>
+    <strong>copy_file (srcfilePath, desfilePath)</strong>
+    </dt>
+    <dd>
+    复制文件
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">srcfilePath</span>
+
+        </li>
+        <li><span class="parameter">desfilePath</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "remove_last_slash"></a>
+    <strong>remove_last_slash (fn)</strong>
+    </dt>
+    <dd>
+    删除路径中的最后一个斜线，windows无效
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "split_file_name"></a>
+    <strong>split_file_name (fn)</strong>
+    </dt>
+    <dd>
+    分割文件路径（先删除最后的斜线，再分割）
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+        print ("ffn",fn)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_path"></a>
+    <strong>get_path (fn)</strong>
+    </dt>
+    <dd>
+    获取文件(夹)的所属路径
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "forcemkdir"></a>
+    <strong>forcemkdir (path)</strong>
+    </dt>
+    <dd>
+    递归创建文件目录
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+         文件夹路径，注意和forcemkfiledir的区别
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "forcemkfiledir"></a>
+    <strong>forcemkfiledir (path)</strong>
+    </dt>
+    <dd>
+    递归创建文件目录
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+         文件路径，注意和forcemkdir的区别
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "array_to_urlvaluepair"></a>
+    <strong>array_to_urlvaluepair (params)</strong>
+    </dt>
+    <dd>
+    table->url的get方法的传值
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">params</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_play_seconds"></a>
+    <strong>get_play_seconds ()</strong>
+    </dt>
+    <dd>
+    返回玩游戏的总时间
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_max_level"></a>
+    <strong>get_max_level ()</strong>
+    </dt>
+    <dd>
+    从配置文件中获取最大关卡数
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "truncate_app_name"></a>
+    <strong>truncate_app_name (appname, char_max_num)</strong>
+    </dt>
+    <dd>
+    如果appname大于一定的字数则用...代替
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">appname</span>
+
+        </li>
+        <li><span class="parameter">char_max_num</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string appname
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_main_appname"></a>
+    <strong>get_main_appname (appname)</strong>
+    </dt>
+    <dd>
+    获取appname的主字段
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">appname</span>
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="string">"Color Block-Fill With Blanks"</span> --&gt; <span class="string">"Color Block"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "get_curr_utc_time"></a>
+    <strong>get_curr_utc_time ()</strong>
+    </dt>
+    <dd>
+    获取当前日期时间
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "parse_php_date"></a>
+    <strong>parse_php_date (date)</strong>
+    </dt>
+    <dd>
+    处理php服务器的数据
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">date</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "protect_press_func"></a>
+    <strong>protect_press_func (protectedms, func)</strong>
+    </dt>
+    <dd>
+    按钮的保护时间相关 event.phase == "ended"
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">protectedms</span>
+
+        </li>
+        <li><span class="parameter">func</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "protect_release_func"></a>
+    <strong>protect_release_func (protectedms, func)</strong>
+    </dt>
+    <dd>
+    按钮的保护时间相关 event.phase == "release"
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">protectedms</span>
+
+        </li>
+        <li><span class="parameter">func</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_use_ayextads"></a>
+    <strong>is_use_ayextads ()</strong>
+    </dt>
+    <dd>
+    是否使用ayext广告
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
