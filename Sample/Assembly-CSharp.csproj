@@ -51,13 +51,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Dialog1.cs" />
-     <Compile Include="Assets\Scripts\Dialog2.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
-     <Compile Include="Assets\Scripts\Scene1.cs" />
-     <Compile Include="Assets\Scripts\Scene2.cs" />
+     <Compile Include="Assets\Scripts\Views\Dialogs\Dialog1.cs" />
+     <Compile Include="Assets\Scripts\Views\Dialogs\Dialog2.cs" />
+     <Compile Include="Assets\Scripts\Views\Scenes\Scene1.cs" />
+     <Compile Include="Assets\Scripts\Views\Scenes\Scene2.cs" />
      <Compile Include="Assets\Untitled.cs" />
      <Compile Include="Assets\XLAF\3rd-party\iTween.cs" />
+     <Compile Include="Assets\XLAF\3rd-party\iTweenHashBuilder.cs" />
      <Compile Include="Assets\XLAF\3rd-party\SimpleJSON.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\Log.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\Log4iOS.cs" />
@@ -65,7 +66,7 @@
      <Compile Include="Assets\XLAF\Scripts\Public\MgrData.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrDialog.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrFPS.cs" />
-     <Compile Include="Assets\XLAF\Scripts\Public\MgrMutiLanguage.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Public\MgrMultiLanguage.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrScene.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModDispatcher.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModEncryption.cs" />

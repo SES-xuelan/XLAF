@@ -63,8 +63,8 @@ public class Scene1 : Storyboard
 	{
 		Log.Debug ("scene1 creat_scene", obj);
 
-		string fn = ModUtils.documentsDirectory + "/test.jsn";
-		string def = ModUtils.streamingDirectory + "/test.jsn";
+//		string fn = ModUtils.documentsDirectory + "/test.jsn";
+//		string def = ModUtils.streamingDirectory + "/test.jsn";
 //		MgrData.AddSetting ("test", fn, def);
 		MgrAudio.PlayMusic ("m_start.mp3", 0.5f);
 		ModDispatcher.AddListener ("dia2", (XLAF_Event e) => {
@@ -111,6 +111,11 @@ public class Scene1 : Storyboard
 	public override void OverlayEnded (string overlaySceneceneName)
 	{
 		Log.Debug ("scene1 OverlayEnded", overlaySceneceneName);
+	}
+
+	public override void UpdateLanguage ()
+	{
+		Log.Debug ("scene1 UpdateLanguage");
 	}
 
 	#if UNITY_ANDROID

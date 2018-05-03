@@ -37,8 +37,9 @@ Assets
 |        |--*Dialogs【存放弹窗界面的prefabs】
 |        `--*Scenes【存放界面的prefabs】
 |-- *Scripts【存放C#脚本文件】
-|    |--Dialogs【存放弹窗界面的脚本】
-|    |--Scenes【存放界面的脚本】
+|    |--*Views【存放各个界面的prefabs】
+|    |    |--*Dialogs【存放弹窗界面的prefabs】
+|    |    `--*Scenes【存放界面的prefabs】
 |    `--自定义的其他存放脚本的目录
 |-- *StreamingAssets【Unity默认目录，里面的文件不会被压缩，只读的】
 `-- *XLAF【本框架目录，里面的内容尽量不要修改】

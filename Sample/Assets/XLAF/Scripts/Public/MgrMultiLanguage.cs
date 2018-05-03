@@ -5,7 +5,7 @@ using XLAF.Public;
 using SimpleJSON;
 using UnityEngine;
 
-public class MgrMutiLanguage
+public class MgrMultiLanguage
 {
     public enum Language
     {
@@ -29,7 +29,7 @@ public class MgrMutiLanguage
     }
 
 
-    static MgrMutiLanguage ()
+    static MgrMultiLanguage ()
     {
         currentLanguage = (Language)MgrData.GetInt (MgrData.appSettingsName, "XLAF.language", 1);
         Log.Debug ("currentLanguage",currentLanguage);
