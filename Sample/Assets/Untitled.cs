@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using XLAF.Public;
@@ -11,7 +11,7 @@ public class Untitled : MonoBehaviour
 	{
 		yield return new WaitForSeconds (5);
 		Application.targetFrameRate = 60;
-		Image i = ModUIUtils.getChild<Image> (transform, "Image");
+		Image i = ModUIUtils.GetChild<Image> (transform, "Image");
 		float curr_x = i.transform.position.x;
 		float curr_y = i.transform.position.y;
 		i.rectTransform.position = new Vector3 (curr_x + Screen.width, curr_y);

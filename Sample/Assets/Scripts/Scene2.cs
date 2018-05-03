@@ -20,7 +20,7 @@ public class Scene2 : Storyboard
 
     private void btn_click ()
     {
-        MgrAudio.PlaySound ("s_click");
+        MgrAudio.PlaySound ("s_click.mp3");
         MgrScene.GotoScene ("Scene1", 998855, Main.anim, 1f, cb);
 
     }
@@ -74,15 +74,15 @@ public class Scene2 : Storyboard
         Log.Debug ("scene2 destory_scenee");
     }
 
-    public override void OverlayBegan (object obj)
-    {
-        Log.Debug ("scene2 OverlayBegan", obj);
-    }
+	public override void OverlayBegan (string overlaySceneceneName)
+	{
+		Log.Debug ("scene2 OverlayBegan", overlaySceneceneName);
+	}
 
-    public override void OverlayEnded (object obj)
-    {
-        Log.Debug ("scene2 OverlayEnded", obj);
-    }
+	public override void OverlayEnded (string overlaySceneceneName)
+	{
+		Log.Debug ("scene2 OverlayEnded", overlaySceneceneName);
+	}
 
     #if UNITY_ANDROID
     public override void AndroidGoBack ()

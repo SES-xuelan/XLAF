@@ -29,7 +29,7 @@ public class Dialog1 : Storyboard
 
     private void btn_click ()
     {
-        MgrAudio.PlaySound ("s_click");
+        MgrAudio.PlaySound ("s_click.mp3");
 
         //HideDialog也需要效果
         MgrDialog.HideDialog ("Dialog1", SceneAnimation.fade, 1f, null);

@@ -30,7 +30,7 @@ public class Dialog2 : Storyboard
 
     private void btn_click ()
     {
-        MgrAudio.PlaySound ("s_click");
+        MgrAudio.PlaySound ("s_click.mp3");
 //        foreach (string s in MgrScene.GetAllScenes().Keys) {
 //            Log.Debug (s);
 //        }

@@ -76,11 +76,15 @@ namespace XLAF.Public
         {
         }
 
-        public virtual void OverlayBegan (object obj)
+        public virtual void OverlayBegan (string overlaySceneceneName)
         {
         }
 
-        public virtual void OverlayEnded (object obj)
+        public virtual void OverlayEnded (string overlaySceneceneName)
+        {
+        }
+
+        public virtual void UpdateLanguage ()
         {
         }
 
@@ -115,6 +119,7 @@ namespace XLAF.Public
             this._sceneName = tmp [tmp.Length - 1];////非完整路径
 
             UnityEngine.Object _prefab = Resources.Load (fullSceneNamePath);
+			Log.Debug (fullSceneNamePath);
             GameObject scene = (GameObject)UnityEngine.Object.Instantiate (_prefab);
             scene.name = _sceneName;
             this.scene = scene;
@@ -123,12 +128,16 @@ namespace XLAF.Public
             this.script.SetSceneName (this._sceneName);
             this._BindingEvents ();
 
+            startX = this.scene.transform.position.x;
+            startY = this.scene.transform.position.y;
+            startAlpha = 1f;
         }
 
         public GameObject scene;
         public Storyboard script;
 
         private CanvasGroup cg;
+        private float startX, startY, startAlpha;
 
         /// <summary>
         /// Gets the name of the scene.(Read only)
@@ -166,6 +175,15 @@ namespace XLAF.Public
             this.cg.alpha = alphaValue;
         }
 
+        /// <summary>
+        /// 恢复到初始状态
+        /// </summary>
+        public void RestoreStatus ()
+        {
+            RectTransform tmpRT = this.scene.GetComponent<RectTransform> ();
+            tmpRT.position = new Vector3 (startX, startY);
+            ChangeAlpha (startAlpha);
+        }
 
         public void AddDialogBackground (float bgAlphaValue)
         {
@@ -195,19 +213,7 @@ namespace XLAF.Public
 
         private void _BindingEvents ()
         {
-            //绑定button的click事件
-            Button[] buttons = this.scene.GetComponentsInChildren<Button> (true);
-            for (int i = 0; i < buttons.Length; i++) {
-                Button b = buttons [i];
-                b.onClick.AddListener (() => {
-                    UIEvent e = new UIEvent ();
-                    e.target = b.gameObject;
-                    e.targetType = "button";
-                    e.phase = TouchPhase.Ended;
-                    this.script.OnUIEvent (e);
-                });
-            }
-            //todo 可以继续绑定其他的事件
+            ModUtils.BindingUIEvents (this.scene, this.script.OnUIEvent);
         }
     }
 

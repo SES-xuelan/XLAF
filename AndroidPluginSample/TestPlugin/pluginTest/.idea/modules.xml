@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\Albert_Project\XLAF\AndroidPluginSample\TestPlugin\pluginTest\app\app.iml" filepath="E:\Albert_Project\XLAF\AndroidPluginSample\TestPlugin\pluginTest\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mylibrary/mylibrary.iml" filepath="$PROJECT_DIR$/mylibrary/mylibrary.iml" />
+      <module fileurl="file://E:\Albert_Project\XLAF\AndroidPluginSample\TestPlugin\pluginTest\mylibrary\mylibrary.iml" filepath="E:\Albert_Project\XLAF\AndroidPluginSample\TestPlugin\pluginTest\mylibrary\mylibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/pluginTest.iml" filepath="$PROJECT_DIR$/pluginTest.iml" />
+      <module fileurl="file://E:\Albert_Project\XLAF\AndroidPluginSample\TestPlugin\pluginTest\pluginTest.iml" filepath="E:\Albert_Project\XLAF\AndroidPluginSample\TestPlugin\pluginTest\pluginTest.iml" />
     </modules>
   </component>
 </project>

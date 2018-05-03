@@ -18,35 +18,39 @@ using XLAF.Public;
 
 public class Main : MonoBehaviour
 {
-    void Init ()
-    {
-        MgrScene.destoryOnSceneChange = false;
-        Application.targetFrameRate = 60;
-        XLAFMain.Init ();
-    }
+	public static SceneAnimation anim = SceneAnimation.zoomOut;
 
-    // Use this for initialization
-    void Start ()
-    {
-        Init ();
+	void Init ()
+	{
+		MgrScene.destoryOnSceneChange = false;
+		Application.targetFrameRate = 60;
+		XLAFMain.Init ();
+		Log.SetDebugLevel (0xF);
+		MgrFPS.ShowFPS ();
+//		LogManager.Print ("This is test message!!!");
+	}
 
-        MgrScene.SetViewRoot (ModUIUtils.getChild<Transform> (transform, "SceneViewRoot"));
-        MgrDialog.SetDialogRoot (ModUIUtils.getChild<Transform> (transform, "DialogViewRoot"));
+	// Use this for initialization
+	void Start ()
+	{
+		Init ();
 
-        MgrScene.GotoScene ("Scene1", "main", SceneAnimation.fade, 0.3f, () => {
+		MgrScene.SetViewRoot (ModUIUtils.GetChild<Transform> (transform, "SceneViewRoot"));
+		MgrDialog.SetDialogRoot (ModUIUtils.GetChild<Transform> (transform, "DialogViewRoot"));
 
-            Log.Debug ("main Scene1 Done~");
+		MgrScene.GotoScene ("Scene1", "main", SceneAnimation.fade, 0.3f, () => {
 
-        });
-    }
-    // Update is called once per frame
-    void Update ()
-    {
-        //		Log.Debug (MgrScene.isSceneChanging ());
-    }
+			Log.Debug ("main Scene1 Done~");
+
+		});
+	}
+	// Update is called once per frame
+	void Update ()
+	{
+		//		Log.Debug (MgrScene.isSceneChanging ());
+	}
 
 
 
-    public static SceneAnimation anim = SceneAnimation.zoomOut;
 
 }

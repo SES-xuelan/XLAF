@@ -18,10 +18,15 @@ namespace XLAF.Public
         static MgrScene ()
         {
             SCENES = new Dictionary<string, SceneObject> ();
-            instance = (new GameObject ("MgrScene")).AddComponent<MgrScene> ();
+            instance = XLAFMain.XLAFGameObject.AddComponent<MgrScene> ();
 
-            screenHeight = Screen.height;
-            screenWidth = Screen.width;
+
+
+            _screenHeight = Camera.main.orthographicSize * 2;
+            float aspectRatio = (float)Screen.width / Screen.height;
+            _screenWidth = _screenHeight * aspectRatio;
+
+            Log.Debug ("screenHeight,screenWidth", screenHeight, screenWidth);
         }
 
 
@@ -35,7 +40,7 @@ namespace XLAF.Public
 
 
         private static MgrScene instance = null;
-        private static readonly string scenePathFormat = "_Scenes/{0}";
+        private static readonly string scenePathFormat = "Views/Scenes/{0}";
 
 
         private static bool animating = false;
@@ -43,8 +48,14 @@ namespace XLAF.Public
         private static Transform sceneViewRoot = null;
         private static CanvasGroup sceneViewRootCanvas = null;
 
-        private static float screenWidth;
-        private static float screenHeight;
+        public static float screenWidth{ get { return _screenWidth; } }
+
+        public static float screenHeight{ get { return _screenHeight; } }
+
+        public static float screenScale{ get { return  (float)_screenHeight / Screen.height; } }
+
+        private static float _screenWidth;
+        private static float _screenHeight;
 
         private static Dictionary<string,SceneObject> SCENES;
 
@@ -59,6 +70,7 @@ namespace XLAF.Public
 
         }
 
+
         /// <summary>
         /// Gets the view root.
         /// </summary>
@@ -66,6 +78,15 @@ namespace XLAF.Public
         public static Transform GetViewRoot ()
         {
             return sceneViewRoot;
+        }
+
+        /// <summary>
+        /// Gets the root.
+        /// </summary>
+        /// <returns>The root.</returns>
+        public static RectTransform GetRoot ()
+        {
+            return sceneViewRoot.parent.GetComponent<RectTransform> ();
         }
 
         /// <summary>
@@ -128,6 +149,7 @@ namespace XLAF.Public
             SceneObject sceneObj = new SceneObject (string.Format (scenePathFormat, sceneName));
             SCENES.Add (sceneName, sceneObj);
             sceneObj.script.CreatScene (data);
+            sceneObj.script.UpdateLanguage ();
 
             sceneObj.scene.transform.SetParent (sceneViewRoot, false);
             sceneObj.scene.SetActive (false);
@@ -160,16 +182,16 @@ namespace XLAF.Public
             
         }
 
-        #region public GotoScene functions
+        #region public GotoScene functions [override 49 times]
 
-        // goto the scene
+        // 1 group parameter => 2
         public static void GotoScene (SceneParams par)
         {
             string sceneName = par.sceneName;
-            SceneAnimation animation = par.animation;
+            SceneAnimation anim = par.anim;
             float oldSceneTime = par.oldSceneTime;
             float newSceneTime = par.newSceneTime;
-            XLAF_Tween.EaseType ease = par.ease;
+            iTween.EaseType ease = par.ease;
             Action cb = par.cb;
             object data = par.data;
 
@@ -181,7 +203,7 @@ namespace XLAF.Public
             }
 
             animating = true;
-            switch (animation) {
+            switch (anim) {
 
             case SceneAnimation.none:
                 instance._AnimationNone (sceneName, data, cb);
@@ -223,50 +245,354 @@ namespace XLAF.Public
 
         }
 
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float oldSceneTime = 0.5f, float newSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void GotoScene (string sceneName)
         {
             SceneParams sp = new SceneParams ();
             sp.sceneName = sceneName;
-            sp.animation = animation;
+            GotoScene (sp);
+        }
+
+        // 2 group parameter => 6
+        public static void GotoScene (string sceneName, object data)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
             sp.oldSceneTime = oldSceneTime;
             sp.newSceneTime = newSceneTime;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, iTween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        // 3 group parameter => 14
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, iTween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.cb = cb;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, iTween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float oldSceneTime, float newSceneTime, iTween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float eachSceneTime, iTween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        // 4 group parameter => 16
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, float oldSceneTime, float newSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, float eachSceneTime)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, iTween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.cb = cb;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float oldSceneTime, float newSceneTime, iTween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float eachSceneTime, iTween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            sp.data = data;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
             sp.ease = ease;
             sp.cb = cb;
             sp.data = data;
             GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
-        {
-            GotoScene (sceneName, data, animation, eachSceneTime, eachSceneTime, ease, cb);
-        }
-
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, Action cb = null)
-        {
-            GotoScene (sceneName, data, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType, cb);
-        }
-
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType)
-        {
-            GotoScene (sceneName, data, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType);
-        }
-
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
-        {
-            GotoScene (sceneName, data, animation, 0.5f, 0.5f, ease, cb);
-        }
-
-        public static void GotoScene (string sceneName, object data = null, SceneAnimation animation = SceneAnimation.fade, Action cb = null)
-        {
-            GotoScene (sceneName, data, animation, 0.5f, 0.5f, XLAF_Tween.EaseType.defaultType, cb);
-        }
-
-
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, float oldSceneTime = 0.5f, float newSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void GotoScene (string sceneName, SceneAnimation anim, float oldSceneTime, float newSceneTime, iTween.EaseType ease)
         {
             SceneParams sp = new SceneParams ();
             sp.sceneName = sceneName;
-            sp.animation = animation;
+            sp.anim = anim;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, float oldSceneTime, float newSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, float eachSceneTime, iTween.EaseType ease)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, float eachSceneTime, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, float oldSceneTime, float newSceneTime, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
             sp.oldSceneTime = oldSceneTime;
             sp.newSceneTime = newSceneTime;
             sp.ease = ease;
@@ -274,34 +600,155 @@ namespace XLAF.Public
             GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void GotoScene (string sceneName, float eachSceneTime, iTween.EaseType ease, Action cb)
         {
-            GotoScene (sceneName, animation, eachSceneTime, eachSceneTime, ease, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, Action cb = null)
+        // 5 group parameter => 9
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, float oldSceneTime, float newSceneTime, iTween.EaseType ease)
         {
-            GotoScene (sceneName, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, float eachSceneTime = 0.5f, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType)
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, float oldSceneTime, float newSceneTime, Action cb)
         {
-            GotoScene (sceneName, animation, eachSceneTime, eachSceneTime, XLAF_Tween.EaseType.defaultType);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType, Action cb = null)
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, float eachSceneTime, iTween.EaseType ease)
         {
-            GotoScene (sceneName, animation, 0.5f, 0.5f, ease, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            GotoScene (sp);
         }
 
-        public static void GotoScene (string sceneName, SceneAnimation animation = SceneAnimation.fade, Action cb = null)
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, float eachSceneTime, Action cb)
         {
-            GotoScene (sceneName, animation, 0.5f, 0.5f, XLAF_Tween.EaseType.defaultType, cb);
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float oldSceneTime, float newSceneTime, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, float eachSceneTime, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, float oldSceneTime, float newSceneTime, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, SceneAnimation anim, float eachSceneTime, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        // 6 group parameter => 2
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, float oldSceneTime, float newSceneTime, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = oldSceneTime;
+            sp.newSceneTime = newSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
+        }
+
+        public static void GotoScene (string sceneName, object data, SceneAnimation anim, float eachSceneTime, iTween.EaseType ease, Action cb)
+        {
+            SceneParams sp = new SceneParams ();
+            sp.sceneName = sceneName;
+            sp.anim = anim;
+            sp.oldSceneTime = eachSceneTime;
+            sp.newSceneTime = eachSceneTime;
+            sp.ease = ease;
+            sp.data = data;
+            sp.cb = cb;
+            GotoScene (sp);
         }
 
         #endregion
 
-        #region  private functions (animation functions)
+        #region  private functions (anim functions)
 
         private static void _UnloadOldScene (SceneObject sceneObj = null)
         {
@@ -316,6 +763,8 @@ namespace XLAF.Public
                 SCENES.Remove (sceneName);
             } else {
                 sceneObj.scene.SetActive (false);
+                //如果不销毁的话，恢复到初始状态
+                sceneObj.RestoreStatus ();
             }
         }
 
@@ -330,7 +779,7 @@ namespace XLAF.Public
                 currentScene = sceneObj;
                 SCENES.Add (sceneName, sceneObj);
                 currentScene.script.CreatScene (data);
-                //currentScene.SendMessage ("CreatScene", data);
+                currentScene.script.UpdateLanguage ();
             } else {
                 currentScene = SCENES [sceneName];
             }
@@ -365,7 +814,8 @@ namespace XLAF.Public
                 oldScene.script.WillExitScene ();
                 //恢复到透明度1
                 oldScene.ChangeAlpha (1f);
-                XLAF_Tween.ValueTo (oldScene.scene, XLAF_Tween.Hash (
+                Log.Debug ("ChangeAlpha to 1");
+                iTween.ValueTo (oldScene.scene, iTween.Hash (
                     "from", 1,
                     "to", 0,
                     "time", fadeInTime,
@@ -377,7 +827,7 @@ namespace XLAF.Public
                     _UnloadOldScene (oldScene);
                     _LoadNewScene (sceneName, data);
                     currentScene.ChangeAlpha (0f);
-                    XLAF_Tween.ValueTo (currentScene.scene, XLAF_Tween.Hash (
+                    iTween.ValueTo (currentScene.scene, iTween.Hash (
                         "from", 0,
                         "to", 1,
                         "time", fadeOutTime,
@@ -397,7 +847,7 @@ namespace XLAF.Public
             } else {
                 _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
                 //show
-                XLAF_Tween.ValueTo (currentScene.scene, XLAF_Tween.Hash (
+                iTween.ValueTo (currentScene.scene, iTween.Hash (
                     "from", 0,
                     "to", 1,
                     "time", fadeOutTime,
@@ -416,15 +866,15 @@ namespace XLAF.Public
 
         }
 
-        private void _AnimationFromLeft (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb)
+        private void _AnimationFromLeft (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
         {
             if (currentScene == null) {
-                //Log.Error ("You should NOT use this animation in the first storyoard, use fade instead");
+                //Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
                 _AnimationNone (sceneName, data, cb);
                 return;
             }
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutExpo : easeType;
 
             float nomalX = currentScene.scene.transform.position.x;
             float nomalY = currentScene.scene.transform.position.y;
@@ -437,7 +887,7 @@ namespace XLAF.Public
             tmpRT.position = new Vector3 (newSceneStartX, nomalY);
 
             oldScene.script.WillExitScene ();
-            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (currentScene.scene, iTween.Hash (
                 "x", nomalX,
                 "time", newSceneTime,
                 "easetype", ease,
@@ -453,15 +903,15 @@ namespace XLAF.Public
             ));
         }
 
-        private void _AnimationFromRight (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb)
+        private void _AnimationFromRight (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
         {
             if (currentScene == null) {
-                //Log.Error ("You should NOT use this animation in the first storyoard, use fade instead");
+                //Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
                 _AnimationNone (sceneName, data, cb);
                 return;
             }
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutExpo : easeType;
 
             float nomalX = currentScene.scene.transform.position.x;
             float nomalY = currentScene.scene.transform.position.y;
@@ -476,7 +926,7 @@ namespace XLAF.Public
             tmpRT.position = new Vector3 (newSceneStartX, nomalY);
 
             oldScene.script.WillExitScene ();
-            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (currentScene.scene, iTween.Hash (
                 "x", nomalX,
                 "time", newSceneTime,
                 "easetype", ease,
@@ -492,15 +942,15 @@ namespace XLAF.Public
             ));
         }
 
-        private void _AnimationFromTop (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb)
+        private void _AnimationFromTop (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
         {
             if (currentScene == null) {
-                //Log.Error ("You should NOT use this animation in the first storyoard, use fade instead");
+                //Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
                 _AnimationNone (sceneName, data, cb);
                 return;
             }
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutExpo : easeType;
 
             float nomalX = currentScene.scene.transform.position.x;
             float nomalY = currentScene.scene.transform.position.y;
@@ -515,7 +965,7 @@ namespace XLAF.Public
             tmpRT.position = new Vector3 (nomalX, newSceneStartY);
 
             oldScene.script.WillExitScene ();
-            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (currentScene.scene, iTween.Hash (
                 "y", nomalY,
                 "time", newSceneTime,
                 "easetype", ease,
@@ -531,15 +981,15 @@ namespace XLAF.Public
             ));
         }
 
-        private void _AnimationFromBottom (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb)
+        private void _AnimationFromBottom (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
         {
             if (currentScene == null) {
-                //Log.Error ("You should NOT use this animation in the first storyoard, use fade instead");
+                //Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
                 _AnimationNone (sceneName, data, cb);
                 return;
             }
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutExpo : easeType;
 
             float nomalX = currentScene.scene.transform.position.x;
             float nomalY = currentScene.scene.transform.position.y;
@@ -554,7 +1004,7 @@ namespace XLAF.Public
             tmpRT.position = new Vector3 (nomalX, newSceneStartY);
 
             oldScene.script.WillExitScene ();
-            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (currentScene.scene, iTween.Hash (
                 "y", nomalY,
                 "time", newSceneTime,
                 "easetype", ease,
@@ -570,15 +1020,15 @@ namespace XLAF.Public
             ));
         }
 
-        private void _AnimationSlideLeft (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb = null)
+        private void _AnimationSlideLeft (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb = null)
         {
             if (currentScene == null) {
-                //Log.Error ("You should NOT use this animation in the first storyoard, use fade instead");
+                //Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
                 _AnimationNone (sceneName, data, cb);
                 return;
             }
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutExpo : easeType;
             
             float nomalX = currentScene.scene.transform.position.x;
             float nomalY = currentScene.scene.transform.position.y;
@@ -592,15 +1042,14 @@ namespace XLAF.Public
 
             RectTransform tmpRT = currentScene.scene.GetComponent<RectTransform> ();
             tmpRT.position = new Vector3 (newSceneStartX, nomalY);
-
             oldScene.script.WillExitScene ();
-            XLAF_Tween.MoveTo (oldScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (oldScene.scene, iTween.Hash (
                 "x", oldSceneEndX,
                 "time", newSceneTime,
                 "easetype", ease
             ));
 
-            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (currentScene.scene, iTween.Hash (
                 "x", nomalX,
                 "time", newSceneTime,
                 "easetype", ease,
@@ -616,15 +1065,15 @@ namespace XLAF.Public
             ));
         }
 
-        private void _AnimationSlideRight (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb = null)
+        private void _AnimationSlideRight (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb = null)
         {
             if (currentScene == null) {
-                //Log.Error ("You should NOT use this animation in the first storyoard, use fade instead");
+                //Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
                 _AnimationNone (sceneName, data, cb);
                 return;
             }
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutExpo : easeType;
 
             float nomalX = currentScene.scene.transform.position.x;
             float nomalY = currentScene.scene.transform.position.y;
@@ -638,13 +1087,13 @@ namespace XLAF.Public
             tmpRT.position = new Vector3 (newSceneStartX, nomalY);
 
             oldScene.script.WillExitScene ();
-            XLAF_Tween.MoveTo (oldScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (oldScene.scene, iTween.Hash (
                 "x", oldSceneEndX,
                 "time", newSceneTime,
                 "easetype", ease
             ));
 
-            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (currentScene.scene, iTween.Hash (
                 "x", nomalX,
                 "time", newSceneTime,
                 "easetype", ease,
@@ -660,15 +1109,15 @@ namespace XLAF.Public
             ));
         }
 
-        private void _AnimationSlideUp (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb)
+        private void _AnimationSlideUp (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
         {
             if (currentScene == null) {
-                //Log.Error ("You should NOT use this animation in the first storyoard, use fade instead");
+                //Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
                 _AnimationNone (sceneName, data, cb);
                 return;
             }
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutExpo : easeType;
 
             float nomalX = currentScene.scene.transform.position.x;
             float nomalY = currentScene.scene.transform.position.y;
@@ -683,13 +1132,13 @@ namespace XLAF.Public
             tmpRT.position = new Vector3 (nomalX, newSceneStartY);
 
             oldScene.script.WillExitScene ();
-            XLAF_Tween.MoveTo (oldScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (oldScene.scene, iTween.Hash (
                 "y", oldSceneEndY,
                 "time", newSceneTime,
                 "easetype", ease
             ));
 
-            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (currentScene.scene, iTween.Hash (
                 "y", nomalY,
                 "time", newSceneTime,
                 "easetype", ease,
@@ -705,14 +1154,14 @@ namespace XLAF.Public
             ));
         }
 
-        private void _AnimationSlideDown (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb)
+        private void _AnimationSlideDown (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
         {
             if (currentScene == null) {
-                //Log.Error ("You should NOT use this animation in the first storyoard, use fade instead");
+                //Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
                 _AnimationNone (sceneName, data, cb);
                 return;
             }
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutExpo : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutExpo : easeType;
 
             float nomalX = currentScene.scene.transform.position.x;
             float nomalY = currentScene.scene.transform.position.y;
@@ -727,13 +1176,13 @@ namespace XLAF.Public
             tmpRT.position = new Vector3 (nomalX, newSceneStartY);
 
             oldScene.script.WillExitScene ();
-            XLAF_Tween.MoveTo (oldScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (oldScene.scene, iTween.Hash (
                 "y", oldSceneEndY,
                 "time", newSceneTime,
                 "easetype", ease
             ));
 
-            XLAF_Tween.MoveTo (currentScene.scene, XLAF_Tween.Hash (
+            iTween.MoveTo (currentScene.scene, iTween.Hash (
                 "y", nomalY,
                 "time", newSceneTime,
                 "easetype", ease,
@@ -749,15 +1198,15 @@ namespace XLAF.Public
             ));
         }
 
-        private void _AnimationZoomIn (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb)
+        private void _AnimationZoomIn (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
         {
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeOutBack : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutBack : easeType;
 
             SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
             currentScene.scene.transform.localScale = new Vector3 (1f, 1f);
             oldScene.script.WillExitScene ();
-            XLAF_Tween.ScaleFrom (currentScene.scene, XLAF_Tween.Hash (
+            iTween.ScaleFrom (currentScene.scene, iTween.Hash (
                 "scale", new Vector3 (0f, 0f),
                 "time", newSceneTime,
                 "easetype", ease,
@@ -774,16 +1223,16 @@ namespace XLAF.Public
 
         }
 
-        private void _AnimationZoomOut (string sceneName, object data, float newSceneTime, XLAF_Tween.EaseType easeType, Action cb)
+        private void _AnimationZoomOut (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
         {
-            XLAF_Tween.EaseType ease = (easeType == XLAF_Tween.EaseType.defaultType) ? XLAF_Tween.EaseType.easeInBack : easeType;
+            iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeInBack : easeType;
 
             SceneObject oldScene = currentScene;
             _LoadNewScene (sceneName, data);// load new scene  or   set exise scene
             currentScene.scene.transform.localScale = new Vector3 (1f, 1f);
             oldScene.script.WillExitScene ();
             oldScene.scene.transform.SetAsLastSibling ();//旧的scene在最上
-            XLAF_Tween.ScaleTo (oldScene.scene, XLAF_Tween.Hash (
+            iTween.ScaleTo (oldScene.scene, iTween.Hash (
                 "scale", new Vector3 (0f, 0f),
                 "time", newSceneTime,
                 "easetype", ease,
@@ -805,7 +1254,20 @@ namespace XLAF.Public
         #endregion
 
 
-
+        public static void Update ()
+        {
+            #if UNITY_ANDROID
+            if (MgrDialog.hasDialog) {
+                return;
+            }
+            if (Input.GetKeyDown (KeyCode.Escape)) { //android back
+                SceneObject curr = MgrScene.GetCurrentScene ();
+                if (curr != null) {
+                    curr.script.AndroidGoBack ();
+                }
+            }
+            #endif
+        }
 
     }
 
@@ -841,10 +1303,10 @@ namespace XLAF.Public
     public class SceneParams
     {
         public 	string sceneName;
-        public 	SceneAnimation animation = SceneAnimation.fade;
+        public 	SceneAnimation anim = SceneAnimation.fade;
         public 	float oldSceneTime = 0.5f;
         public 	float newSceneTime = 0.5f;
-        public 	XLAF_Tween.EaseType ease = XLAF_Tween.EaseType.defaultType;
+        public 	iTween.EaseType ease = iTween.EaseType.defaultType;
         public 	Action cb = null;
         public object data = "";
 
@@ -857,7 +1319,7 @@ namespace XLAF.Public
         public override string ToString ()
         {
             return  " sceneName:" + sceneName
-            + "\t animation:" + animation.ToString ()
+            + "\t anim:" + anim.ToString ()
             + "\t oldSceneTime:" + oldSceneTime
             + "\t newSceneTime:" + newSceneTime
             + "\t EaseType:" + ease.ToString ()
@@ -868,6 +1330,6 @@ namespace XLAF.Public
 
     }
 
-
+   
 }
 

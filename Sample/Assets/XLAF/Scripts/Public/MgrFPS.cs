@@ -28,7 +28,7 @@ namespace XLAF.Public
 
         static MgrFPS ()
         {
-            instance = (new GameObject ("MgrFPS")).AddComponent<MgrFPS> ();
+            instance = XLAFMain.XLAFGameObject.AddComponent<MgrFPS> ();
             instance.showFPS = false;
         }
 
@@ -63,9 +63,9 @@ namespace XLAF.Public
                     minFps = fpsList.Min ();
                     maxFps = fpsList.Max ();
 
-                    totalReservedMemory = (float)Profiler.GetTotalReservedMemory () / mKBSize;
-                    totalAllocatedMemory = (float)Profiler.GetTotalAllocatedMemory () / mKBSize;
-                    totalUnusedReservedMemory = (float)Profiler.GetTotalUnusedReservedMemory () / mKBSize;
+                    totalReservedMemory = (float)UnityEngine.Profiling.Profiler.GetTotalReservedMemoryLong () / mKBSize;
+                    totalAllocatedMemory = (float)UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong () / mKBSize;
+                    totalUnusedReservedMemory = (float)UnityEngine.Profiling.Profiler.GetTotalUnusedReservedMemoryLong () / mKBSize;
                 }
             }
         }
