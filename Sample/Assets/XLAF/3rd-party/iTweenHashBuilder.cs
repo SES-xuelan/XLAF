@@ -16,7 +16,7 @@ public class iTweenHashBuilder
 	/// <para></para>an individual name useful for stopping iTweens by name
 	/// </summary>
 	/// <param name="name">Name.</param>
-	public Hashtable setName (string name)
+	public Hashtable SetName (string name)
 	{
 		hashTable.Add ("name", name);
 		return hashTable;
@@ -27,7 +27,7 @@ public class iTweenHashBuilder
 	/// <para></para>for which AudioSource to use
 	/// </summary>
 	/// <param name="audioSource">Audio source.</param>
-	public Hashtable setAudioSource (AudioSource audioSource)
+	public Hashtable SetAudioSource (AudioSource audioSource)
 	{
 		hashTable.Add ("audiosource", audioSource);
 		return hashTable;
@@ -38,7 +38,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the target level of volume
 	/// </summary>
 	/// <param name="volume">Volume.</param>
-	public Hashtable setVolume (float volume)
+	public Hashtable SetVolume (float volume)
 	{
 		hashTable.Add ("volume", volume);
 		return hashTable;
@@ -49,7 +49,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the target level of volume
 	/// </summary>
 	/// <param name="volume">Volume.</param>
-	public Hashtable setVolume (double volume)
+	public Hashtable SetVolume (double volume)
 	{
 		hashTable.Add ("volume", volume);
 		return hashTable;
@@ -60,7 +60,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the target pitch
 	/// </summary>
 	/// <param name="pitch">Pitch.</param>
-	public Hashtable setPitch (float pitch)
+	public Hashtable SetPitch (float pitch)
 	{
 		hashTable.Add ("pitch", pitch);
 		return hashTable;
@@ -71,7 +71,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the target pitch
 	/// </summary>
 	/// <param name="pitch">Pitch.</param>
-	public Hashtable setPitch (double pitch)
+	public Hashtable SetPitch (double pitch)
 	{
 		hashTable.Add ("pitch", pitch);
 		return hashTable;
@@ -82,7 +82,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the time in seconds the animation will take to complete
 	/// </summary>
 	/// <param name="time">Time.</param>
-	public Hashtable setTime (float time)
+	public Hashtable SetTime (float time)
 	{
 		hashTable.Add ("time", time);
 		return hashTable;
@@ -93,7 +93,7 @@ public class iTweenHashBuilder
 	///<para></para> for the time in seconds the animation will take to complete
 	/// </summary>
 	/// <param name="time">Time.</param>
-	public Hashtable setTime (double time)
+	public Hashtable SetTime (double time)
 	{
 		hashTable.Add ("time", time);
 		return hashTable;
@@ -104,7 +104,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the time in seconds the animation will wait before beginning
 	/// </summary>
 	/// <param name="delay">Delay.</param>
-	public Hashtable setDelay (float delay)
+	public Hashtable SetDelay (float delay)
 	{
 		hashTable.Add ("delay", delay);
 		return hashTable;
@@ -115,7 +115,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the time in seconds the animation will wait before beginning
 	/// </summary>
 	/// <param name="delay">Delay.</param>
-	public Hashtable setDelay (double delay)
+	public Hashtable SetDelay (double delay)
 	{
 		hashTable.Add ("delay", delay);
 		return hashTable;
@@ -126,7 +126,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the shape of the easing curve applied to the animation
 	/// </summary>
 	/// <param name="easeType">Ease type.</param>
-	public Hashtable setEaseType (iTween.EaseType easeType)
+	public Hashtable SetEaseType (iTween.EaseType easeType)
 	{
 		hashTable.Add ("easetype", easeType);
 		return hashTable;
@@ -137,7 +137,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the type of loop to apply once the animation has completed
 	/// </summary>
 	/// <param name="looptype">Looptype.</param>
-	public Hashtable setLoopType (iTween.LoopType looptype)
+	public Hashtable SetLoopType (iTween.LoopType looptype)
 	{
 		hashTable.Add ("looptype", looptype);
 		return hashTable;
@@ -148,7 +148,7 @@ public class iTweenHashBuilder
 	/// <para></para>a function to launch at the beginning of the animation
 	/// </summary>
 	/// <param name="action">Action.</param>
-	public Hashtable setOnStart (Action  action)
+	public Hashtable SetOnStart (Action  action)
 	{
 		hashTable.Add ("onstart", action);
 		return hashTable;
@@ -159,7 +159,7 @@ public class iTweenHashBuilder
 	/// <para></para>a function to launch at the beginning of the animation
 	/// </summary>
 	/// <param name="action">Action.</param>
-	public Hashtable setOnStart (Action<object>  action)
+	public Hashtable SetOnStart (Action<object>  action)
 	{
 		hashTable.Add ("onstart", action);
 		return hashTable;
@@ -170,7 +170,7 @@ public class iTweenHashBuilder
 	///<para></para> a function to launch at the beginning of the animation
 	/// </summary>
 	/// <param name="action">Action.</param>
-	public Hashtable setOnStart (Action<float>  action)
+	public Hashtable SetOnStart (Action<float>  action)
 	{
 		hashTable.Add ("onstart", action);
 		return hashTable;
@@ -181,7 +181,7 @@ public class iTweenHashBuilder
 	/// <para></para>for a reference to the GameObject that holds the "onstart" method
 	/// </summary>
 	/// <param name="go">GameObject</param>
-	public Hashtable setOnStartTarget (GameObject go)
+	public Hashtable SetOnStartTarget (GameObject go)
 	{
 		hashTable.Add ("onstarttarget", go);
 		return hashTable;
@@ -192,7 +192,7 @@ public class iTweenHashBuilder
 	/// <para></para>for arguments to be sent to the "onstart" method
 	/// </summary>
 	/// <param name="param">Parameter.</param>
-	public Hashtable setOnStartParams (object param)
+	public Hashtable SetOnStartParams (object param)
 	{
 		hashTable.Add ("onstartparams", param);
 		return hashTable;
@@ -203,7 +203,7 @@ public class iTweenHashBuilder
 	/// <para></para>a function to launch on every step of the animation
 	/// </summary>
 	/// <param name="action">Action.</param>
-	public Hashtable setOnUpdate (Action action)
+	public Hashtable SetOnUpdate (Action action)
 	{
 		hashTable.Add ("onupdate", action);
 		return hashTable;
@@ -214,7 +214,7 @@ public class iTweenHashBuilder
 	/// <para></para>a function to launch on every step of the animation
 	/// </summary>
 	/// <param name="action">Action.</param>
-	public Hashtable setOnUpdate (Action<float> action)
+	public Hashtable SetOnUpdate (Action<float> action)
 	{
 		hashTable.Add ("onupdate", action);
 		return hashTable;
@@ -225,7 +225,7 @@ public class iTweenHashBuilder
 	/// <para></para>a function to launch on every step of the animation
 	/// </summary>
 	/// <param name="action">Action.</param>
-	public Hashtable setOnUpdate (Action<object> action)
+	public Hashtable SetOnUpdate (Action<object> action)
 	{
 		hashTable.Add ("onupdate", action);
 		return hashTable;
@@ -236,7 +236,7 @@ public class iTweenHashBuilder
 	/// <para></para>for a reference to the GameObject that holds the "onupdate" method
 	/// </summary>
 	/// <param name="go">GameObject</param>
-	public Hashtable setOnUpdateTarget (GameObject go)
+	public Hashtable SetOnUpdateTarget (GameObject go)
 	{
 		hashTable.Add ("onupdatetarget", go);
 		return hashTable;
@@ -247,7 +247,7 @@ public class iTweenHashBuilder
 	/// <para></para>for arguments to be sent to the "onupdate" method
 	/// </summary>
 	/// <param name="param">Parameter.</param>
-	public Hashtable setOnUpdateParams (object param)
+	public Hashtable SetOnUpdateParams (object param)
 	{
 		hashTable.Add ("onupdateparams", param);
 		return hashTable;
@@ -258,7 +258,7 @@ public class iTweenHashBuilder
 	/// <para></para>a function to launch at the end of the animation
 	/// </summary>
 	/// <param name="action">Action.</param>
-	public Hashtable setOnComplete (Action action)
+	public Hashtable SetOnComplete (Action action)
 	{
 		hashTable.Add ("oncomplete", action);
 		return hashTable;
@@ -269,7 +269,7 @@ public class iTweenHashBuilder
 	/// <para></para>a function to launch at the end of the animation
 	/// </summary>
 	/// <param name="action">Action.</param>
-	public Hashtable setOnComplete (Action<float> action)
+	public Hashtable SetOnComplete (Action<float> action)
 	{
 		hashTable.Add ("oncomplete", action);
 		return hashTable;
@@ -280,7 +280,7 @@ public class iTweenHashBuilder
 	/// <para></para>a function to launch at the end of the animation
 	/// </summary>
 	/// <param name="action">Action.</param>
-	public Hashtable setOnComplete (Action<object> action)
+	public Hashtable SetOnComplete (Action<object> action)
 	{
 		hashTable.Add ("oncomplete", action);
 		return hashTable;
@@ -291,7 +291,7 @@ public class iTweenHashBuilder
 	/// <para></para>for a reference to the GameObject that holds the "oncomplete" method
 	/// </summary>
 	/// <param name="go">Go.</param>
-	public Hashtable setOnCompleteTarget (GameObject go)
+	public Hashtable SetOnCompleteTarget (GameObject go)
 	{
 		hashTable.Add ("oncompletetarget", go);
 		return hashTable;
@@ -302,7 +302,7 @@ public class iTweenHashBuilder
 	/// <para></para>for arguments to be sent to the "oncomplete" method
 	/// </summary>
 	/// <param name="param">Parameter.</param>
-	public Hashtable setOnCompleteParams (object param)
+	public Hashtable SetOnCompleteParams (object param)
 	{
 		hashTable.Add ("oncompleteparams", param);
 		return hashTable;
@@ -313,7 +313,7 @@ public class iTweenHashBuilder
 	/// <para></para>setting this to true will allow the animation to continue independent of the current time which is helpful for animating menus after a game has been paused by setting Time.timeScale=0
 	/// </summary>
 	/// <param name="param">If set to <c>true</c> b.</param>
-	public Hashtable setIgnoreTimeScale (bool b)
+	public Hashtable SetIgnoreTimeScale (bool b)
 	{
 		hashTable.Add ("ignoretimescale", b);
 		return hashTable;
@@ -324,7 +324,7 @@ public class iTweenHashBuilder
 	/// <para></para>[CameraFadeFrom|CameraFadeTo]for how transparent the Texture2D that the camera fade uses is
 	/// </summary>
 	/// <param name="amount">Amount.</param>
-	public Hashtable setAmount (float amount)
+	public Hashtable SetAmount (float amount)
 	{
 		hashTable.Add ("amount", amount);
 		return hashTable;
@@ -335,7 +335,7 @@ public class iTweenHashBuilder
 	/// <para></para>[CameraFadeFrom|CameraFadeTo]for how transparent the Texture2D that the camera fade uses is
 	/// </summary>
 	/// <param name="amount">Amount.</param>
-	public Hashtable setAmount (double amount)
+	public Hashtable SetAmount (double amount)
 	{
 		hashTable.Add ("amount", amount);
 		return hashTable;
@@ -346,7 +346,7 @@ public class iTweenHashBuilder
 	/// <para></para>the color to fade the object to
 	/// </summary>
 	/// <param name="color">Color.</param>
-	public Hashtable setColor (Color color)
+	public Hashtable SetColor (Color color)
 	{
 		hashTable.Add ("color", color);
 		return hashTable;
@@ -357,7 +357,7 @@ public class iTweenHashBuilder
 	///<para></para> for the individual setting of the color red
 	/// </summary>
 	/// <param name="r">The red component.</param>
-	public Hashtable setColorR (float r)
+	public Hashtable SetColorR (float r)
 	{
 		hashTable.Add ("r", r);
 		return hashTable;
@@ -368,7 +368,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the individual setting of the color red
 	/// </summary>
 	/// <param name="r">The red component.</param>
-	public Hashtable setColorR (double r)
+	public Hashtable SetColorR (double r)
 	{
 		hashTable.Add ("r", r);
 		return hashTable;
@@ -379,7 +379,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the individual setting of the color green
 	/// </summary>
 	/// <param name="g">The green component.</param>
-	public Hashtable setColorG (float g)
+	public Hashtable SetColorG (float g)
 	{
 		hashTable.Add ("g", g);
 		return hashTable;
@@ -390,7 +390,7 @@ public class iTweenHashBuilder
 	///<para></para> for the individual setting of the color green
 	/// </summary>
 	/// <param name="g">The green component.</param>
-	public Hashtable setColorG (double g)
+	public Hashtable SetColorG (double g)
 	{
 		hashTable.Add ("g", g);
 		return hashTable;
@@ -401,7 +401,7 @@ public class iTweenHashBuilder
 	///<para></para> for the individual setting of the color blue
 	/// </summary>
 	/// <param name="b">The blue component.</param>
-	public Hashtable setColorB (float b)
+	public Hashtable SetColorB (float b)
 	{
 		hashTable.Add ("b", b);
 		return hashTable;
@@ -412,7 +412,7 @@ public class iTweenHashBuilder
 	///<para></para> for the individual setting of the color blue
 	/// </summary>
 	/// <param name="b">The blue component.</param>
-	public Hashtable setColorB (double b)
+	public Hashtable SetColorB (double b)
 	{
 		hashTable.Add ("b", b);
 		return hashTable;
@@ -423,7 +423,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the individual setting of the alpha
 	/// </summary>
 	/// <param name="a">The alpha component.</param>
-	public Hashtable setColorA (float a)
+	public Hashtable SetColorA (float a)
 	{
 		hashTable.Add ("a", a);
 		return hashTable;
@@ -434,7 +434,7 @@ public class iTweenHashBuilder
 	///<para></para> for the individual setting of the alpha
 	/// </summary>
 	/// <param name="a">The alpha component.</param>
-	public Hashtable setColorA (double a)
+	public Hashtable SetColorA (double a)
 	{
 		hashTable.Add ("a", a);
 		return hashTable;
@@ -445,7 +445,7 @@ public class iTweenHashBuilder
 	///<para></para> for which color of a shader to use. Uses "_Color" by default.
 	/// </summary>
 	/// <param name="namedValueColor">Named value color.</param>
-	public Hashtable setNamedColorValue (iTween.NamedValueColor namedValueColor)
+	public Hashtable SetNamedColorValue (iTween.NamedValueColor namedValueColor)
 	{
 		hashTable.Add ("namedcolorvalue", namedValueColor);
 		return hashTable;
@@ -456,7 +456,7 @@ public class iTweenHashBuilder
 	/// <para></para>for whether or not to include children of this GameObject. True by default
 	/// </summary>
 	/// <param name="b">If set to <c>true</c> b.</param>
-	public Hashtable setIncludeChildren (bool b)
+	public Hashtable SetIncludeChildren (bool b)
 	{
 		hashTable.Add ("includechildren", b);
 		return hashTable;
@@ -467,7 +467,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the initial alpha value of the animation.
 	/// </summary>
 	/// <param name="alpha">Alpha.</param>
-	public Hashtable setAlpha (float alpha)
+	public Hashtable SetAlpha (float alpha)
 	{
 		hashTable.Add ("alpha", alpha);
 		return hashTable;
@@ -478,7 +478,7 @@ public class iTweenHashBuilder
 	/// <para></para>for a target the GameObject will look at.
 	/// </summary>
 	/// <param name="transform">Transform.</param>
-	public Hashtable setLooktarget (Transform transform)
+	public Hashtable SetLooktarget (Transform transform)
 	{
 		hashTable.Add ("looktarget", transform);
 		return hashTable;
@@ -489,7 +489,7 @@ public class iTweenHashBuilder
 	/// <para></para>for a target the GameObject will look at.
 	/// </summary>
 	/// <param name="vector3">Vector3.</param>
-	public Hashtable setLooktarget (Vector3 vector3)
+	public Hashtable SetLooktarget (Vector3 vector3)
 	{
 		hashTable.Add ("looktarget", vector3);
 		return hashTable;
@@ -500,7 +500,7 @@ public class iTweenHashBuilder
 	/// <para></para>Restricts rotation to the supplied axis only.
 	/// </summary>
 	/// <param name="axis">axis include [x  y  z]</param>
-	public Hashtable setAxis (Axis axis)
+	public Hashtable SetAxis (Axis axis)
 	{
 		hashTable.Add ("axis", axis);
 		return hashTable;
@@ -511,7 +511,7 @@ public class iTweenHashBuilder
 	/// <para></para>can be used instead of time to allow animation based on speed
 	/// </summary>
 	/// <param name="speed">Speed.</param>
-	public Hashtable setSpeed (float speed)
+	public Hashtable SetSpeed (float speed)
 	{
 		hashTable.Add ("speed", speed);
 		return hashTable;
@@ -522,7 +522,7 @@ public class iTweenHashBuilder
 	/// <para></para>can be used instead of time to allow animation based on speed
 	/// </summary>
 	/// <param name="speed">Speed.</param>
-	public Hashtable setSpeed (double speed)
+	public Hashtable SetSpeed (double speed)
 	{
 		hashTable.Add ("speed", speed);
 		return hashTable;
@@ -533,7 +533,7 @@ public class iTweenHashBuilder
 	/// <para></para>[MoveAdd]for a point in space the GameObject will animate to.
 	/// </summary>
 	/// <param name="amount">Amount.</param>
-	public Hashtable setAmount (Vector3 amount)
+	public Hashtable SetAmount (Vector3 amount)
 	{
 		hashTable.Add ("amount", amount);
 		return hashTable;
@@ -544,7 +544,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the individual setting of the x axis
 	/// </summary>
 	/// <param name="x">The x coordinate.</param>
-	public Hashtable setX (float x)
+	public Hashtable SetX (float x)
 	{
 		hashTable.Add ("x", x);
 		return hashTable;
@@ -555,7 +555,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the individual setting of the x axis
 	/// </summary>
 	/// <param name="x">The x coordinate.</param>
-	public Hashtable setX (double x)
+	public Hashtable SetX (double x)
 	{
 		hashTable.Add ("x", x);
 		return hashTable;
@@ -566,7 +566,7 @@ public class iTweenHashBuilder
 	///<para></para> for the individual setting of the y axis
 	/// </summary>
 	/// <param name="y">The y coordinate.</param>
-	public Hashtable setY (float y)
+	public Hashtable SetY (float y)
 	{
 		hashTable.Add ("y", y);
 		return hashTable;
@@ -577,7 +577,7 @@ public class iTweenHashBuilder
 	///<para></para> for the individual setting of the y axis
 	/// </summary>
 	/// <param name="y">The y coordinate.</param>
-	public Hashtable setY (double y)
+	public Hashtable SetY (double y)
 	{
 		hashTable.Add ("y", y);
 		return hashTable;
@@ -588,7 +588,7 @@ public class iTweenHashBuilder
 	///  <para></para>for the individual setting of the z axis
 	/// </summary>
 	/// <param name="z">The z coordinate.</param>
-	public Hashtable setZ (float z)
+	public Hashtable SetZ (float z)
 	{
 		hashTable.Add ("z", z);
 		return hashTable;
@@ -599,7 +599,7 @@ public class iTweenHashBuilder
 	///<para></para>  for the individual setting of the z axis
 	/// </summary>
 	/// <param name="z">The z coordinate.</param>
-	public Hashtable setZ (double z)
+	public Hashtable SetZ (double z)
 	{
 		hashTable.Add ("z", z);
 		return hashTable;
@@ -610,7 +610,7 @@ public class iTweenHashBuilder
 	///<para></para> for the time in seconds the object will take to look at either the "looktarget" or "orienttopath"
 	/// </summary>
 	/// <param name="lookTime">Look time.</param>
-	public Hashtable setLookTime (float lookTime)
+	public Hashtable SetLookTime (float lookTime)
 	{
 		hashTable.Add ("looktime", lookTime);
 		return hashTable;
@@ -621,7 +621,7 @@ public class iTweenHashBuilder
 	/// <para></para>for applying the transformation in either the world coordinate or local cordinate system. Defaults to local space
 	/// </summary>
 	/// <param name="space">Space.</param>
-	public Hashtable setSpace (Space space)
+	public Hashtable SetSpace (Space space)
 	{
 		hashTable.Add ("space", space);
 		return hashTable;
@@ -632,7 +632,7 @@ public class iTweenHashBuilder
 	/// <para></para>for a point in space the GameObject will animate to.
 	/// </summary>
 	/// <param name="transform">Transform.</param>
-	public Hashtable setPosition (Transform transform)
+	public Hashtable SetPosition (Transform transform)
 	{
 		hashTable.Add ("position", transform);
 		return hashTable;
@@ -643,7 +643,7 @@ public class iTweenHashBuilder
 	/// <para></para>for a point in space the GameObject will animate to.
 	/// </summary>
 	/// <param name="vector3">Vector3.</param>
-	public Hashtable setPosition (Vector3 vector3)
+	public Hashtable SetPosition (Vector3 vector3)
 	{
 		hashTable.Add ("position", vector3);
 		return hashTable;
@@ -654,7 +654,7 @@ public class iTweenHashBuilder
 	///<para></para> for a list of points to draw a Catmull-Rom through for a curved animation path
 	/// </summary>
 	/// <param name="vector3Array">Vector3 array.</param>
-	public Hashtable setPath (Vector3[] vector3Array)
+	public Hashtable SetPath (Vector3[] vector3Array)
 	{
 		hashTable.Add ("path", vector3Array);
 		return hashTable;
@@ -665,7 +665,7 @@ public class iTweenHashBuilder
 	///<para></para> for a list of points to draw a Catmull-Rom through for a curved animation path
 	/// </summary>
 	/// <param name="transformArray">transformy array.</param>
-	public Hashtable setPath (Transform[] transformArray)
+	public Hashtable SetPath (Transform[] transformArray)
 	{
 		hashTable.Add ("path", transformArray);
 		return hashTable;
@@ -676,7 +676,7 @@ public class iTweenHashBuilder
 	/// <para></para>for whether to automatically generate a curve from the GameObject's current position to the beginning of the path. True by default.
 	/// </summary>
 	/// <param name="isMovToPath">If set to <c>true</c> is move to path.</param>
-	public Hashtable setMoveToPath (bool isMoveToPath)
+	public Hashtable SetMoveToPath (bool isMoveToPath)
 	{
 		hashTable.Add ("movetopath", isMoveToPath);
 		return hashTable;
@@ -687,7 +687,7 @@ public class iTweenHashBuilder
 	/// <para></para>for whether or not the GameObject will orient to its direction of travel. False by default
 	/// </summary>
 	/// <param name="isOrientToPath">If set to <c>true</c> is orient to path.</param>
-	public Hashtable setOrientToPath (bool isOrientToPath)
+	public Hashtable SetOrientToPath (bool isOrientToPath)
 	{
 		hashTable.Add ("orienttopath", isOrientToPath);
 		return hashTable;
@@ -698,7 +698,7 @@ public class iTweenHashBuilder
 	/// <para></para>for how much of a percentage (from 0 to 1) to look ahead on a path to influence how strict "orienttopath" is and how much the object will anticipate each curve
 	/// </summary>
 	/// <param name="lookAhead">Look ahead.</param>
-	public Hashtable setLookAhead (float lookAhead)
+	public Hashtable SetLookAhead (float lookAhead)
 	{
 		hashTable.Add ("lookahead", lookAhead);
 		return hashTable;
@@ -709,7 +709,7 @@ public class iTweenHashBuilder
 	/// <para></para>for how much of a percentage (from 0 to 1) to look ahead on a path to influence how strict "orienttopath" is and how much the object will anticipate each curve
 	/// </summary>
 	/// <param name="lookAhead">Look ahead.</param>
-	public Hashtable setLookAhead (double lookAhead)
+	public Hashtable SetLookAhead (double lookAhead)
 	{
 		hashTable.Add ("lookahead", lookAhead);
 		return hashTable;
@@ -720,7 +720,7 @@ public class iTweenHashBuilder
 	/// <para></para>for whether to animate in world space or relative to the parent. False be default.
 	/// </summary>
 	/// <param name="isLocal">If set to <c>true</c> is local.</param>
-	public Hashtable setIsLocal (bool isLocal)
+	public Hashtable SetIsLocal (bool isLocal)
 	{
 		hashTable.Add ("islocal", isLocal);
 		return hashTable;
@@ -731,7 +731,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the target Euler angles in degrees to rotate to.
 	/// </summary>
 	/// <param name="transform">Transform.</param>
-	public Hashtable setRotation (Transform transform)
+	public Hashtable SetRotation (Transform transform)
 	{
 		hashTable.Add ("rotation", transform);
 		return hashTable;
@@ -742,7 +742,7 @@ public class iTweenHashBuilder
 	///<para></para> for the target Euler angles in degrees to rotate to.
 	/// </summary>
 	/// <param name="vector3">Vector3.</param>
-	public Hashtable setRotation (Vector3 vector3)
+	public Hashtable SetRotation (Vector3 vector3)
 	{
 		hashTable.Add ("rotation", vector3);
 		return hashTable;
@@ -753,7 +753,7 @@ public class iTweenHashBuilder
 	///<para></para> for the initial scale
 	/// </summary>
 	/// <param name="transform">Transform.</param>
-	public Hashtable setScale (Transform transform)
+	public Hashtable SetScale (Transform transform)
 	{
 		hashTable.Add ("scale", transform);
 		return hashTable;
@@ -764,7 +764,7 @@ public class iTweenHashBuilder
 	/// <para></para>for the initial scale
 	/// </summary>
 	/// <param name="vector3">Vector3.</param>
-	public Hashtable setScale (Vector3 vector3)
+	public Hashtable SetScale (Vector3 vector3)
 	{
 		hashTable.Add ("scale", vector3);
 		return hashTable;
@@ -775,7 +775,7 @@ public class iTweenHashBuilder
 	/// <para></para>for a reference to the AudioClip to be played.
 	/// </summary>
 	/// <param name="audioClip">Audio clip.</param>
-	public Hashtable setAudioclip (AudioClip audioClip)
+	public Hashtable SetAudioclip (AudioClip audioClip)
 	{
 		hashTable.Add ("audioclip", audioClip);
 		return hashTable;
@@ -786,7 +786,7 @@ public class iTweenHashBuilder
 	/// <para></para>[ValueTo ]for the starting value.
 	/// </summary>
 	/// <param name="from">Value from.</param>
-	public Hashtable setFrom (float from)
+	public Hashtable SetFrom (float from)
 	{
 		hashTable.Add ("from", from);
 		return hashTable;
@@ -797,7 +797,7 @@ public class iTweenHashBuilder
 	///<para></para> [ValueTo ]for the starting value.
 	/// </summary>
 	/// <param name="from">Value from.</param>
-	public Hashtable setFrom (double from)
+	public Hashtable SetFrom (double from)
 	{
 		hashTable.Add ("from", from);
 		return hashTable;
@@ -808,7 +808,7 @@ public class iTweenHashBuilder
 	/// <para></para>[ValueTo ]for the starting value.
 	/// </summary>
 	/// <param name="from">Value from.</param>
-	public Hashtable setFrom (Vector2 from)
+	public Hashtable SetFrom (Vector2 from)
 	{
 		hashTable.Add ("from", from);
 		return hashTable;
@@ -819,7 +819,7 @@ public class iTweenHashBuilder
 	/// <para></para>[ValueTo ]for the starting value.
 	/// </summary>
 	/// <param name="from">Value from.</param>
-	public Hashtable setFrom (Vector3 from)
+	public Hashtable SetFrom (Vector3 from)
 	{
 		hashTable.Add ("from", from);
 		return hashTable;
@@ -830,7 +830,7 @@ public class iTweenHashBuilder
 	/// <para></para>[ValueTo ]for the starting value.
 	/// </summary>
 	/// <param name="from">Value from.</param>
-	public Hashtable setFrom (Rect from)
+	public Hashtable SetFrom (Rect from)
 	{
 		hashTable.Add ("from", from);
 		return hashTable;
@@ -841,7 +841,7 @@ public class iTweenHashBuilder
 	///<para></para> [ValueTo ]for the starting value.
 	/// </summary>
 	/// <param name="from">Value from.</param>
-	public Hashtable setFrom (Color from)
+	public Hashtable SetFrom (Color from)
 	{
 		hashTable.Add ("from", from);
 		return hashTable;
@@ -853,7 +853,7 @@ public class iTweenHashBuilder
 	/// </summary>
 	/// <returns>The to.</returns>
 	/// <param name="to">Value to.</param>
-	public Hashtable setTo (float to)
+	public Hashtable SetTo (float to)
 	{
 		hashTable.Add ("to", to);
 		return hashTable;
@@ -865,7 +865,7 @@ public class iTweenHashBuilder
 	/// </summary>
 	/// <returns>The to.</returns>
 	/// <param name="to">Value to.</param>
-	public Hashtable setTo (double to)
+	public Hashtable SetTo (double to)
 	{
 		hashTable.Add ("to", to);
 		return hashTable;
@@ -877,7 +877,7 @@ public class iTweenHashBuilder
 	/// </summary>
 	/// <returns>The to.</returns>
 	/// <param name="to">Value to.</param>
-	public Hashtable setTo (Vector2 to)
+	public Hashtable SetTo (Vector2 to)
 	{
 		hashTable.Add ("to", to);
 		return hashTable;
@@ -889,7 +889,7 @@ public class iTweenHashBuilder
 	/// </summary>
 	/// <returns>The to.</returns>
 	/// <param name="to">Value to.</param>
-	public Hashtable setTo (Vector3 to)
+	public Hashtable SetTo (Vector3 to)
 	{
 		hashTable.Add ("to", to);
 		return hashTable;
@@ -901,7 +901,7 @@ public class iTweenHashBuilder
 	/// </summary>
 	/// <returns>The to.</returns>
 	/// <param name="to">Value to.</param>
-	public Hashtable setTo (Color to)
+	public Hashtable SetTo (Color to)
 	{
 		hashTable.Add ("to", to);
 		return hashTable;
@@ -913,7 +913,7 @@ public class iTweenHashBuilder
 	/// </summary>
 	/// <returns>The to.</returns>
 	/// <param name="to">Value to.</param>
-	public Hashtable setTo (Rect to)
+	public Hashtable SetTo (Rect to)
 	{
 		hashTable.Add ("to", to);
 		return hashTable;
