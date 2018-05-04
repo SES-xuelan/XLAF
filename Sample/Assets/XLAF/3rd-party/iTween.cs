@@ -6981,7 +6981,7 @@ public class iTween : MonoBehaviour
 			} else if (tweenArguments [callbackType] is Action<float>) {
 				((Action<float>)tweenArguments [callbackType]).Invoke ((float)tweenArguments [callbackType + "params"]);
 			} else {
-				Debug.LogError ("iTween Error: Callback method references must be passed as a String!");
+				Debug.LogError ("iTween Error: Callback method references must be passed as a String or Action!");
 				Destroy (this);
 			}
 		}
