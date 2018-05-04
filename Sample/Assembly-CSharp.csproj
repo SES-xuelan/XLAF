@@ -60,9 +60,11 @@
      <Compile Include="Assets\XLAF\3rd-party\iTween.cs" />
      <Compile Include="Assets\XLAF\3rd-party\iTweenHashBuilder.cs" />
      <Compile Include="Assets\XLAF\3rd-party\SimpleJSON.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Private\BackdoorDialog.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\Log.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\Log4iOS.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrAudio.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Public\MgrBackdoor.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrData.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrDialog.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrFPS.cs" />
@@ -73,6 +75,7 @@
      <Compile Include="Assets\XLAF\Scripts\Public\ModUIUtils.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModUtils.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\Storyboard.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Public\XLAFEventTriggerListener.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\XLAFMain.cs" />
      <None Include="Assets\Resources\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">

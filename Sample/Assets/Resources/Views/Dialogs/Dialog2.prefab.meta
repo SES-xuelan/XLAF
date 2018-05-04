@@ -3,6 +3,8 @@ guid: 014d7711040a943fea74f6fc41299084
 timeCreated: 1481008933
 licenseType: Free
 NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
   userData: 
-  assetBundleName: views/dialogs/dialog2.unity3d
+  assetBundleName: views/dialogs/dialog2.assetbundle
   assetBundleVariant: 

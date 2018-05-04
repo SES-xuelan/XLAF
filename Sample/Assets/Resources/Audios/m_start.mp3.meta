@@ -3,6 +3,7 @@ guid: 47c2b988cdd3b4056ab5c2c92f5075f8
 timeCreated: 1480471780
 licenseType: Free
 AudioImporter:
+  externalObjects: {}
   serializedVersion: 6
   defaultSettings:
     loadType: 0
@@ -16,7 +17,8 @@ AudioImporter:
   normalize: 1
   preloadAudioData: 1
   loadInBackground: 0
+  ambisonic: 0
   3D: 1
   userData: 
-  assetBundleName: audios/m_start.unity3d
+  assetBundleName: audios/m_start.assetbundle
   assetBundleVariant: 

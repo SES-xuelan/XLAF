@@ -51,8 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Editor\AssetBundleBuilder.cs" />
-     <Compile Include="Assets\Editor\BuildAssetBundle.cs" />
+     <Compile Include="Assets\XLAF\Editor\BuildAssetBundle.cs" />
      <Compile Include="Assets\XLAF\Editor\iOSBuild\PBXProjectDemo.cs" />
      <Compile Include="Assets\XLAF\Editor\iOSBuild\XClass.cs" />
      <Compile Include="Assets\XLAF\Editor\iOSBuild\XPlist.cs" />

@@ -27,6 +27,7 @@ public class Main : MonoBehaviour
 		XLAFMain.Init ();
 		Log.SetDebugLevel (0xF);
 		MgrFPS.ShowFPS ();
+
 //		LogManager.Print ("This is test message!!!");
 	}
 

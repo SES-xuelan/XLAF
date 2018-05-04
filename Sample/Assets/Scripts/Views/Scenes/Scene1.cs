@@ -9,7 +9,6 @@ using UnityEngine.EventSystems;
 public class Scene1 : Storyboard
 {
     
-
 	public override void OnUIEvent (UIEvent e)
 	{
 		Log.Debug ("OnUIEvent", e);
@@ -69,6 +68,10 @@ public class Scene1 : Storyboard
 		MgrAudio.PlayMusic ("m_start.mp3", 0.5f);
 		ModDispatcher.AddListener ("dia2", (XLAF_Event e) => {
 			Log.Debug ("dia2:", e.ToString ());
+		});
+
+		MgrBackdoor.SetBackdoor (ModUIUtils.GetChild (transform, "lbl_text"), (isHandled, cmd) => {
+			Log.Debug (isHandled, cmd);
 		});
 	}
 

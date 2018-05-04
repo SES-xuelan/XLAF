@@ -3,6 +3,7 @@ guid: 9b0d8fbede8324d72a48a16d2b290005
 timeCreated: 1480471785
 licenseType: Free
 AudioImporter:
+  externalObjects: {}
   serializedVersion: 6
   defaultSettings:
     loadType: 0
@@ -16,7 +17,8 @@ AudioImporter:
   normalize: 1
   preloadAudioData: 1
   loadInBackground: 0
+  ambisonic: 0
   3D: 1
   userData: 
-  assetBundleName: audios/s_click.unity3d
+  assetBundleName: audios/s_click.assetbundle
   assetBundleVariant: 

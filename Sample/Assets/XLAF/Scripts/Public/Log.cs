@@ -89,7 +89,7 @@ namespace XLAF.Public
 			_isDebugOn = _GetByteInfo (level, 1) == 1;
 			_isInfoOn = _GetByteInfo (level, 2) == 1;
 			_isWarnOn = _GetByteInfo (level, 3) == 1;
-			//			UnityEngine.Debug.LogError (_ParamsToString (isWarnOn, isInfoOn, isDebugOn, isErrorOn));
+//			UnityEngine.Debug.LogError (_ParamsToString (isWarnOn, isInfoOn, isDebugOn, isErrorOn));
 		}
 
 		public static void SetWriteToFile (bool isOn)

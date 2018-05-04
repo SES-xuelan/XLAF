@@ -3,6 +3,7 @@ guid: 2b44478c28cda40f6bd01212b7dffd06
 timeCreated: 1480471775
 licenseType: Free
 AudioImporter:
+  externalObjects: {}
   serializedVersion: 6
   defaultSettings:
     loadType: 0
@@ -16,7 +17,8 @@ AudioImporter:
   normalize: 1
   preloadAudioData: 1
   loadInBackground: 0
+  ambisonic: 0
   3D: 1
   userData: 
-  assetBundleName: audios/s_close.unity3d
+  assetBundleName: audios/s_close.assetbundle
   assetBundleVariant: 
