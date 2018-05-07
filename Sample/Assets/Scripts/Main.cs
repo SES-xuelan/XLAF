@@ -15,6 +15,7 @@ using XLAF.Public;
 7.执行基类中合适的实例构造函数
 8.执行实例构造函数
 */
+using SimpleJSON;
 
 public class Main : MonoBehaviour
 {
@@ -22,10 +23,11 @@ public class Main : MonoBehaviour
 
 	void Init ()
 	{
-		MgrScene.destoryOnSceneChange = false;
-		Application.targetFrameRate = 60;
-		XLAFMain.Init ();
 		Log.SetDebugLevel (0xF);
+		XLAFMain.Init ();
+		MgrScene.destoryOnSceneChange = false;
+
+		Application.targetFrameRate = 60;
 		MgrFPS.ShowFPS ();
 
 //		LogManager.Print ("This is test message!!!");
@@ -40,8 +42,9 @@ public class Main : MonoBehaviour
 		MgrDialog.SetDialogRoot (ModUIUtils.GetChild<Transform> (transform, "DialogViewRoot"));
 
 		MgrScene.GotoScene ("Scene1", "main", SceneAnimation.fade, 0.3f, () => {
+			
+			Log.Debug ("main Scene1 Done~",ModUtils.documentsDirectory);
 
-			Log.Debug ("main Scene1 Done~");
 
 		});
 	}

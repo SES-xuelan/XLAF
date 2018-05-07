@@ -1,0 +1,70 @@
+ManifestFileVersion: 0
+CRC: 2333717000
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 44f0a7587d7de99e5d8e07124c3ab70b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2c7a3acbf579eb246ebb00d52d5945c8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 853051423, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -1200242548, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -2061169968, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1367256648, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 2109663825, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 00b9b76cdade049669846cd57f42473c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1c85beb73c1dd4027be57268fd521f4d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2946936e80d0843d7855e04fd10e44a7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9578c1ca0288a405bbbd8b5c80e15cc5, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+- Class: 225
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Views/Dialogs/Dialog2.prefab
+- Assets/Resources/Views/Dialogs/Dialog1.prefab
+- Assets/Resources/ReadMe.txt
+- Assets/Resources/Audios/m_game.mp3
+- Assets/Resources/Audios/m_start.mp3
+- Assets/Resources/Views/Scenes/Scene1.prefab
+- Assets/Resources/Audios/s_close.mp3
+- Assets/Resources/Audios/s_click.mp3
+- Assets/Resources/Views/Scenes/Scene2.prefab
+Dependencies: []

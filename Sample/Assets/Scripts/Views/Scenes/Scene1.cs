@@ -39,13 +39,26 @@ public class Scene1 : Storyboard
                 Log.Debug ("~~~~~:", module, "|", did, "|", totalMemory, "|", cpu [0], "|", cpu [1]);
 				#endif
 			} else if (e.target.name == "btn2") {
-				MgrDialog.ShowDialog ("Dialog2", "2222", SceneAnimation.fade, 1f, () => {
-					Log.Debug ("Dialog2 Done~");
-				});
+//				MgrDialog.ShowDialog ("Dialog2", "2222", SceneAnimation.fade, 1f, () => {
+//					Log.Debug ("Dialog2 Done~");
+//				});
+
+
+				string path_shpere = ModAssetBundle.GetAssetBundlePath ("Dialog2");
+				WWW bundle = new WWW (Application.persistentDataPath + path_shpere);
+				GameObject scene = (GameObject)UnityEngine.Object.Instantiate (bundle.assetBundle.LoadAsset ("Dialog1"));
 			}
 		}
 	}
 
+	private IEnumerator loadBundleAll (string path)
+	{
+		WWW bundle = new WWW (path);
+		GameObject scene = (GameObject)UnityEngine.Object.Instantiate (bundle.assetBundle.LoadAsset ("Dialog1"));
+		Log.Debug ("scene:", scene.name);
+		bundle.assetBundle.Unload (false);
+		yield return 1;
+	}
 
 	#region  Storyboard Listeners
 
@@ -122,11 +135,11 @@ public class Scene1 : Storyboard
 	}
 
 	#if UNITY_ANDROID
-    public override void AndroidGoBack ()
-    {
-        Log.Debug ("scene1 AndroidGoBack");
-    }
-    #endif
+	public override void AndroidGoBack ()
+	{
+		Log.Debug ("scene1 AndroidGoBack");
+	}
+	#endif
 	#endregion
 
 }

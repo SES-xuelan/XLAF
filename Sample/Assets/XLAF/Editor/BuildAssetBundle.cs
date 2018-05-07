@@ -1,12 +1,15 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.IO;
+using SimpleJSON;
+using XLAF.Public;
+using System.Text.RegularExpressions;
 
 public class BuildAssetBundle
 {
 
 	public static string sourcePath = Application.dataPath + "/Resources";
-	const string AssetBundlesOutputPath = "Assets/AssetBundles";
+	const string AssetBundlesOutputPath = "Assets/StreamingAssets";
 
 	/// <summary>
 	/// 点击后，所有设置了AssetBundle名称的资源会被 分单个打包出来
@@ -25,7 +28,7 @@ public class BuildAssetBundle
 
 		//根据BuildSetting里面所激活的平台进行打包
 		BuildPipeline.BuildAssetBundles (outputPath, 0, EditorUserBuildSettings.activeBuildTarget);
-
+		GenAssetbundleConfig (outputPath);
 		AssetDatabase.Refresh ();
 
 		Debug.Log ("Build Single succeed");
@@ -50,7 +53,13 @@ public class BuildAssetBundle
 		}
 		buildMap [0].assetNames = enemyAsset;
 
-		BuildPipeline.BuildAssetBundles (Application.dataPath + "/AssetBundles/", buildMap, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
+		string outputPath = Path.Combine (AssetBundlesOutputPath, Platform.GetPlatformFolder (EditorUserBuildSettings.activeBuildTarget));
+		if (!Directory.Exists (outputPath)) {
+			Directory.CreateDirectory (outputPath);
+		}
+		BuildPipeline.BuildAssetBundles (outputPath, buildMap, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
+
+		GenAssetbundleConfig (outputPath);
 		//刷新
 		AssetDatabase.Refresh ();
 		Debug.Log ("Build Collection succeed");
@@ -120,6 +129,42 @@ public class BuildAssetBundle
 	static string Replace (string s)
 	{
 		return s.Replace ("\\", "/");
+	}
+
+	static void GenAssetbundleConfig (string path)
+	{
+		JSONNode json = GenAssetbundleConfig (path, JSONNode.Parse ("{}"), Replace (path));
+//		Debug.Log (json.ToString ());
+		ModUtils.WriteJsonToFile (path + "/assetbundle.config", json);
+	}
+
+	static JSONNode GenAssetbundleConfig (string path, JSONNode json, string basePath)
+	{
+		DirectoryInfo folder = new DirectoryInfo (path);
+		FileSystemInfo[] files = folder.GetFileSystemInfos ();
+		int length = files.Length;
+		for (int i = 0; i < length; i++) {
+			if (files [i] is DirectoryInfo) {
+				GenAssetbundleConfig (files [i].FullName, json, basePath);
+			} else {
+				if (files [i].Name.EndsWith (".assetbundle.manifest")) {
+					string data = ModUtils.ReadFile (files [i].FullName);
+					int start = data.IndexOf ("Assets:") + 8;
+					int end = data.IndexOf ("Dependencies:");
+					string assets = data.Substring (start, end - start).Trim ();
+					string[] arr = assets.Split ('\n');
+					foreach (string s in arr) {
+						if (s.EndsWith (".prefab")) {
+							string[] _arr = s.Split ('/');
+							string scene = _arr [_arr.Length - 1].Replace (".prefab", "");
+							string fullname = Replace (files [i].FullName);
+							json [scene] = fullname.Substring (fullname.IndexOf (basePath) + basePath.Length).Replace (".manifest", "");
+						}
+					}
+				}
+			}
+		}
+		return json;
 	}
 
 	public class Platform
