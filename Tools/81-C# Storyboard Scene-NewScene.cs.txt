@@ -3,7 +3,6 @@ using System.Collections;
 using XLAF.Public;
 
 public class #SCRIPTNAME# : Storyboard {
-// /Applications/Unity/Unity.app/Contents/Resources/ScriptTemplates/81-C# Storyboard Scene-NewScene.cs.txt
 
 	void Update () {
 	
@@ -25,18 +24,19 @@ public class #SCRIPTNAME# : Storyboard {
     }
 
     /*
-        CreatScene 加载完界面，还未播放动画（只有界面加载的时候，才会触发；读取缓存界面不会触发）
-        WillEnterScene 加载完毕scene，即将播放过渡动画
-        EnterScene 播放完毕过渡动画
+	    Each storyboard function called moment:
+        CreatScene     => after finish load scene before play enter animation(only call after load from prefab or asset bundle, read cache from MgrScene will not called).
+        WillEnterScene => after CreatScene, at the begin of play enter animation.
+        EnterScene     => at the end of play enter animation.
 
-        WillExitScene 即将播放退出界面的动画
-        ExitScene 播放完退出界面的动画
-        DestoryScene 销毁界面前触发
+        WillExitScene  => at the begin of play exit animation.
+        ExitScene      => at the end of play exit animation.
+        DestroyScene   => when destroy the scene(before destroy).
 
-        OverlayBegan 界面被遮挡时触发，仅计算XLAF框架内的遮挡
-        OverlayEnded 界面取消遮挡时触发，仅计算XLAF框架内的遮挡
-        AndroidGoBack Android系统下按实体back按钮触发
-        UpdateLanguage 更新语言时、CreatScene之后触发，用于更新界面文字
+        OverlayBegan   => when scene overlaid(only XLAF dialog).
+        OverlayEnded   => when scene overlaid object disappear(only XLAF dialog).
+        AndroidGoBack  => in Android, user press back button.
+        UpdateLanguage => when update language or after CreatScene.
     */
 
     public override void CreatScene (object obj)
@@ -59,7 +59,7 @@ public class #SCRIPTNAME# : Storyboard {
     {
     }
 
-    public override void DestoryScene ()
+    public override void DestroyScene ()
     {
     }
 

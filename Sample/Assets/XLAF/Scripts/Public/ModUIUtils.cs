@@ -5,18 +5,29 @@ using UnityEngine.UI;
 namespace XLAF.Public
 {
 	/// <summary>
-	/// UI工具
+	/// UI Tools
 	/// </summary>
 	public class ModUIUtils
 	{
 
+		#region constructed function & initialization
+
+		static ModUIUtils ()
+		{
+		}
+
 		/// <summary>
-		/// 调用Init会触发构造函数，可以用于统一初始化的时候
+		/// call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
 		/// </summary>
 		public static void Init ()
 		{
 
 		}
+
+
+		#endregion
+
+		#region public functions
 
 		/// <summary>
 		/// Gets the child form a transform.
@@ -55,7 +66,12 @@ namespace XLAF.Public
 
 		}
 
-
+		/// <summary>
+		/// Changes the position.
+		/// </summary>
+		/// <param name="rect">Rect.</param>
+		/// <param name="x">The x coordinate.</param>
+		/// <param name="y">The y coordinate.</param>
 		public static void ChangePos (RectTransform rect, float? x = null, float? y = null)
 		{
 			float _x = rect.anchoredPosition.x;
@@ -68,7 +84,12 @@ namespace XLAF.Public
 				rect.anchoredPosition = new Vector2 ((float)x, (float)y);
 
 		}
-
+		/// <summary>
+		/// Changes the position.
+		/// </summary>
+		/// <param name="t">button.</param>
+		/// <param name="x">The x coordinate.</param>
+		/// <param name="y">The y coordinate.</param>
 		public static void ChangePos (Button t, float? x = null, float? y = null)
 		{
 			RectTransform rect = t.image.rectTransform;
@@ -77,7 +98,12 @@ namespace XLAF.Public
 			ChangePos (rect, x, y);
 		}
 
-
+		/// <summary>
+		/// Changes the size.
+		/// </summary>
+		/// <param name="rect">Rect.</param>
+		/// <param name="width">Width.</param>
+		/// <param name="height">Height.</param>
 		public static void ChangeSize (RectTransform rect, float? width = null, float? height = null)
 		{
 
@@ -90,7 +116,12 @@ namespace XLAF.Public
 			else
 				rect.sizeDelta = new Vector2 ((float)width, (float)height);
 		}
-
+		/// <summary>
+		/// Changes the size.
+		/// </summary>
+		/// <param name="t">button.</param>
+		/// <param name="width">Width.</param>
+		/// <param name="height">Height.</param>
 		public static void ChangeSize (Button t, float? width = null, float? height = null)
 		{
 			RectTransform rect = t.GetComponent<RectTransform> ();
@@ -98,7 +129,12 @@ namespace XLAF.Public
 				Log.Error ("RectTransform is null");
 			ChangeSize (rect, width, height);
 		}
-
+		/// <summary>
+		/// Changes the size.
+		/// </summary>
+		/// <param name="t">gameobject.</param>
+		/// <param name="width">Width.</param>
+		/// <param name="height">Height.</param>
 		public static void ChangeSize (GameObject t, float? width = null, float? height = null)
 		{
 			RectTransform rect = t.GetComponent<RectTransform> ();
@@ -106,6 +142,8 @@ namespace XLAF.Public
 				Log.Error ("RectTransform is null");
 			ChangeSize (rect, width, height);
 		}
+
+		#endregion
 	}
 
 }

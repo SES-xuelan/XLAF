@@ -5,22 +5,35 @@ using SimpleJSON;
 
 namespace XLAF.Public
 {
-	public class ModAssetBundle
+	/// <summary>
+	/// Asset bundle manager.
+	/// </summary>
+	public class MgrAssetBundle
 	{
+		#region private variables
+
 		private static JSONNode jsonData = null;
 
+		#endregion
+
+		#region constructed function & initialization
+
+		static MgrAssetBundle ()
+		{
+			string path = ModUtils.documentsDirectory;
+			LoadAssetBundleConfig (path + "/assetbundle.config");
+		}
+
 		/// <summary>
-		/// 调用Init会触发构造函数，可以用于统一初始化的时候
+		/// call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
 		/// </summary>
 		public static void Init ()
 		{
 		}
 
-		static ModAssetBundle ()
-		{
-			string path = ModUtils.documentsDirectory;
-			LoadAssetBundleConfig (path + "/assetbundle.config");
-		}
+		#endregion
+
+		#region public functions
 
 		public static JSONNode  LoadAssetBundleConfig (string filePathName)
 		{
@@ -28,7 +41,7 @@ namespace XLAF.Public
 			jsonData = ModUtils.ReadJsonFromFile (filePathName, JSONNode.Parse ("{}"));
 			return jsonData;
 		}
-		 
+
 		public static string GetAssetBundlePath (string sceneName)
 		{
 			if (jsonData == null) {
@@ -43,5 +56,7 @@ namespace XLAF.Public
 			Log.Debug ("HasAssetBundle()", jsonData, sceneName, GetAssetBundlePath (sceneName) != "");
 			return GetAssetBundlePath (sceneName) != "";
 		}
+
+		#endregion
 	}
 }

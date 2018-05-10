@@ -9,13 +9,13 @@ using UnityEngine.UI;
 namespace XLAF.Public
 {
 	/// <summary>
-	/// 常用工具（函数）
+	/// Tools
 	/// </summary>
 	public class ModUtils
 	{
 		/// <summary>
-		/// Time stamp.
-		/// 计算时间差的，毫秒级，主要用于测试性能时使用
+		/// Time stamp.<para></para>
+		/// calculate timestamp in milliseconds, often use for test or debug
 		/// </summary>
 		public class TimeStamp
 		{
@@ -39,6 +39,8 @@ namespace XLAF.Public
 			}
 		}
 
+		#region constructed function & initialization
+
 		static ModUtils ()
 		{
 			Log.Info ("documentsDirectory", ModUtils.documentsDirectory);
@@ -47,13 +49,16 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// 调用Init会触发构造函数，可以用于统一初始化的时候
+		/// call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
 		/// </summary>
 		public static void Init ()
 		{
 
 		}
 
+		#endregion
+
+		#region public functions
 
 		/// <summary>
 		/// Writes string to file.
@@ -131,8 +136,8 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// 项目目录下的StreamingAssets目录
-		/// 例如：/Users/champion_yuan/Desktop/unityAlbert/wordAlbert/Assets/StreamingAssets
+		/// StreamingAssets folder<para>></para>
+		/// e.g. Assets/StreamingAssets
 		/// </summary>
 		/// <value>The streaming directory.</value>
 		public static string streamingDirectory {
@@ -142,7 +147,8 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// documents目录，在手机上会被iCloud和google自动备份
+		/// documents  folder<para>></para>
+		/// in mobile this folder will backup automatic with iCloud or google
 		/// </summary>
 		/// <value>The documents directory.</value>
 		public static string documentsDirectory {
@@ -152,7 +158,9 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// temporary目录，在手机上会不会被iCloud和google自动备份，清理缓存的时候该目录可能会被清除.
+		/// temporary folder <para></para>
+		/// in mobile this folder will NOT backup with iCloud or google. <para></para>
+		/// when user clear cache, files in this folder will be removed!
 		/// </summary>
 		/// <value>The temporary directory.</value>
 		public static string temporaryDirectory {
@@ -162,42 +170,82 @@ namespace XLAF.Public
 		}
 
 		#if UNITY_ANDROID
-        /// <summary>
-        /// Android外置储存卡的位置
-        /// </summary>
-        /// <value>The SD card path.</value>
-        public static string SDCardPath  { get { return "/sdcard"; } }
+		/// <summary>
+		/// Android ext sdcard path
+		/// </summary>
+		/// <value>The SD card path.</value>
+		public static string SDCardPath  { get { return "/sdcard"; } }
 
-        /// <summary>
-        /// Android内置储存卡的位置
-        /// </summary>
-        /// <value>The storage path.</value>
-        public static string storagePath { get { return "/storage/emulated/0"; } }
-        #endif
+		/// <summary>
+		/// Android inner storage(inner sdcard) path
+		/// </summary>
+		/// <value>The storage path.</value>
+		public static string storagePath { get { return "/storage/emulated/0"; } }
 
+		/// <summary>
+		/// Shows the toast.
+		/// </summary>
+		public static void ShowToast ()
+		{
+			//!!TODO!!
+		}
+		#endif
 
+		/// <summary>
+		/// Shows the alert.
+		/// </summary>
+		/// <param name="title">Title.</param>
+		/// <param name="message">Message.</param>
+		/// <param name="okLabel">Ok label.</param>
+		/// <param name="cancelLabel">Cancel label.</param>
+		/// <param name="neutralLabel">Neutral label.</param>
+		/// <param name="actionOK">Action O.</param>
+		/// <param name="actionCancel">Action cancel.</param>
+		/// <param name="actionNeutral">Action neutral.</param>
 		public static void ShowAlert (string title, string message, string okLabel, string cancelLabel, string neutralLabel, 
 		                              Action actionOK, Action actionCancel, Action actionNeutral)
 		{
+			//!!TODO!!
 			Log.Debug (title, message);
 
 		}
 
+		/// <summary>
+		/// Shows the alert.
+		/// </summary>
+		/// <param name="title">Title.</param>
+		/// <param name="message">Message.</param>
+		/// <param name="okLabel">Ok label.</param>
+		/// <param name="cancelLabel">Cancel label.</param>
+		/// <param name="actionOK">Action O.</param>
+		/// <param name="actionCancel">Action cancel.</param>
 		public static void ShowAlert (string title, string message, string okLabel, string cancelLabel, 
 		                              Action actionOK, Action actionCancel)
 		{
+			//!!TODO!!
 			Log.Debug (title, message);
 		}
 
-
+		/// <summary>
+		/// Shows the alert.
+		/// </summary>
+		/// <param name="title">Title.</param>
+		/// <param name="message">Message.</param>
+		/// <param name="okLabel">Ok label.</param>
+		/// <param name="actionOK">Action O.</param>
 		public static void ShowAlert (string title, string message, string okLabel, Action actionOK)
 		{
+			//!!TODO!!
 			Log.Debug (title, message);
 		}
 
+		/// <summary>
+		/// Bindings the button event.
+		/// </summary>
+		/// <param name="parent">Parent.</param>
+		/// <param name="OnUIEvent">On user interface event.</param>
 		public static void BindingButtonEvent (GameObject parent, Action<UIEvent> OnUIEvent)
 		{
-			//绑定button的click事件
 			Button[] buttons = parent.GetComponentsInChildren<Button> (true);
 			for (int i = 0; i < buttons.Length; i++) {
 				Button b = buttons [i];
@@ -209,12 +257,16 @@ namespace XLAF.Public
 					OnUIEvent (e);
 				});
 			}
-			//!!TODO!! 可以继续绑定其他的事件
+			//!!TODO!! binding other events
 		}
 
+		/// <summary>
+		/// Replaces the button event (only onClick event now).
+		/// </summary>
+		/// <param name="parent">Parent.</param>
+		/// <param name="OnUIEvent">On user interface event.</param>
 		public static void ReplaceButtonEvent (GameObject parent, Action<UIEvent> OnUIEvent)
 		{
-			//绑定button的click事件
 			Button[] buttons = parent.GetComponentsInChildren<Button> (true);
 			for (int i = 0; i < buttons.Length; i++) {
 				Button b = buttons [i];
@@ -227,20 +279,34 @@ namespace XLAF.Public
 					OnUIEvent (e);
 				});
 			}
-			//!!TODO!! 可以继续绑定其他的事件
+			//!!TODO!! binding other events
 		}
 
+		/// <summary>
+		/// Bindings the user interface events.
+		/// </summary>
+		/// <param name="parent">Parent.</param>
+		/// <param name="OnUIEvent">On user interface event.</param>
 		public static void BindingUIEvents (GameObject parent, Action<UIEvent> OnUIEvent)
 		{
 			BindingButtonEvent (parent, OnUIEvent);
 		}
 
+		/// <summary>
+		/// Replaces the user interface events.
+		/// </summary>
+		/// <param name="parent">Parent.</param>
+		/// <param name="OnUIEvent">On user interface event.</param>
 		public static void ReplaceUIEvents (GameObject parent, Action<UIEvent> OnUIEvent)
 		{
 			ReplaceButtonEvent (parent, OnUIEvent);
 		}
 
-
+		/// <summary>
+		/// Convert character to the ASCII int code.
+		/// </summary>
+		/// <returns>The ASCII.</returns>
+		/// <param name="character">Character.</param>
 		public static int Character2Ascii (string character)
 		{
 			if (character.Length == 1) {
@@ -252,7 +318,11 @@ namespace XLAF.Public
 			}
 		}
 
-
+		/// <summary>
+		/// Convert ASCII code to the character.
+		/// </summary>
+		/// <returns>The character.</returns>
+		/// <param name="asciiCode">ASCII code.</param>
 		public static string Ascii2Character (int asciiCode)
 		{
 			if (asciiCode >= 0 && asciiCode <= 255) {
@@ -265,6 +335,7 @@ namespace XLAF.Public
 			}
 		}
 
+		#endregion
 	}
 
 

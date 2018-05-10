@@ -14,7 +14,7 @@ namespace UnityEditor.XCodeEditor
 		{
 			filePath = fPath;
 			if (!System.IO.File.Exists (filePath)) {
-				Debug.LogError (filePath + "路径下文件不存在");
+				Debug.LogError (filePath + " file not exist");
 				return;
 			}
 		}
@@ -28,7 +28,7 @@ namespace UnityEditor.XCodeEditor
 
 			int beginIndex = text_all.IndexOf (below);
 			if (beginIndex == -1) {
-				Debug.LogError (filePath + "中没有找到标致" + below);
+				Debug.LogError (filePath + " can't find " + below);
 				return; 
 			}
 
@@ -49,7 +49,7 @@ namespace UnityEditor.XCodeEditor
 
 			int beginIndex = text_all.IndexOf (below);
 			if (beginIndex == -1) {
-				Debug.LogError (filePath + "中没有找到标致" + below);
+				Debug.LogError (filePath + " can't find " + below);
 				return; 
 			}
 

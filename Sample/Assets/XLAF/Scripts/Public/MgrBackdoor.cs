@@ -6,13 +6,17 @@ using System;
 namespace XLAF.Public
 {
 	/// <summary>
-	/// backdoor manager.
-	/// 后门，在BACKDOOR_OUT_OF_SECONDS秒内点击BACKDOOR_CLICK_TIMES次则显示后门
+	/// backdoor manager.<para></para>
+	/// click  BACKDOOR_CLICK_TIMES in BACKDOOR_OUT_OF_SECONDS will show backdoor.<para></para>
+	/// !!WARNNING!!<para></para>
+	/// ONLY use back door for debug!!!
 	/// </summary>
 	public class MgrBackdoor:MonoBehaviour
 	{
 		private static readonly int BACKDOOR_CLICK_TIMES = 30;
 		private static readonly int BACKDOOR_OUT_OF_SECONDS = 10;
+
+		#region private variables
 
 		private static Action<bool,string> callback;
 		private static int clickedTimes = 0;
@@ -21,14 +25,30 @@ namespace XLAF.Public
 
 		private bool isRunning = false;
 
+		#endregion
+
+		#region constructed function & initialization
+
 		static MgrBackdoor ()
 		{
 			instance = XLAFMain.XLAFGameObject.AddComponent<MgrBackdoor> ();
 		}
 
 		/// <summary>
+		/// call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
+		/// </summary>
+		public static void Init ()
+		{
+
+		}
+
+		#endregion
+
+		#region public functions
+
+		/// <summary>
 		/// Sets the backdoor.
-		/// Callback<isHandled,cmd>
+		/// Callback<isHandled,cmdString>
 		/// </summary>
 		/// <param name="transform">Transform.</param>
 		/// <param name="callback">Callback<isHandled,cmd>.</param>
@@ -39,7 +59,7 @@ namespace XLAF.Public
 
 		/// <summary>
 		/// Sets the backdoor.
-		/// Callback<isHandled,cmd>
+		/// Callback<isHandled,cmdString>
 		/// </summary>
 		/// <param name="transform">Transform.</param>
 		/// <param name="callback">Callback<isHandled,cmd>.</param>
@@ -48,6 +68,10 @@ namespace XLAF.Public
 			XLAFEventTriggerListener.Get (gameObject).onClick = OnClick;
 			MgrBackdoor.callback = callback;
 		}
+
+		#endregion
+
+		#region private functions
 
 		private static void OnClick (GameObject go)
 		{
@@ -58,13 +82,11 @@ namespace XLAF.Public
 			}
 			if (clickedTimes >= BACKDOOR_CLICK_TIMES) {
 				instance.TimeOutEnded ();
-				clickedTimes = BACKDOOR_CLICK_TIMES - 2;//点出来过后门之后，点击2次就出现
+				//after backdoor shown, click 2 times will show backdoor again
+				clickedTimes = BACKDOOR_CLICK_TIMES - 2;
 				MgrDialog.ShowDialog ("XLAFBackdoor", MgrBackdoor.callback, SceneAnimation.none);
 			}
 		}
-
-
-
 
 		private void TimeOutBegan ()
 		{
@@ -84,6 +106,8 @@ namespace XLAF.Public
 			isRunning = false;
 			MgrBackdoor.clickedTimes = 0;
 		}
+
+		#endregion
 	}
 
 }

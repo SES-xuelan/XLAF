@@ -9,6 +9,7 @@
 * 完善各个事件（CreateScene、EnterScene等）
 * 将各个view、Lua等模板写好
 * Sample中集成protobuf
+* Sample中集成p2p
 * Sample中集成ShareSDK
 * Sample中集成Editor的打包AssetBundle、一键打包等
 * 完善readme文档

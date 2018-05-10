@@ -7,19 +7,11 @@ using System;
 namespace XLAF.Public
 {
 	/// <summary>
-	/// 弹窗管理，和MgrScene代码差不多
+	///  Dialog manager, the code is similar to <see cref="MgrScene"/>
 	/// </summary>
 	public class MgrDialog : MonoBehaviour
 	{
-		static MgrDialog ()
-		{
-			DIALOGS = new Dictionary<string, SceneObject> ();
-			instance = XLAFMain.XLAFGameObject.AddComponent<MgrDialog> ();
-
-			screenHeight = MgrScene.screenHeight;
-			screenWidth = MgrScene.screenWidth;
-		}
-
+		#region private variables
 
 		private static Transform dialogViewRoot = null;
 		private static CanvasGroup dialogViewRootCanvas = null;
@@ -34,14 +26,30 @@ namespace XLAF.Public
 		private static Dictionary<string,SceneObject> DIALOGS;
 		private static List<SceneObject> DIALOGS_STACK = new List<SceneObject> ();
 
+		#endregion
+
+		#region constructed function & initialization
+
+		static MgrDialog ()
+		{
+			DIALOGS = new Dictionary<string, SceneObject> ();
+			instance = XLAFMain.XLAFGameObject.AddComponent<MgrDialog> ();
+
+			screenHeight = MgrScene.screenHeight;
+			screenWidth = MgrScene.screenWidth;
+		}
 
 		/// <summary>
-		/// 调用Init会触发构造函数，可以用于统一初始化的时候
+		/// call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
 		/// </summary>
 		public static void Init ()
 		{
 
 		}
+
+		#endregion
+
+		#region public variables
 
 		/// <summary>
 		/// Gets a value indicating whether this <see cref="XLAF.Public.MgrDialog"/> is scene changing.
@@ -62,6 +70,10 @@ namespace XLAF.Public
 				return animating || MgrScene.isSceneChanging;
 			}
 		}
+
+		#endregion
+
+		#region public functions
 
 		/// <summary>
 		/// Sets the dialog root.
@@ -126,19 +138,18 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// Loads the dialog.
-		/// 用于dialog的东西比较多，需要提前加载的情况
+		/// Loads the dialog, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
 		/// </summary>
 		/// <param name="sceneName">Scene name.</param>
-		/// <param name="data">需要传递的数据</param>
+		/// <param name="data">the data you want to transmit</param>
 		public static void LoadDialog (string sceneName, object data)
 		{
 			if (DIALOGS.ContainsKey (sceneName))
 				return;
 
 			SceneObject sceneObj = null;
-			if (ModAssetBundle.HasAssetBundle (sceneName)) {
-				sceneObj = new SceneObject (ModUtils.documentsDirectory + ModAssetBundle.GetAssetBundlePath (sceneName), sceneName);
+			if (MgrAssetBundle.HasAssetBundle (sceneName)) {
+				sceneObj = new SceneObject (ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
 			} else {
 				sceneObj = new SceneObject (string.Format (dialogPathFormat, sceneName));
 			}
@@ -149,12 +160,12 @@ namespace XLAF.Public
 
 			sceneObj.scene.transform.SetParent (dialogViewRoot, false);
 			sceneObj.scene.SetActive (false);
-			sceneObj.scene.transform.SetAsFirstSibling ();//置底
+			sceneObj.scene.transform.SetAsFirstSibling ();//set to under 
 		}
 
 		/// <summary>
 		/// Loads the dialog.
-		/// 用于dialog的东西比较多，需要提前加载的情况
+		/// this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene) .
 		/// </summary>
 		/// <param name="sceneName">Scene name.</param>
 		public static void LoadDialog (string sceneName)
@@ -1108,6 +1119,7 @@ namespace XLAF.Public
 
 		#endregion
 
+		#endregion
 
 		#region  private functions (animation functions)
 
@@ -1116,9 +1128,9 @@ namespace XLAF.Public
 			if (sceneObj == null)
 				return;
             
-			//scene.SendMessage ("DestoryScene");
+			//scene.SendMessage ("DestroyScene");
 			string sceneName = sceneObj.script.sceneName;
-			sceneObj.script.DestoryScene ();
+			sceneObj.script.DestroyScene ();
 
 			//OverlayEnded event
 			SceneObject currScene = MgrScene.GetCurrentScene ();
@@ -1141,8 +1153,8 @@ namespace XLAF.Public
 			}
 			SceneObject sceneObj;
 			if (!DIALOGS.ContainsKey (sceneName)) {
-				if (ModAssetBundle.HasAssetBundle (sceneName)) {
-					sceneObj = new SceneObject (ModUtils.documentsDirectory + ModAssetBundle.GetAssetBundlePath (sceneName), sceneName);
+				if (MgrAssetBundle.HasAssetBundle (sceneName)) {
+					sceneObj = new SceneObject (ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
 				} else {
 					sceneObj = new SceneObject (string.Format (dialogPathFormat, sceneName));
 				}
@@ -1164,7 +1176,7 @@ namespace XLAF.Public
 			sceneObj.DisableUIListener ();
 			sceneObj.scene.transform.SetParent (dialogViewRoot, false);
 			sceneObj.scene.SetActive (true);
-			sceneObj.scene.transform.SetAsLastSibling ();//置顶
+			sceneObj.scene.transform.SetAsLastSibling ();//set top
 			sceneObj.script.WillEnterScene (data);
 			return sceneObj;
 		}

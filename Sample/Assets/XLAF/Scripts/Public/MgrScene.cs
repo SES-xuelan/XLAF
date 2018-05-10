@@ -8,19 +8,49 @@ using System;
 namespace XLAF.Public
 {
 	/// <summary>
-	/// scene管理，和MgrDialog代码差不多
+	/// Scene manager, the code is similar to <see cref="MgrDialog"/>
 	/// </summary>
 	public class MgrScene : MonoBehaviour
 	{
-		public static bool destoryOnSceneChange = false;
+		#region public variables
 
+		public static bool destroyOnSceneChange = false;
+
+		#endregion
+
+		#region private variables
+
+		private static MgrScene instance = null;
+		private static readonly string scenePathFormat = "Views/Scenes/{0}";
+
+		private static bool animating = false;
+		private static SceneObject currentScene = null;
+		private static Transform sceneViewRoot = null;
+		private static CanvasGroup sceneViewRootCanvas = null;
+
+		private static float _screenWidth;
+		private static float _screenHeight;
+
+		private static Dictionary<string,SceneObject> SCENES;
+
+		#endregion
+
+		#region public readonly variables
+
+		public static float screenWidth{ get { return _screenWidth; } }
+
+		public static float screenHeight{ get { return _screenHeight; } }
+
+		public static float screenScale{ get { return  (float)_screenHeight / Screen.height; } }
+
+		#endregion
+
+		#region constructed function & initialization
 
 		static MgrScene ()
 		{
 			SCENES = new Dictionary<string, SceneObject> ();
 			instance = XLAFMain.XLAFGameObject.AddComponent<MgrScene> ();
-
-
 
 			_screenHeight = Camera.main.orthographicSize * 2;
 			float aspectRatio = (float)Screen.width / Screen.height;
@@ -29,35 +59,17 @@ namespace XLAF.Public
 			Log.Debug ("screenHeight,screenWidth", screenHeight, screenWidth);
 		}
 
-
 		/// <summary>
-		/// 调用Init会触发构造函数，可以用于统一初始化的时候
+		/// call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
 		/// </summary>
 		public static void Init ()
 		{
 
 		}
 
+		#endregion
 
-		private static MgrScene instance = null;
-		private static readonly string scenePathFormat = "Views/Scenes/{0}";
-
-
-		private static bool animating = false;
-		private static SceneObject currentScene = null;
-		private static Transform sceneViewRoot = null;
-		private static CanvasGroup sceneViewRootCanvas = null;
-
-		public static float screenWidth{ get { return _screenWidth; } }
-
-		public static float screenHeight{ get { return _screenHeight; } }
-
-		public static float screenScale{ get { return  (float)_screenHeight / Screen.height; } }
-
-		private static float _screenWidth;
-		private static float _screenHeight;
-
-		private static Dictionary<string,SceneObject> SCENES;
+		#region public functions
 
 		/// <summary>
 		/// Sets the view root.
@@ -69,7 +81,6 @@ namespace XLAF.Public
 			sceneViewRootCanvas = sceneViewRoot.transform.GetComponent<CanvasGroup> ();
 
 		}
-
 
 		/// <summary>
 		/// Gets the view root.
@@ -137,18 +148,17 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// Loads the scene.
-		/// 用于scene的东西比较多，需要提前加载的情况
+		/// Loads the scene, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
 		/// </summary>
 		/// <param name="sceneName">Scene name.</param>
-		/// <param name="data">要传递给scene的数据</param>
+		/// <param name="data">the data you want to transmit</param>
 		public static void LoadScene (string sceneName, object data)
 		{
 			if (SCENES.ContainsKey (sceneName))
 				return;
 			SceneObject sceneObj = null;
-			if (ModAssetBundle.HasAssetBundle (sceneName)) {
-				sceneObj = new SceneObject (ModUtils.documentsDirectory+ ModAssetBundle.GetAssetBundlePath (sceneName), sceneName);
+			if (MgrAssetBundle.HasAssetBundle (sceneName)) {
+				sceneObj = new SceneObject (ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
 			} else {
 				sceneObj = new SceneObject (string.Format (scenePathFormat, sceneName));
 			}
@@ -158,18 +168,55 @@ namespace XLAF.Public
 
 			sceneObj.scene.transform.SetParent (sceneViewRoot, false);
 			sceneObj.scene.SetActive (false);
-			sceneObj.scene.transform.SetAsFirstSibling ();//置底
+			sceneObj.scene.transform.SetAsFirstSibling ();//set to under
 
 		}
 
 		/// <summary>
-		/// Loads the scene.
-		/// 用于scene的东西比较多，需要提前加载的情况
+		/// Loads the scene, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
 		/// </summary>
 		/// <param name="sceneName">Scene name.</param>
 		public static void LoadScene (string sceneName)
 		{
 			LoadScene (sceneName, "");
+		}
+
+		/// <summary>
+		/// Destroy the scene.
+		/// </summary>
+		/// <param name="sceneObj">Scene object.</param>
+		/// <param name="destroyImmediate">If set to <c>true</c> destroy immediate.</param>
+		public static void DestroyScene (SceneObject sceneObj, bool destroyImmediate = true)
+		{
+			if (sceneObj == null || sceneObj.script == null)
+				return;
+			
+			string sceneName = sceneObj.script.sceneName;
+			sceneObj.script.DestroyScene ();
+			SCENES.Remove (sceneName);
+			if (destroyImmediate)
+				DestroyImmediate (sceneObj.scene.gameObject);
+			else
+				Destroy (sceneObj.scene.gameObject);
+		}
+
+		/// <summary>
+		/// Destroy the scene.
+		/// </summary>
+		/// <param name="sceneName">Scene name.</param>
+		/// <param name="destroyImmediate">If set to <c>true</c> destroy immediate.</param>
+		public static void DestroyScene (string sceneName, bool destroyImmediate = true)
+		{
+			SceneObject sceneObj = GetScene (sceneName);
+			if (sceneObj == null)
+				return;
+			
+			sceneObj.script.DestroyScene ();
+			SCENES.Remove (sceneName);
+			if (destroyImmediate)
+				DestroyImmediate (sceneObj.scene.gameObject);
+			else
+				Destroy (sceneObj.scene.gameObject);
 		}
 
 		/// <summary>
@@ -753,22 +800,40 @@ namespace XLAF.Public
 
 		#endregion
 
+
+		public static void Update ()
+		{
+			#if UNITY_ANDROID
+			if (MgrDialog.hasDialog) {
+				return;
+			}
+			if (Input.GetKeyDown (KeyCode.Escape)) { //android back
+				SceneObject curr = MgrScene.GetCurrentScene ();
+				if (curr != null) {
+					curr.script.AndroidGoBack ();
+				}
+			}
+			#endif
+		}
+
+		#endregion
+
 		#region  private functions (anim functions)
 
 		private static void _UnloadOldScene (SceneObject sceneObj = null)
 		{
 			if (sceneObj == null)
 				return;
-		
-			if (destoryOnSceneChange) {
-				//scene.SendMessage ("DestoryScene");
+
+			if (destroyOnSceneChange) {
+				//scene.SendMessage ("DestroyScene");
 				string sceneName = sceneObj.script.sceneName;
-				sceneObj.script.DestoryScene ();
+				sceneObj.script.DestroyScene ();
 				Destroy (sceneObj.scene.gameObject);
 				SCENES.Remove (sceneName);
 			} else {
 				sceneObj.scene.SetActive (false);
-				//如果不销毁的话，恢复到初始状态
+				//if not destroy, reset status
 				sceneObj.RestoreStatus ();
 			}
 		}
@@ -781,8 +846,8 @@ namespace XLAF.Public
 
 			if (!SCENES.ContainsKey (sceneName)) {
 				SceneObject sceneObj;
-				if (ModAssetBundle.HasAssetBundle (sceneName)) {
-					sceneObj = new SceneObject (ModUtils.documentsDirectory+ModAssetBundle.GetAssetBundlePath (sceneName), sceneName);
+				if (MgrAssetBundle.HasAssetBundle (sceneName)) {
+					sceneObj = new SceneObject (ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
 				} else {
 					sceneObj = new SceneObject (string.Format (scenePathFormat, sceneName));
 				}
@@ -796,7 +861,7 @@ namespace XLAF.Public
 			currentScene.DisableUIListener ();
 			currentScene.scene.transform.SetParent (sceneViewRoot, false);
 			currentScene.scene.SetActive (true);
-			currentScene.scene.transform.SetAsLastSibling ();//置顶
+			currentScene.scene.transform.SetAsLastSibling ();//set top
 			//currentScene.SendMessage ("WillEnterScene", data);
 			currentScene.script.WillEnterScene (data);
 		}
@@ -822,7 +887,7 @@ namespace XLAF.Public
 			SceneObject oldScene = currentScene;
 			if (oldScene != null) {
 				oldScene.script.WillExitScene ();
-				//恢复到透明度1
+				//reset alpha to 1
 				oldScene.ChangeAlpha (1f);
 				Log.Debug ("ChangeAlpha to 1");
 				iTween.ValueTo (oldScene.scene, iTween.Hash (
@@ -830,29 +895,29 @@ namespace XLAF.Public
 					"to", 0,
 					"time", fadeInTime,
 					"onupdate", (Action<float>)((alpha) => {
-					oldScene.ChangeAlpha (alpha);
-				}),
-					"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					_LoadNewScene (sceneName, data);
-					currentScene.ChangeAlpha (0f);
-					iTween.ValueTo (currentScene.scene, iTween.Hash (
-						"from", 0,
-						"to", 1,
-						"time", fadeOutTime,
-						"onupdate", (Action<float>)((alpha) => {
-						currentScene.ChangeAlpha (alpha);
+						oldScene.ChangeAlpha (alpha);
 					}),
-						"oncomplete", (Action)(() => {
-						if (cb != null)
-							cb ();
-						currentScene.script.EnterScene (data);
-						currentScene.EnableUIListener ();
-						animating = false;
+					"oncomplete", (Action)(() => {
+						oldScene.script.ExitScene ();
+						_UnloadOldScene (oldScene);
+						_LoadNewScene (sceneName, data);
+						currentScene.ChangeAlpha (0f);
+						iTween.ValueTo (currentScene.scene, iTween.Hash (
+							"from", 0,
+							"to", 1,
+							"time", fadeOutTime,
+							"onupdate", (Action<float>)((alpha) => {
+								currentScene.ChangeAlpha (alpha);
+							}),
+							"oncomplete", (Action)(() => {
+								if (cb != null)
+									cb ();
+								currentScene.script.EnterScene (data);
+								currentScene.EnableUIListener ();
+								animating = false;
+							})
+						));
 					})
-					));
-				})
 				));
 			} else {
 				_LoadNewScene (sceneName, data);// load new scene  or   set exise scene
@@ -862,15 +927,15 @@ namespace XLAF.Public
 					"to", 1,
 					"time", fadeOutTime,
 					"onupdate", (Action<float>)((alpha) => {
-					currentScene.ChangeAlpha (alpha);
-				}),
+						currentScene.ChangeAlpha (alpha);
+					}),
 					"oncomplete", (Action)(() => {
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+						if (cb != null)
+							cb ();
+						currentScene.script.EnterScene (data);
+						currentScene.EnableUIListener ();
+						animating = false;
+					})
 				));
 			}
 
@@ -902,14 +967,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 		}
 
@@ -941,14 +1006,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 		}
 
@@ -980,14 +1045,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 		}
 
@@ -1019,14 +1084,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 		}
 
@@ -1039,7 +1104,7 @@ namespace XLAF.Public
 				return;
 			}
 			iTween.EaseType ease = (easeType == iTween.EaseType.defaultType) ? iTween.EaseType.easeOutExpo : easeType;
-            
+
 			float nomalX = currentScene.scene.transform.position.x;
 			float nomalY = currentScene.scene.transform.position.y;
 			float newSceneStartX = nomalX + screenWidth;
@@ -1064,14 +1129,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 		}
 
@@ -1108,14 +1173,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 		}
 
@@ -1153,14 +1218,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 		}
 
@@ -1197,14 +1262,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 		}
 
@@ -1221,14 +1286,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 
 		}
@@ -1241,70 +1306,51 @@ namespace XLAF.Public
 			_LoadNewScene (sceneName, data);// load new scene  or   set exise scene
 			currentScene.scene.transform.localScale = new Vector3 (1f, 1f);
 			oldScene.script.WillExitScene ();
-			oldScene.scene.transform.SetAsLastSibling ();//旧的scene在最上
+			oldScene.scene.transform.SetAsLastSibling ();//old scene is in top
 			iTween.ScaleTo (oldScene.scene, iTween.Hash (
 				"scale", new Vector3 (0f, 0f),
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-				oldScene.script.ExitScene ();
-				_UnloadOldScene (oldScene);
-				if (!destoryOnSceneChange) {
-					oldScene.scene.transform.localScale = new Vector3 (1f, 1f);
-				}
-				if (cb != null)
-					cb ();
-				currentScene.script.EnterScene (data);
-				currentScene.EnableUIListener ();
-				animating = false;
-			})
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					if (!destroyOnSceneChange) {
+						oldScene.scene.transform.localScale = new Vector3 (1f, 1f);
+					}
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 			));
 		}
 
 		#endregion
 
-
-		public static void Update ()
-		{
-			#if UNITY_ANDROID
-			if (MgrDialog.hasDialog) {
-				return;
-			}
-			if (Input.GetKeyDown (KeyCode.Escape)) { //android back
-				SceneObject curr = MgrScene.GetCurrentScene ();
-				if (curr != null) {
-					curr.script.AndroidGoBack ();
-				}
-			}
-			#endif
-		}
-
 	}
-
 	/// <summary>
-	/// Scene 的动画效果
+	/// Scene animation.
 	/// </summary>
 	public enum SceneAnimation
 	{
-		//无任何效果
 		none,
-		//渐隐渐现
 		fade,
-		//从右侧飞过来（覆盖旧的scene）
+		//fly from right(cover current scene)
 		fromRight,
 		fromLeft,
 		fromTop,
 		fromBottom,
-		//推向左面（不会覆盖旧的scene）
+		//push the scene to left (not cover current scene)
 		slideLeft,
 		slideRight,
 		slideDown,
 		slideUp,
-		//放大
+		//zoom large
 		zoomIn,
-		//缩小
+		//zoom small
 		zoomOut
-		//还需要什么效果，可以在下面添加
+		//you can add other animation below
 	}
 
 	/// <summary>

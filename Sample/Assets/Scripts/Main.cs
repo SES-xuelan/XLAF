@@ -25,7 +25,7 @@ public class Main : MonoBehaviour
 	{
 		Log.SetDebugLevel (0xF);
 		XLAFMain.Init ();
-		MgrScene.destoryOnSceneChange = false;
+		MgrScene.destroyOnSceneChange = false;
 
 		Application.targetFrameRate = 60;
 		MgrFPS.ShowFPS ();

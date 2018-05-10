@@ -5,114 +5,135 @@ using System.Linq;
 
 namespace XLAF.Public
 {
-    /// <summary>
-    /// FPS、内存信息（调试用）
-    /// </summary>
-    public class MgrFPS : MonoBehaviour
-    {
+	/// <summary>
+	/// debug use, show FPS, memory info
+	/// </summary>
+	public class MgrFPS : MonoBehaviour
+	{
+		#region private variables
 
-        private static MgrFPS instance;
-        private bool showFPS = true;
-        private float fpsUpdateDelay = 0.2f;
-        private float fpsTime = 0f;
-        private int fps = 0;
-        private int minFps;
-        private int maxFps;
-        private int fpsCacheCount = 50;
-        private List<int> fpsList = new List<int> ();
+		private static MgrFPS instance;
+		private bool showFPS = true;
+		private float fpsUpdateDelay = 0.2f;
+		private float fpsTime = 0f;
+		private int fps = 0;
+		private int minFps;
+		private int maxFps;
+		private int fpsCacheCount = 50;
+		private List<int> fpsList = new List<int> ();
 
-        private float mKBSize = 1024.0f * 1024.0f;
-        private float totalAllocatedMemory;
-        private float totalReservedMemory;
-        private float totalUnusedReservedMemory;
+		private float mKBSize = 1024.0f * 1024.0f;
+		private float totalAllocatedMemory;
+		private float totalReservedMemory;
+		private float totalUnusedReservedMemory;
 
-        static MgrFPS ()
-        {
-            instance = XLAFMain.XLAFGameObject.AddComponent<MgrFPS> ();
-            instance.showFPS = false;
-        }
+		#endregion
 
-        /// <summary>
-        /// 调用Init会触发构造函数，可以用于统一初始化的时候
-        /// </summary>
-        public static void Init ()
-        {
+		#region constructed function & initialization
 
-        }
+		static MgrFPS ()
+		{
+			instance = XLAFMain.XLAFGameObject.AddComponent<MgrFPS> ();
+			instance.showFPS = false;
+		}
 
-        public static void ShowFPS ()
-        {
-            instance.showFPS = true;
-        }
+		/// <summary>
+		/// call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
+		/// </summary>
+		public static void Init ()
+		{
 
-        public static void HideFPS ()
-        {
-            instance.showFPS = false;
-        }
+		}
+
+		#endregion
+
+		#region public functions
+		/// <summary>
+		/// Shows the FPS & memory info for debug.
+		/// </summary>
+		public static void ShowFPS ()
+		{
+			instance.showFPS = true;
+		}
+		/// <summary>
+		/// Hides the FPS & memory info.
+		/// </summary>
+		public static void HideFPS ()
+		{
+			instance.showFPS = false;
+		}
+
+		#endregion
+
+		#region private functions
+
+		Color GetGUIColor (int value)
+		{
+			if (value > 30f)
+				return Color.green;
+			else if (value > 15f)
+				return Color.yellow;
+			else
+				return Color.red;
+		}
+
+		void AddFPS (int fpsValue)
+		{
+			if (fpsList.Count >= fpsCacheCount) {
+				fpsList.RemoveAt (0);
+			}
+			fpsList.Add (fpsValue);
+		}
+
+		#endregion
 
 
+		#region MonoBehaviour functions
 
+		void Update ()
+		{
+			if (showFPS) {
+				if (fpsTime + fpsUpdateDelay < Time.unscaledTime) {
+					fpsTime = Time.unscaledTime;
+					fps = Mathf.RoundToInt (1f / Time.unscaledDeltaTime);
+					AddFPS (fps);
+					minFps = fpsList.Min ();
+					maxFps = fpsList.Max ();
 
-        void Update ()
-        {
-            if (showFPS) {
-                if (fpsTime + fpsUpdateDelay < Time.unscaledTime) {
-                    fpsTime = Time.unscaledTime;
-                    fps = Mathf.RoundToInt (1f / Time.unscaledDeltaTime);
-                    AddFPS (fps);
-                    minFps = fpsList.Min ();
-                    maxFps = fpsList.Max ();
+					totalReservedMemory = (float)UnityEngine.Profiling.Profiler.GetTotalReservedMemoryLong () / mKBSize;
+					totalAllocatedMemory = (float)UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong () / mKBSize;
+					totalUnusedReservedMemory = (float)UnityEngine.Profiling.Profiler.GetTotalUnusedReservedMemoryLong () / mKBSize;
+				}
+			}
+		}
 
-                    totalReservedMemory = (float)UnityEngine.Profiling.Profiler.GetTotalReservedMemoryLong () / mKBSize;
-                    totalAllocatedMemory = (float)UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong () / mKBSize;
-                    totalUnusedReservedMemory = (float)UnityEngine.Profiling.Profiler.GetTotalUnusedReservedMemoryLong () / mKBSize;
-                }
-            }
-        }
+		void OnGUI ()
+		{
+			if (showFPS) {
+				GUILayout.BeginVertical ();
 
-        void OnGUI ()
-        {
-            if (showFPS) {
-                GUILayout.BeginVertical ();
+				//fps
+				GUILayout.BeginHorizontal ();
+				GUI.color = GetGUIColor (fps);
+				GUILayout.Label ("fps: " + fps.ToString ("f0"));
+				GUI.color = GetGUIColor (minFps);
+				GUILayout.Label ("min: " + minFps.ToString ("f0"));
+				GUI.color = GetGUIColor (maxFps);
+				GUILayout.Label ("max: " + maxFps.ToString ("f0"));
+				GUILayout.EndHorizontal ();
 
-                //fps
-                GUILayout.BeginHorizontal ();
-                GUI.color = GetGUIColor (fps);
-                GUILayout.Label ("fps: " + fps.ToString ("f0"));
-                GUI.color = GetGUIColor (minFps);
-                GUILayout.Label ("min: " + minFps.ToString ("f0"));
-                GUI.color = GetGUIColor (maxFps);
-                GUILayout.Label ("max: " + maxFps.ToString ("f0"));
-                GUILayout.EndHorizontal ();
+				//memory usage
+				GUILayout.BeginHorizontal ();
+				GUI.color = Color.red;
+				GUILayout.Label ("reserved: " + totalReservedMemory.ToString ("f2") + "M");
+				GUILayout.Label ("allocated: " + totalAllocatedMemory.ToString ("f2") + "M");
+				GUILayout.Label ("unused: " + totalUnusedReservedMemory.ToString ("f2") + "M");
+				GUILayout.EndHorizontal ();
 
-                //memory usage
-                GUILayout.BeginHorizontal ();
-                GUI.color = Color.red;
-                GUILayout.Label ("reserved: " + totalReservedMemory.ToString ("f2") + "M");
-                GUILayout.Label ("allocated: " + totalAllocatedMemory.ToString ("f2") + "M");
-                GUILayout.Label ("unused: " + totalUnusedReservedMemory.ToString ("f2") + "M");
-                GUILayout.EndHorizontal ();
+				GUILayout.EndVertical ();
+			}
+		}
 
-                GUILayout.EndVertical ();
-            }
-        }
-
-        Color GetGUIColor (int value)
-        {
-            if (value > 30f)
-                return Color.green;
-            else if (value > 15f)
-                return Color.yellow;
-            else
-                return Color.red;
-        }
-
-        void AddFPS (int fpsValue)
-        {
-            if (fpsList.Count >= fpsCacheCount) {
-                fpsList.RemoveAt (0);
-            }
-            fpsList.Add (fpsValue);
-        }
-    }
+		#endregion
+	}
 }

@@ -15,7 +15,7 @@ namespace UnityEditor.XCodeEditor
 		{
 			filePath = Path.Combine (fPath, "info.plist");
 			if (!System.IO.File.Exists (filePath)) {
-				Debug.LogError (filePath + "路径下文件不存在");
+				Debug.LogError (filePath + " not exist");
 				return;
 			}
 

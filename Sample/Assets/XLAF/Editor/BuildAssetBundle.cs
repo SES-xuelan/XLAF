@@ -12,7 +12,7 @@ public class BuildAssetBundle
 	const string AssetBundlesOutputPath = "Assets/StreamingAssets";
 
 	/// <summary>
-	/// 点击后，所有设置了AssetBundle名称的资源会被 分单个打包出来
+	/// All resources with AssetBundle named will pack into single file.
 	/// </summary>
 	[MenuItem ("XLAF/AssetBundle/Build Single")]
 	static void BuildAssetBundleSingle ()
@@ -26,7 +26,7 @@ public class BuildAssetBundle
 			Directory.CreateDirectory (outputPath);
 		}
 
-		//根据BuildSetting里面所激活的平台进行打包
+
 		BuildPipeline.BuildAssetBundles (outputPath, 0, EditorUserBuildSettings.activeBuildTarget);
 		GenAssetbundleConfig (outputPath);
 		AssetDatabase.Refresh ();
@@ -35,20 +35,20 @@ public class BuildAssetBundle
 	}
 
 	/// <summary>
-	/// 选择的资源合在一起被打包出来
+	/// Selected resources will pack for ONE file
 	/// </summary>
 	[MenuItem ("XLAF/AssetBundle/Build Collection")]
 	static void BuildAssetBundleCollection ()
 	{
 		AssetBundleBuild[] buildMap = new AssetBundleBuild[1];
-		//打包出来的资源包名字
+		//export assetBundle name
 		buildMap [0].assetBundleName = "all.assetbundle";
 
-		//在Project视图中，选择要打包的对象
+		//Select resources in "Project" tab
 		Object[] selects = Selection.GetFiltered (typeof(Object), SelectionMode.DeepAssets);
 		string[] enemyAsset = new string[selects.Length];
 		for (int i = 0; i < selects.Length; i++) {
-			//获得选择 对象的路径
+			//get path
 			enemyAsset [i] = AssetDatabase.GetAssetPath (selects [i]);
 		}
 		buildMap [0].assetNames = enemyAsset;
@@ -60,7 +60,7 @@ public class BuildAssetBundle
 		BuildPipeline.BuildAssetBundles (outputPath, buildMap, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
 
 		GenAssetbundleConfig (outputPath);
-		//刷新
+
 		AssetDatabase.Refresh ();
 		Debug.Log ("Build Collection succeed");
 	}
@@ -68,15 +68,15 @@ public class BuildAssetBundle
 
 
 	/// <summary>
-	/// 清除所有的AssetBundleName，由于打包方法会将所有设置过AssetBundleName的资源打包，所以自动打包前需要清理
+	/// Clear all AssetBundle Name in project
 	/// </summary>
 	[MenuItem ("XLAF/AssetBundle/ClearAssetBundlesName")]
 	static void ClearAssetBundlesName ()
 	{
-		//获取所有的AssetBundle名称
+		//get all AssetBundle names
 		string[] abNames = AssetDatabase.GetAllAssetBundleNames ();
 
-		//强制删除所有AssetBundle名称
+		//remove AssetBundle name
 		for (int i = 0; i < abNames.Length; i++) {
 			AssetDatabase.RemoveAssetBundleName (abNames [i], true);
 		}
@@ -94,7 +94,7 @@ public class BuildAssetBundle
 		Debug.Log ("Auto Set AssetBundles Name succeed!!");
 	}
 
-	//自动按照路径设置assetbundle的name
+	//Auto sets the name of the asset bundles for path.
 	static void AutoSetAssetBundlesName (string source)
 	{
 		DirectoryInfo folder = new DirectoryInfo (source);
@@ -118,7 +118,7 @@ public class BuildAssetBundle
 		string _assetPath2 = _source.Substring (Application.dataPath.Length + 1);
 		//Debug.Log (_assetPath);
 
-		//在代码中给资源设置AssetBundleName
+		//set AssetBundle Name
 		AssetImporter assetImporter = AssetImporter.GetAtPath (_assetPath);
 		string assetName = _assetPath2.Substring (_assetPath2.IndexOf ("/") + 1);
 		assetName = assetName.Replace (Path.GetExtension (assetName), ".assetbundle");

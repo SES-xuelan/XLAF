@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace XLAF.Public
 {
+	/// <summary>
+	/// Log for ios10+
+	/// </summary>
 	public static class Log4iOS
 	{
 		private static bool isInitialized = false;

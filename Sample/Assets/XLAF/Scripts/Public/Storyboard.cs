@@ -7,26 +7,29 @@ using System;
 
 namespace XLAF.Public
 {
-	//Storyboard是脚本部分
-
-	//SceneObject是界面部分
+	//Storyboard is script part
+	//SceneObject is UI part
 
 	/// <summary>
-	/// Storyboard. 脚本部分
+	/// Storyboard, script part. 
 	/// </summary>
 	public class Storyboard : MonoBehaviour
 	{
+		#region private variables
+
 		private string _sceneName;
 
-		#region Properties
+		#endregion
+
+		#region public properties
 
 		public string sceneName { get { return this._sceneName; } }
 
 		#endregion
 
 		/// <summary>
-		/// Sets the name of the scene.
-		/// !WAINNING!
+		/// Sets the name of the scene.<para></para>
+		/// !WAINNING!<para></para>
 		/// This function is use for SceneObject ONLY.
 		/// You should NOT call this function.
 		/// </summary>
@@ -40,18 +43,22 @@ namespace XLAF.Public
 			}
 		}
 
-
 		#region  Storyboard Listeners
 
 		/*
-		CreatScene 加载完界面，还未播放动画（只有界面加载的时候，才会触发；读取缓存界面不会触发）
-		WillEnterScene 加载完毕scene，即将播放过渡动画
-		EnterScene 播放完毕过渡动画
+	    Each storyboard function called moment:
+        CreatScene     => after finish load scene before play enter animation(only call after load from prefab or asset bundle, read cache from MgrScene will not called).
+        WillEnterScene => after CreatScene, at the begin of play enter animation.
+        EnterScene     => at the end of play enter animation.
 
-		WillExitScene 即将播放退出界面的动画
-		ExitScene 播放完退出界面的动画
-		DestoryScene 销毁界面前触发
-        
+        WillExitScene  => at the begin of play exit animation.
+        ExitScene      => at the end of play exit animation.
+        DestroyScene   => when destroy the scene(before destroy).
+
+        OverlayBegan   => when scene overlaid(only XLAF dialog).
+        OverlayEnded   => when scene overlaid object disappear(only XLAF dialog).
+        AndroidGoBack  => in Android, user press back button.
+        UpdateLanguage => when update language or after CreatScene.
         */
 		public virtual void CreatScene (object obj)
 		{
@@ -73,7 +80,7 @@ namespace XLAF.Public
 		{
 		}
 
-		public virtual void DestoryScene ()
+		public virtual void DestroyScene ()
 		{
 		}
 
@@ -97,61 +104,73 @@ namespace XLAF.Public
 
 		#endregion
 
-
-
+		/// <summary>
+		/// user interface event.
+		/// </summary>
+		/// <param name="e">Event.</param>
 		public virtual void OnUIEvent (UIEvent e)
 		{
             
 		}
 
-
 	}
 
 	/// <summary>
-	/// Scene object. 界面部分
+	/// Scene object, UI part. 
 	/// </summary>
 	public class SceneObject
 	{
-
-		private IEnumerator LoadBundleAll (string path, string sceneName)
-		{
-			WWW bundle = new WWW (path);
-			yield return bundle;
-			GameObject scene = (GameObject)UnityEngine.Object.Instantiate (bundle.assetBundle.LoadAsset (sceneName));
-			initAttr (scene, sceneName);
-			yield return 1;
-		}
+		//		/// <summary>
+		//		/// Loads the bundle.
+		//		/// </summary>
+		//		/// <returns>The bundle all.</returns>
+		//		/// <param name="path">Path.</param>
+		//		/// <param name="sceneName">Scene name.</param>
+		//		private IEnumerator LoadBundle (string path, string sceneName)
+		//		{
+		//			WWW bundle = new WWW (path);
+		//			yield return bundle;
+		//			GameObject scene = (GameObject)UnityEngine.Object.Instantiate (bundle.assetBundle.LoadAsset (sceneName));
+		//			initAttr (scene, sceneName);
+		//			yield return 1;
+		//		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="XLAF.Public.SceneObject"/> class with <see cref="MgrScene.useAssetBundle=true"/>.
+		/// Initializes a new instance of the <see cref="XLAF.Public.SceneObject"/> class with asset bundle.
 		/// </summary>
 		/// <param name="assetBundleFullPathName">AssetBundle full path name. e.g. /StreamingAssets/Android/all.assetbundle</param>
 		/// <param name="sceneName">Scene name. e.g. Dialog1</param>
 		public SceneObject (string assetBundleFullPathName, string sceneName)
 		{
-			//异步加载会出现parent不对的情况
-			//MgrCoroutine.DoCoroutine (LoadBundleAll (assetBundleFullPathName, sceneName));
+			//use async load will cause setParent not right
+			//MgrCoroutine.DoCoroutine (LoadBundle (assetBundleFullPathName, sceneName));
 
 			WWW bundle = new WWW (assetBundleFullPathName);
 			GameObject scene = (GameObject)UnityEngine.Object.Instantiate (bundle.assetBundle.LoadAsset (sceneName));
 			bundle.assetBundle.Unload (false);
+			this._sceneName = sceneName;
 			initAttr (scene, sceneName);
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="XLAF.Public.SceneObject"/> class with <see cref="MgrScene.useAssetBundle=false"/>.
+		/// Initializes a new instance of the <see cref="XLAF.Public.SceneObject"/> class without asset bundle.
 		/// </summary>
 		/// <param name="fullSceneNamePath">Full scene name path.</param>
 		public SceneObject (string fullSceneNamePath)
 		{
 			string[] tmp = fullSceneNamePath.Split ('/');
-			this._sceneName = tmp [tmp.Length - 1];////非完整路径
+			this._sceneName = tmp [tmp.Length - 1];
 			UnityEngine.Object _prefab = Resources.Load (fullSceneNamePath);
 			Log.Debug (fullSceneNamePath);
 			GameObject scene = (GameObject)UnityEngine.Object.Instantiate (_prefab);
 			initAttr (scene, _sceneName);
 		}
 
+		/// <summary>
+		/// Inits the attr.
+		/// </summary>
+		/// <param name="scene">Scene.</param>
+		/// <param name="_sceneName">Scene name.</param>
 		private void initAttr (GameObject scene, string _sceneName)
 		{
 			scene.name = _sceneName;
@@ -209,7 +228,7 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// 恢复到初始状态
+		/// Restores the status.
 		/// </summary>
 		public void RestoreStatus ()
 		{
@@ -218,6 +237,10 @@ namespace XLAF.Public
 			ChangeAlpha (startAlpha);
 		}
 
+		/// <summary>
+		/// Adds the dialog background.
+		/// </summary>
+		/// <param name="bgAlphaValue">Background alpha value.</param>
 		public void AddDialogBackground (float bgAlphaValue)
 		{
 			Image image = this.scene.AddComponent<Image> ();
@@ -227,10 +250,11 @@ namespace XLAF.Public
 
 
 		/// <summary>
-		/// AddComponent<ignoreUIListener> ()之后就不响应界面的事件了
-		/// currentScene.EnableUIListener ();之后就继续响应界面的事件了
+		/// After AddComponent<ignoreUIListener> () the object will NOT trigger touch or click event;
 		/// 
-		/// 界面切换期间不响应事件，所以add上，界面切换完毕响应事件，所以destory它
+		/// After called currentScene.EnableUIListener (); the object will trigger touch or click event;
+		///
+		/// When scene or dialog changing, you MUST add it to object, after finished changing, destory it.
 		/// </summary>
 		private class ignoreUIListener : MonoBehaviour ,ICanvasRaycastFilter
 		{
@@ -250,6 +274,9 @@ namespace XLAF.Public
 		}
 	}
 
+	/// <summary>
+	/// User interface event.
+	/// </summary>
 	public class UIEvent
 	{
 		public GameObject target;
