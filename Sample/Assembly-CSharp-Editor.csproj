@@ -73,6 +73,7 @@
      <Compile Include="Assets\XLAF\Editor\iOSBuild\PBXProjectDemo.cs" />
      <Compile Include="Assets\XLAF\Editor\iOSBuild\XClass.cs" />
      <Compile Include="Assets\XLAF\Editor\iOSBuild\XPlist.cs" />
+     <Compile Include="Assets\XLAF\Editor\Tools.cs" />
      <None Include="Assets\link.xml" />
      <None Include="Assets\Resources\ReadMe.txt" />
      <None Include="Assets\ToLua\readme.txt" />

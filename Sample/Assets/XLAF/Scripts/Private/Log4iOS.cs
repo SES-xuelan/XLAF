@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Runtime.InteropServices;
 
-namespace XLAF.Public
+namespace XLAF.Private
 {
 	/// <summary>
 	/// Log for ios10+

@@ -22,6 +22,7 @@ public static String getPhoneModule() {
 JAVA code should export as *.aar or *.jar and put aar or jar files to Assets/Plugins/Android is ok.
 
 */
+using XLAF.Private;
 
 namespace XLAF.Public
 {

@@ -4,13 +4,21 @@ using XLAF.Public;
 
 public class #SCRIPTNAME# : Storyboard {
 
-	void Update () {
-	
-	}
+    #region private variables
 
+    #endregion
 
+    #region public variables
 
+    #endregion
 
+    #region public functions
+
+    #endregion
+
+    #region private functions
+
+    #endregion
 
     #region  Storyboard Listeners
 
@@ -69,5 +77,12 @@ public class #SCRIPTNAME# : Storyboard {
     {
     }
     #endif
+    #endregion
+
+    #region unity MonoBehaviour functions
+    void Update()
+    {
+
+    }
     #endregion
 }
