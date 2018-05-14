@@ -16,6 +16,7 @@ XLAF(XueLan's Application Framework) 是一个简单的2D框架，包含完整�
 ## 使用的第三方插件
 * SimpleJson
 * iTween
+* SharpZipLib
 * ToLua
 
 ## 项目目录及相关约定

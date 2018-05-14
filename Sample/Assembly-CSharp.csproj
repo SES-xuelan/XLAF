@@ -224,6 +224,7 @@
      <Compile Include="Assets\XLAF\Scripts\Public\MgrFPS.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrMultiLanguage.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrScene.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Public\ModCompress.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModDispatcher.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModEncryption.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModUIUtils.cs" />
@@ -267,6 +268,9 @@
  </Reference>
  <Reference Include="Debugger">
  <HintPath>E:/Albert_Project/XLAF/Sample/Assets/Plugins/Debugger.dll</HintPath>
+ </Reference>
+ <Reference Include="ICSharpCode.SharpZipLib">
+ <HintPath>E:/Albert_Project/XLAF/Sample/Assets/XLAF/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/Administrator/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>

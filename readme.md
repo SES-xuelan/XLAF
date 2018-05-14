@@ -16,6 +16,7 @@ XLAF often use to develop games or apps for only one unity scene but many prefab
 ## Used third party plugins
 * SimpleJson
 * iTween
+* SharpZipLib
 * ToLua
 
 ## Project file list & illustration

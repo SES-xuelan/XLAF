@@ -152,6 +152,9 @@
  <Reference Include="Debugger">
  <HintPath>E:/Albert_Project/XLAF/Sample/Assets/Plugins/Debugger.dll</HintPath>
  </Reference>
+ <Reference Include="ICSharpCode.SharpZipLib">
+ <HintPath>E:/Albert_Project/XLAF/Sample/Assets/XLAF/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Users/Administrator/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@1.0.7/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
