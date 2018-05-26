@@ -41,8 +41,8 @@ public class #SCRIPTNAME# : Storyboard
         ExitScene      => at the end of play exit animation.
         DestroyScene   => when destroy the scene(before destroy).
 
-        OverlayBegan   => when scene overlaid(only XLAF dialog).
-        OverlayEnded   => when scene overlaid object disappear(only XLAF dialog).
+        OverlayBegan   => when scene overlaid(only XLAF popup).
+        OverlayEnded   => when scene overlaid object disappear(only XLAF popup).
         AndroidGoBack  => in Android, user press back button.
         UpdateLanguage => when update language or after CreatScene.
     */

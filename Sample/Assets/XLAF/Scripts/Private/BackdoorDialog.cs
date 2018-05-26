@@ -39,9 +39,9 @@ namespace XLAF.Private
 			if (e.phase == TouchPhase.Ended) {
 				if (e.target.name == "btn_ok") {
 					InvokeCallback (inputField.text.ToLower ());
-					MgrDialog.HideDialog ("XLAFBackdoor", SceneAnimation.none);
+					MgrPopup.Hide ("XLAFBackdoor", SceneAnimation.none);
 				} else if (e.target.name == "btn_cancel") {
-					MgrDialog.HideDialog ("XLAFBackdoor", SceneAnimation.none);
+					MgrPopup.Hide ("XLAFBackdoor", SceneAnimation.none);
 				}
 			}
 		}

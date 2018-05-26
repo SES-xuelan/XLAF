@@ -20,8 +20,8 @@ namespace XLAF.Private
 		public object data = "";
 
 		/// <summary>
-		/// The background alpha.
-		/// Only useful for dialog
+		/// The background alpha.<para></para>
+		/// Only useful for popup.
 		/// </summary>
 		public float bgAlpha = 0.8f;
 

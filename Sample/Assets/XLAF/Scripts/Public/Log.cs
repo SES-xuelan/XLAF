@@ -147,6 +147,8 @@ namespace XLAF.Public
 		/// <param name="objs">Objects.</param>
 		public static void Warning (params object[] objs)
 		{
+			if (!_isWarnOn)
+				return;
 			string time = System.DateTime.Now.ToString ("MM-dd HH:mm:ss:fff");
 			string line = _GetCodeLineAndFile (3);
 			string s = time + "|warning|" + line + _ParamsToString (objs);

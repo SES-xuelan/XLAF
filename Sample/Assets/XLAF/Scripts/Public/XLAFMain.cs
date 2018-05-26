@@ -54,7 +54,7 @@ namespace XLAF.Public
             MgrData.Init ();
             MgrAudio.Init ();
             Log.Init ();
-            MgrDialog.Init ();
+            MgrPopup.Init ();
             MgrScene.Init ();
             MgrFPS.Init ();
             ModDispatcher.Init ();

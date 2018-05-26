@@ -52,8 +52,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Main.cs" />
-     <Compile Include="Assets\Scripts\Views\Dialogs\Dialog1.cs" />
-     <Compile Include="Assets\Scripts\Views\Dialogs\Dialog2.cs" />
+     <Compile Include="Assets\Scripts\Views\Popups\Popup1.cs" />
+     <Compile Include="Assets\Scripts\Views\Popups\Popup2.cs" />
      <Compile Include="Assets\Scripts\Views\Scenes\Scene1.cs" />
      <Compile Include="Assets\Scripts\Views\Scenes\Scene2.cs" />
      <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
@@ -216,15 +216,16 @@
      <Compile Include="Assets\XLAF\Scripts\Private\Log4iOS.cs" />
      <Compile Include="Assets\XLAF\Scripts\Private\SceneParams.cs" />
      <Compile Include="Assets\XLAF\Scripts\Private\SettingsData.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Private\XLAFInnerLog.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\Log.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrAssetBundle.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrAudio.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrBackdoor.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrCoroutine.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrData.cs" />
-     <Compile Include="Assets\XLAF\Scripts\Public\MgrDialog.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrFPS.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrMultiLanguage.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Public\MgrPopup.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrScene.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModCompress.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModDispatcher.cs" />
@@ -238,7 +239,6 @@
      <Compile Include="Assets\XLAF\Scripts\Public\XLAFHotFixImpl.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\XLAFMain.cs" />
      <None Include="Assets\link.xml" />
-     <None Include="Assets\StreamingAssets\aaa.txt" />
      <None Include="Assets\Resources\ReadMe.txt" />
      <None Include="Assets\ToLua\readme.txt" />
  <Reference Include="UnityEngine.UI">

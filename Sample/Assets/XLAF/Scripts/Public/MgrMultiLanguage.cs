@@ -54,7 +54,7 @@ namespace XLAF.Public
 
 		/// <summary>
 		/// Switchs the language.<para></para>
-		/// this will call <code>Scenes or Dialog 's UpdateLanguage()</code>
+		/// this will call <code>Scenes or Popup 's UpdateLanguage()</code>
 		/// </summary>
 		/// <param name="lang">Language json filename (without extension) in Resources/Lang/ or xxxx.assetBundle 's Lang folder. </param>
 		public static void SwitchLanguage (string lang)
@@ -65,7 +65,7 @@ namespace XLAF.Public
 			foreach (KeyValuePair<string,SceneObject> kv in MgrScene.GetAllScenes()) {
 				kv.Value.script.UpdateLanguage ();
 			}
-			foreach (KeyValuePair<string,SceneObject> kv in MgrDialog.GetAllDialogs()) {
+			foreach (KeyValuePair<string,SceneObject> kv in MgrPopup.GetAllPopups()) {
 				kv.Value.script.UpdateLanguage ();
 			}
 		}

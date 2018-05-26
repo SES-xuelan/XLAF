@@ -84,7 +84,7 @@ namespace XLAF.Public
 				instance.TimeOutEnded ();
 				//after backdoor shown, click 2 times will show backdoor again
 				clickedTimes = BACKDOOR_CLICK_TIMES - 2;
-				MgrDialog.ShowDialog ("XLAFBackdoor", MgrBackdoor.callback, SceneAnimation.none);
+				MgrPopup.Show ("XLAFBackdoor", MgrBackdoor.callback, SceneAnimation.none);
 			}
 		}
 

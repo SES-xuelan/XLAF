@@ -39,11 +39,11 @@ Assets
 |-- *Resources【Unity resources folder】
 |    |--*Audios【Audios, start with "m_" means music, "s_" means sound】
 |    `--*Views【Prefabs】
-|        |--*Dialogs【Dialog prefabs】
+|        |--*Popups【Popup prefabs】
 |        `--*Scenes【Scene prefabs】
 |-- *Scripts【C# scripts】
 |    |--*Views
-|    |    |--*Dialogs【Scripts for dialog prefabs】
+|    |    |--*Popups【Scripts for popup prefabs】
 |    |    `--*Scenes【Scripts for scene prefabs】
 |    `--Any other C# code folders
 |-- *StreamingAssets【Unity default folder, read only, not compressed】

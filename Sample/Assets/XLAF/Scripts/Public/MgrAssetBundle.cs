@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
+using XLAF.Private;
 
 namespace XLAF.Public
 {
@@ -45,7 +46,7 @@ namespace XLAF.Public
 		public static string GetAssetBundlePath (string sceneName)
 		{
 			if (jsonData == null) {
-				Log.Error ("please call LoadAssetBundleConfig(path) first");
+				XLAFInnerLog.Error ("please call LoadAssetBundleConfig(path) first");
 				return "";
 			}
 			return jsonData [sceneName].Value;
@@ -53,7 +54,7 @@ namespace XLAF.Public
 
 		public static bool HasAssetBundle (string sceneName)
 		{
-			Log.Debug ("HasAssetBundle()", jsonData, sceneName, GetAssetBundlePath (sceneName) != "");
+			XLAFInnerLog.Debug ("HasAssetBundle()", jsonData, sceneName, GetAssetBundlePath (sceneName) != "");
 			return GetAssetBundlePath (sceneName) != "";
 		}
 

@@ -9,7 +9,7 @@ using XLAF.Private;
 namespace XLAF.Public
 {
 	/// <summary>
-	/// Scene manager, the code is similar to <see cref="XLAF.Public.MgrDialog"/>
+	/// Scene manager, the code is similar to <see cref="XLAF.Public.MgrPopup"/>
 	/// </summary>
 	public class MgrScene : MonoBehaviour
 	{
@@ -139,12 +139,12 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether this <see cref="XLAF.Public.MgrScene"/> is scene or dialog changing.
+		/// Gets a value indicating whether this <see cref="XLAF.Public.MgrScene"/> is scene or popup changing.
 		/// </summary>
-		/// <value><c>true</c> if is scene or dialog changing; otherwise, <c>false</c>.</value>
-		public static bool isSceneOrDialogChanging {
+		/// <value><c>true</c> if is scene or popup changing; otherwise, <c>false</c>.</value>
+		public static bool isSceneOrPopupChanging {
 			get {
-				return animating || MgrDialog.isDialogChanging;
+				return animating || MgrPopup.isPopupChanging;
 			}
 		}
 
@@ -805,7 +805,7 @@ namespace XLAF.Public
 		public static void Update ()
 		{
 			#if UNITY_ANDROID
-			if (MgrDialog.hasDialog) {
+			if (MgrPopup.hasPopup) {
 				return;
 			}
 			if (Input.GetKeyDown (KeyCode.Escape)) { //android back
@@ -890,7 +890,7 @@ namespace XLAF.Public
 				oldScene.script.WillExitScene ();
 				//reset alpha to 1
 				oldScene.ChangeAlpha (1f);
-				Log.Debug ("ChangeAlpha to 1");
+				XLAFInnerLog.Debug ("ChangeAlpha to 1");
 				iTween.ValueTo (oldScene.scene, iTween.Hash (
 					"from", 1,
 					"to", 0,

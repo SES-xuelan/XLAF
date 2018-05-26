@@ -30,7 +30,7 @@ namespace XLAF.Public {
 		/// </summary>
 		/// <param name="assetBundleFullPathName">AssetBundle full path name. <para></para>
 		/// e.g. /StreamingAssets/Android/all.assetbundle</param>
-		/// <param name="sceneName">Scene name.  e.g. Dialog1</param>
+		/// <param name="sceneName">Scene name.  e.g. Pop1</param>
 		public SceneObject (string assetBundleFullPathName, string sceneName)
 		{
 			//use async load will cause setParent not right
@@ -129,10 +129,10 @@ namespace XLAF.Public {
 		}
 
 		/// <summary>
-		/// Adds the dialog background.
+		/// Adds the popup background.
 		/// </summary>
 		/// <param name="bgAlphaValue">Background alpha value.</param>
-		public void AddDialogBackground (float bgAlphaValue)
+		public void AddPopupBackground (float bgAlphaValue)
 		{
 			Image image = this.scene.AddComponent<Image> ();
 			image.color = new Color (0, 0, 0, bgAlphaValue);
@@ -145,7 +145,7 @@ namespace XLAF.Public {
 		/// 
 		/// After called currentScene.EnableUIListener (); the object will trigger touch or click event;
 		///
-		/// When scene or dialog changing, you MUST add it to object, after finished changing, destory it.
+		/// When scene or popup changing, you MUST add it to object, after finished changing, destory it.
 		/// </summary>
 		private class ignoreUIListener : MonoBehaviour ,ICanvasRaycastFilter
 		{

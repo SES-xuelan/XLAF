@@ -21,8 +21,8 @@ public class Scene1 : Storyboard
 				});
 				//
 
-//                MgrDialog.ShowDialog ("Dialog1", "55892", SceneAnimation.fade, 1f, () => {
-//                    Log.Debug ("Dialog1 Done~");
+//                MgrPopup.Show ("Popup1", "55892", SceneAnimation.fade, 1f, () => {
+//                    Log.Debug ("Popup1 Done~");
 //                });
 
 				#if UNITY_ANDROID && !UNITY_EDITOR
@@ -39,8 +39,8 @@ public class Scene1 : Storyboard
                 Log.Debug ("~~~~~:", module, "|", did, "|", totalMemory, "|", cpu [0], "|", cpu [1]);
 				#endif
 			} else if (e.target.name == "btn2") {
-				MgrDialog.ShowDialog ("Dialog2", "2222", SceneAnimation.fade, 1f, () => {
-					Log.Debug ("Dialog2 Done~");
+				MgrPopup.Show ("Popup2", "2222", SceneAnimation.fade, 1f, () => {
+					Log.Debug ("Popup2 Done~");
 				});
 
 
@@ -51,7 +51,7 @@ public class Scene1 : Storyboard
 	private IEnumerator loadBundleAll (string path)
 	{
 		WWW bundle = new WWW (path);
-		GameObject scene = (GameObject)UnityEngine.Object.Instantiate (bundle.assetBundle.LoadAsset ("Dialog1"));
+		GameObject scene = (GameObject)UnityEngine.Object.Instantiate (bundle.assetBundle.LoadAsset ("Popup1"));
 		Log.Debug ("scene:", scene.name);
 		bundle.assetBundle.Unload (false);
 		yield return 1;
@@ -69,8 +69,8 @@ public class Scene1 : Storyboard
         ExitScene      => at the end of play exit animation.
         DestroyScene   => when destroy the scene(before destroy).
 
-        OverlayBegan   => when scene overlaid(only XLAF dialog).
-        OverlayEnded   => when scene overlaid object disappear(only XLAF dialog).
+        OverlayBegan   => when scene overlaid(only XLAF popup).
+        OverlayEnded   => when scene overlaid object disappear(only XLAF popup).
         AndroidGoBack  => in Android, user press back button.
         UpdateLanguage => when update language or after CreatScene.
     */

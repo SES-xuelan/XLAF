@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 2027585536}
   - component: {fileID: 2027585535}
   m_Layer: 5
-  m_Name: DialogViewRoot
+  m_Name: PopupViewRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

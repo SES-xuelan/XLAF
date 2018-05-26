@@ -78,7 +78,6 @@
      <Compile Include="Assets\XLAF\Editor\iOSBuild\XPlist.cs" />
      <Compile Include="Assets\XLAF\Editor\Tools.cs" />
      <None Include="Assets\link.xml" />
-     <None Include="Assets\StreamingAssets\aaa.txt" />
      <None Include="Assets\Resources\ReadMe.txt" />
      <None Include="Assets\ToLua\readme.txt" />
  <Reference Include="UnityEngine.UI">
