@@ -56,7 +56,7 @@ namespace XLAF.Public
 		/// Switchs the language.<para></para>
 		/// this will call <code>Scenes or Dialog 's UpdateLanguage()</code>
 		/// </summary>
-		/// <param name="lang">Language json filename (without extension) in <see cref="Resources/Lang/"/> or <see cref="xxxx.assetBundle 's Lang folder"/>. </param>
+		/// <param name="lang">Language json filename (without extension) in Resources/Lang/ or xxxx.assetBundle 's Lang folder. </param>
 		public static void SwitchLanguage (string lang)
 		{
 			currentLanguage = lang;

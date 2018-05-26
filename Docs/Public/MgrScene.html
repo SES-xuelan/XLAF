@@ -1,0 +1,392 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>XueLan's Application Framework</title>
+    <link rel="stylesheet" href="../css.css" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="product">
+        <div id="product_logo"></div>
+        <div id="product_name"><big><b></b></big></div>
+        <div id="product_description"></div>
+    </div> <!-- id="product" -->
+
+
+    <div id="main">
+
+
+        <!-- Menu -->
+
+        <div id="navigation">
+            <br/>
+            <h1>XLAF Doc</h1>
+
+            <ul>
+                <li><a href="../index.html">Index</a></li>
+            </ul>
+
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#Functions">Functions</a></li>
+            </ul>
+
+
+            <h2>Classes</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../3rd-party/iTweenHashBuilder.html">iTweenHashBuilder</a></li>
+
+                <li><a href="../Public/Log.html">Log</a></li>
+
+                <li><a href="../Public/MgrAssetBundle.html">MgrAssetBundle</a></li>
+
+                <li><a href="../Public/MgrAudio.html">MgrAudio</a></li>
+
+                <li><a href="../Public/MgrBackdoor.html">MgrBackdoor</a></li>
+
+                <li><a href="../Public/MgrCoroutine.html">MgrCoroutine</a></li>
+
+                <li><a href="../Public/MgrData.html">MgrData</a></li>
+
+                <li><a href="../Public/MgrDialog.html">MgrDialog</a></li>
+
+                <li><a href="../Public/MgrFPS.html">MgrFPS</a></li>
+
+                <li><a href="../Public/MgrMultiLanguage.html">MgrMultiLanguage</a></li>
+
+                <li><strong>MgrScene</strong></li>
+
+                <li><a href="../Public/ModCompress.html">ModCompress</a></li>
+
+                <li><a href="../Public/ModDispatcher.html">ModDispatcher</a></li>
+
+                <li><a href="../Public/ModEncryption.html">ModEncryption</a></li>
+
+                <li><a href="../Public/ModUIUtils.html">ModUIUtils</a></li>
+
+                <li><a href="../Public/ModUtils.html">ModUtils</a></li>
+
+                <li><a href="../Public/SceneObject.html">SceneObject</a></li>
+
+                <li><a href="../Public/Storyboard.html">Storyboard</a></li>
+
+                <li><a href="../Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></li>
+
+                <li><a href="../Public/XLAFHotFixImpl.html">XLAFHotFixImpl</a></li>
+
+                <li><a href="../Public/XLAFMain.html">XLAFMain</a></li>
+
+                <li><a href="../Public/XLAF_Event.html">XLAF_Event</a></li>
+
+
+            </ul>
+            <h2>ReadMe</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../Readme.md.html">Readme</a></li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+
+            <h1>Class <code>MgrScene</code></h1>
+            <p>Scene manager, the code is similar to <a href="../Public/MgrDialog.html">MgrDialog</a>
+</p>
+            <p>
+
+
+            </p>
+            <h3>Info:</h3>
+            <ul>
+                <li><strong>Copyright</strong>: 2017</li>
+                <li><strong>Author</strong>: Albert Feng (SES XueLan)</li>
+            </ul>
+
+
+            <h2><a href="#">Properties</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><strong>isSceneChanging</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/MgrScene.html">MgrScene</a> is scene changing.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>isSceneOrDialogChanging</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/MgrScene.html">MgrScene</a> is scene or dialog changing.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+            <h2><a href="#Functions">Functions</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><a href="#Init">public static void Init ()</a></td>
+                    <td class="summary">call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetViewRoot">public static void SetViewRoot (Transform grp)</a></td>
+                    <td class="summary">Sets the view root.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetViewRoot">public static Transform GetViewRoot ()</a></td>
+                    <td class="summary">Gets the view root.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetRoot">public static RectTransform GetRoot ()</a></td>
+                    <td class="summary">Gets the root.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetViewRootCanvas">public static CanvasGroup GetViewRootCanvas ()</a></td>
+                    <td class="summary">Gets the view root canvas.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetCurrentScene">public static SceneObject GetCurrentScene ()</a></td>
+                    <td class="summary">Gets the current scene.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetAllScenes">public static Dictionary&lt;string,SceneObject&gt; GetAllScenes ()</a></td>
+                    <td class="summary">Gets all scenes.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#LoadScene">public static void LoadScene (string sceneName, object data)</a></td>
+                    <td class="summary">Loads the scene, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#LoadScene">public static void LoadScene (string sceneName)</a></td>
+                    <td class="summary">Loads the scene, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#DestroyScene">public static void DestroyScene (SceneObject sceneObj, bool destroyImmediate = true)</a></td>
+                    <td class="summary">Destroy the scene.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#DestroyScene">public static void DestroyScene (string sceneName, bool destroyImmediate = true)</a></td>
+                    <td class="summary">Destroy the scene.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetScene">public static SceneObject GetScene (string sceneName)</a></td>
+                    <td class="summary">Returns null if the scene object does not exist</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+
+            <h2><a name="Functions"></a>Functions</h2>
+            <dl class="function">
+                <dt>
+                    <a name="Init"></a>
+                    <strong>Init</strong>
+                </dt>
+                <dd>
+                    call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetViewRoot"></a>
+                    <strong>SetViewRoot</strong>
+                </dt>
+                <dd>
+                    Sets the view root.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Transform<span class="parameter"> grp</span>
+                            Transform.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetViewRoot"></a>
+                    <strong>GetViewRoot</strong>
+                </dt>
+                <dd>
+                    Gets the view root.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Transform The view root.
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetRoot"></a>
+                    <strong>GetRoot</strong>
+                </dt>
+                <dd>
+                    Gets the root.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+RectTransform The root.
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetViewRootCanvas"></a>
+                    <strong>GetViewRootCanvas</strong>
+                </dt>
+                <dd>
+                    Gets the view root canvas.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+CanvasGroup The view root canvas.
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetCurrentScene"></a>
+                    <strong>GetCurrentScene</strong>
+                </dt>
+                <dd>
+                    Gets the current scene.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+SceneObject The current scene.
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetAllScenes"></a>
+                    <strong>GetAllScenes</strong>
+                </dt>
+                <dd>
+                    Gets all scenes.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Dictionary<string,SceneObject> The all scenes.
+                    </ul>
+                </dd>                <dt>
+                    <a name="LoadScene"></a>
+                    <strong>LoadScene</strong>
+                </dt>
+                <dd>
+                    Loads the scene, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> sceneName</span>
+                            Scene name.
+                        </li>
+                        <li>object<span class="parameter"> data</span>
+                            the data you want to transmit
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="LoadScene"></a>
+                    <strong>LoadScene</strong>
+                </dt>
+                <dd>
+                    Loads the scene, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> sceneName</span>
+                            Scene name.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="DestroyScene"></a>
+                    <strong>DestroyScene</strong>
+                </dt>
+                <dd>
+                    Destroy the scene.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>SceneObject<span class="parameter"> sceneObj</span>
+                            Scene object.
+                        </li>
+                        <li>bool destroyImmediate<span class="parameter"> =</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="DestroyScene"></a>
+                    <strong>DestroyScene</strong>
+                </dt>
+                <dd>
+                    Destroy the scene.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> sceneName</span>
+                            Scene name.
+                        </li>
+                        <li>bool destroyImmediate<span class="parameter"> =</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetScene"></a>
+                    <strong>GetScene</strong>
+                </dt>
+                <dd>
+                    Returns null if the scene object does not exist
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> sceneName</span>
+                            Scene name.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+SceneObject The scene.
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div> <!-- id="content" -->
+    </div> <!-- id="main" -->
+    <div id="about">
+        <i>written by <a href="https://github.com/SES-xuelan">XueLan</a></i>
+    </div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

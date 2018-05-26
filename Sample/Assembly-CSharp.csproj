@@ -214,6 +214,8 @@
      <Compile Include="Assets\XLAF\3rd-party\SimpleJSON.cs" />
      <Compile Include="Assets\XLAF\Scripts\Private\BackdoorDialog.cs" />
      <Compile Include="Assets\XLAF\Scripts\Private\Log4iOS.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Private\SceneParams.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Private\SettingsData.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\Log.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrAssetBundle.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\MgrAudio.cs" />
@@ -229,11 +231,14 @@
      <Compile Include="Assets\XLAF\Scripts\Public\ModEncryption.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModUIUtils.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\ModUtils.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Public\SceneObject.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\Storyboard.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Public\XLAF_Event.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\XLAFEventTriggerListener.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\XLAFHotFixImpl.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\XLAFMain.cs" />
      <None Include="Assets\link.xml" />
+     <None Include="Assets\StreamingAssets\aaa.txt" />
      <None Include="Assets\Resources\ReadMe.txt" />
      <None Include="Assets\ToLua\readme.txt" />
  <Reference Include="UnityEngine.UI">

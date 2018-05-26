@@ -4,8 +4,16 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// iTween hash builder.
-/// <para></para>All params: name|audiosource|volume|pitch|time|delay|easetype|looptype|onstart|onstarttarget|onstartparams|onupdate|onupdatetarget|onupdateparams|oncomplete|oncompletetarget|oncompleteparams|ignoretimescale|amount|color|r|g|b|a|NamedColorValue|includechildren|alpha|looktarget|axis|speed|x|y|z|looktime|space|position|path|movetopath|orienttopath|lookahead|islocal|rotation|scale|audioclip|from|to
+/// iTween hash builder.<para></para>
+/// All params: <para></para>
+/// name|audiosource|volume|pitch|time|delay|easetype|<para></para>
+/// looptype|onstart|onstarttarget|onstartparams|onupdate|<para></para>
+/// onupdatetarget|onupdateparams|oncomplete|<para></para>
+/// oncompletetarget|oncompleteparams|ignoretimescale|<para></para>
+/// amount|color|r|g|b|a|NamedColorValue|includechildren|<para></para>
+/// alpha|looktarget|axis|speed|x|y|z|looktime|space|position|<para></para>
+/// path|movetopath|orienttopath|lookahead|islocal|<para></para>
+/// rotation|scale|audioclip|from|to<para></para>
 /// </summary>
 public class iTweenHashBuilder
 {

@@ -1,0 +1,2036 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>XueLan's Application Framework</title>
+    <link rel="stylesheet" href="../css.css" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="product">
+        <div id="product_logo"></div>
+        <div id="product_name"><big><b></b></big></div>
+        <div id="product_description"></div>
+    </div> <!-- id="product" -->
+
+
+    <div id="main">
+
+
+        <!-- Menu -->
+
+        <div id="navigation">
+            <br/>
+            <h1>XLAF Doc</h1>
+
+            <ul>
+                <li><a href="../index.html">Index</a></li>
+            </ul>
+
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#Functions">Functions</a></li>
+            </ul>
+
+
+            <h2>Classes</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><strong>iTweenHashBuilder</strong></li>
+
+                <li><a href="../Public/Log.html">Log</a></li>
+
+                <li><a href="../Public/MgrAssetBundle.html">MgrAssetBundle</a></li>
+
+                <li><a href="../Public/MgrAudio.html">MgrAudio</a></li>
+
+                <li><a href="../Public/MgrBackdoor.html">MgrBackdoor</a></li>
+
+                <li><a href="../Public/MgrCoroutine.html">MgrCoroutine</a></li>
+
+                <li><a href="../Public/MgrData.html">MgrData</a></li>
+
+                <li><a href="../Public/MgrDialog.html">MgrDialog</a></li>
+
+                <li><a href="../Public/MgrFPS.html">MgrFPS</a></li>
+
+                <li><a href="../Public/MgrMultiLanguage.html">MgrMultiLanguage</a></li>
+
+                <li><a href="../Public/MgrScene.html">MgrScene</a></li>
+
+                <li><a href="../Public/ModCompress.html">ModCompress</a></li>
+
+                <li><a href="../Public/ModDispatcher.html">ModDispatcher</a></li>
+
+                <li><a href="../Public/ModEncryption.html">ModEncryption</a></li>
+
+                <li><a href="../Public/ModUIUtils.html">ModUIUtils</a></li>
+
+                <li><a href="../Public/ModUtils.html">ModUtils</a></li>
+
+                <li><a href="../Public/SceneObject.html">SceneObject</a></li>
+
+                <li><a href="../Public/Storyboard.html">Storyboard</a></li>
+
+                <li><a href="../Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></li>
+
+                <li><a href="../Public/XLAFHotFixImpl.html">XLAFHotFixImpl</a></li>
+
+                <li><a href="../Public/XLAFMain.html">XLAFMain</a></li>
+
+                <li><a href="../Public/XLAF_Event.html">XLAF_Event</a></li>
+
+
+            </ul>
+            <h2>ReadMe</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../Readme.md.html">Readme</a></li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+
+            <h1>Class <code>iTweenHashBuilder</code></h1>
+            <p>iTween hash builder.<br />
+All params: <br />
+name|audiosource|volume|pitch|time|delay|easetype|<br />
+looptype|onstart|onstarttarget|onstartparams|onupdate|<br />
+onupdatetarget|onupdateparams|oncomplete|<br />
+oncompletetarget|oncompleteparams|ignoretimescale|<br />
+amount|color|r|g|b|a|NamedColorValue|includechildren|<br />
+alpha|looktarget|axis|speed|x|y|z|looktime|space|position|<br />
+path|movetopath|orienttopath|lookahead|islocal|<br />
+rotation|scale|audioclip|from|to<br />
+</p>
+            <p>
+
+
+            </p>
+            <h3>Info:</h3>
+            <ul>
+                <li><strong>Copyright</strong>: 2017</li>
+                <li><strong>Author</strong>: Albert Feng (SES XueLan)</li>
+            </ul>
+
+
+            <h2><a href="#">Properties</a></h2>
+            <table class="function_list">
+
+            </table>
+
+            <br/>
+            <br/>
+
+            <h2><a href="#Functions">Functions</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><a href="#SetName">public Hashtable SetName (string name)</a></td>
+                    <td class="summary">Sets the iTween name.
+<br />an individual name useful for stopping iTweens by name</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetAudioSource">public Hashtable SetAudioSource (AudioSource audioSource)</a></td>
+                    <td class="summary">Sets the audio source.
+<br />for which AudioSource to use</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetVolume">public Hashtable SetVolume (float volume)</a></td>
+                    <td class="summary">Sets the volume.
+<br />for the target level of volume</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetVolume">public Hashtable SetVolume (double volume)</a></td>
+                    <td class="summary">Sets the volume.
+<br />for the target level of volume</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetPitch">public Hashtable SetPitch (float pitch)</a></td>
+                    <td class="summary">Sets the pitch.
+<br />for the target pitch</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetPitch">public Hashtable SetPitch (double pitch)</a></td>
+                    <td class="summary">Sets the pitch.
+<br />for the target pitch</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetTime">public Hashtable SetTime (float time)</a></td>
+                    <td class="summary">Sets the time.
+<br />for the time in seconds the animation will take to complete</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetTime">public Hashtable SetTime (double time)</a></td>
+                    <td class="summary">Sets the time.
+<br /> for the time in seconds the animation will take to complete</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetDelay">public Hashtable SetDelay (float delay)</a></td>
+                    <td class="summary">Sets the delay.
+<br />for the time in seconds the animation will wait before beginning</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetDelay">public Hashtable SetDelay (double delay)</a></td>
+                    <td class="summary">Sets the delay.
+<br />for the time in seconds the animation will wait before beginning</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetEaseType">public Hashtable SetEaseType (iTween.EaseType easeType)</a></td>
+                    <td class="summary">Sets the type of the ease.
+<br />for the shape of the easing curve applied to the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetLoopType">public Hashtable SetLoopType (iTween.LoopType looptype)</a></td>
+                    <td class="summary">Sets the type of the loop.
+<br />for the type of loop to apply once the animation has completed</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnStart">public Hashtable SetOnStart (Action  action)</a></td>
+                    <td class="summary">Sets the onStart callback.
+<br />a function to launch at the beginning of the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnStart">public Hashtable SetOnStart (Action&lt;object&gt;  action)</a></td>
+                    <td class="summary">Sets the onStart callback.
+<br />a function to launch at the beginning of the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnStart">public Hashtable SetOnStart (Action&lt;float&gt;  action)</a></td>
+                    <td class="summary">Sets the onStart callback.
+<br /> a function to launch at the beginning of the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnStartTarget">public Hashtable SetOnStartTarget (GameObject go)</a></td>
+                    <td class="summary">Sets the on start target.
+<br />for a reference to the GameObject that holds the "onstart" method</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnStartParams">public Hashtable SetOnStartParams (object param)</a></td>
+                    <td class="summary">Sets the on start parameters.
+<br />for arguments to be sent to the "onstart" method</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnUpdate">public Hashtable SetOnUpdate (Action action)</a></td>
+                    <td class="summary">Sets the on update.
+<br />a function to launch on every step of the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnUpdate">public Hashtable SetOnUpdate (Action&lt;float&gt; action)</a></td>
+                    <td class="summary">Sets the on update.
+<br />a function to launch on every step of the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnUpdate">public Hashtable SetOnUpdate (Action&lt;object&gt; action)</a></td>
+                    <td class="summary">Sets the on update.
+<br />a function to launch on every step of the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnUpdateTarget">public Hashtable SetOnUpdateTarget (GameObject go)</a></td>
+                    <td class="summary">Sets the on start target.
+<br />for a reference to the GameObject that holds the "onupdate" method</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnUpdateParams">public Hashtable SetOnUpdateParams (object param)</a></td>
+                    <td class="summary">Sets the on start parameters.
+<br />for arguments to be sent to the "onupdate" method</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnComplete">public Hashtable SetOnComplete (Action action)</a></td>
+                    <td class="summary">Sets the on complete.
+<br />a function to launch at the end of the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnComplete">public Hashtable SetOnComplete (Action&lt;float&gt; action)</a></td>
+                    <td class="summary">Sets the on complete.
+<br />a function to launch at the end of the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnComplete">public Hashtable SetOnComplete (Action&lt;object&gt; action)</a></td>
+                    <td class="summary">Sets the on complete.
+<br />a function to launch at the end of the animation</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnCompleteTarget">public Hashtable SetOnCompleteTarget (GameObject go)</a></td>
+                    <td class="summary">Sets the on complete target.
+<br />for a reference to the GameObject that holds the "oncomplete" method</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOnCompleteParams">public Hashtable SetOnCompleteParams (object param)</a></td>
+                    <td class="summary">Sets the on complete parameters.
+<br />for arguments to be sent to the "oncomplete" method</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetIgnoreTimeScale">public Hashtable SetIgnoreTimeScale (bool b)</a></td>
+                    <td class="summary">Sets the ignore time scale.
+<br />setting this to true will allow the animation to continue independent of the current time which is helpful for animating menus after a game has been paused by setting Time.timeScale=0</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetAmount">public Hashtable SetAmount (float amount)</a></td>
+                    <td class="summary">Sets the amount.
+<br />[CameraFadeFrom|CameraFadeTo]for how transparent the Texture2D that the camera fade uses is</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetAmount">public Hashtable SetAmount (double amount)</a></td>
+                    <td class="summary">Sets the amount.
+<br />[CameraFadeFrom|CameraFadeTo]for how transparent the Texture2D that the camera fade uses is</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetColor">public Hashtable SetColor (Color color)</a></td>
+                    <td class="summary">Sets the color.
+<br />the color to fade the object to</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetColorR">public Hashtable SetColorR (float r)</a></td>
+                    <td class="summary">Sets the color r.
+<br /> for the individual setting of the color red</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetColorR">public Hashtable SetColorR (double r)</a></td>
+                    <td class="summary">Sets the color r.
+<br />for the individual setting of the color red</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetColorG">public Hashtable SetColorG (float g)</a></td>
+                    <td class="summary">Sets the color g.
+<br />for the individual setting of the color green</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetColorG">public Hashtable SetColorG (double g)</a></td>
+                    <td class="summary">Sets the color g.
+<br /> for the individual setting of the color green</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetColorB">public Hashtable SetColorB (float b)</a></td>
+                    <td class="summary">Sets the color b.
+<br /> for the individual setting of the color blue</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetColorB">public Hashtable SetColorB (double b)</a></td>
+                    <td class="summary">Sets the color b.
+<br /> for the individual setting of the color blue</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetColorA">public Hashtable SetColorA (float a)</a></td>
+                    <td class="summary">Sets the color a.
+<br />for the individual setting of the alpha</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetColorA">public Hashtable SetColorA (double a)</a></td>
+                    <td class="summary">Sets the color a.
+<br /> for the individual setting of the alpha</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetNamedColorValue">public Hashtable SetNamedColorValue (iTween.NamedValueColor namedValueColor)</a></td>
+                    <td class="summary">Sets the named color value.
+<br /> for which color of a shader to use. Uses "_Color" by default.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetIncludeChildren">public Hashtable SetIncludeChildren (bool b)</a></td>
+                    <td class="summary">Sets the include children.
+<br />for whether or not to include children of this GameObject. True by default</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetAlpha">public Hashtable SetAlpha (float alpha)</a></td>
+                    <td class="summary">Sets the alpha.
+<br />for the initial alpha value of the animation.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetLooktarget">public Hashtable SetLooktarget (Transform transform)</a></td>
+                    <td class="summary">Sets the looktarget.
+<br />for a target the GameObject will look at.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetLooktarget">public Hashtable SetLooktarget (Vector3 vector3)</a></td>
+                    <td class="summary">Sets the looktarget.
+<br />for a target the GameObject will look at.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetAxis">public Hashtable SetAxis (Axis axis)</a></td>
+                    <td class="summary">Sets the axis.
+<br />Restricts rotation to the supplied axis only.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetSpeed">public Hashtable SetSpeed (float speed)</a></td>
+                    <td class="summary">Sets the speed.
+<br />can be used instead of time to allow animation based on speed</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetSpeed">public Hashtable SetSpeed (double speed)</a></td>
+                    <td class="summary">Sets the speed.
+<br />can be used instead of time to allow animation based on speed</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetAmount">public Hashtable SetAmount (Vector3 amount)</a></td>
+                    <td class="summary">Sets the amount.
+<br />[MoveAdd]for a point in space the GameObject will animate to.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetX">public Hashtable SetX (float x)</a></td>
+                    <td class="summary">Sets the x.
+<br />for the individual setting of the x axis</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetX">public Hashtable SetX (double x)</a></td>
+                    <td class="summary">Sets the x.
+<br />for the individual setting of the x axis</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetY">public Hashtable SetY (float y)</a></td>
+                    <td class="summary">Sets the y.
+<br /> for the individual setting of the y axis</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetY">public Hashtable SetY (double y)</a></td>
+                    <td class="summary">Sets the y.
+<br /> for the individual setting of the y axis</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetZ">public Hashtable SetZ (float z)</a></td>
+                    <td class="summary">Sets the z.
+<br />for the individual setting of the z axis</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetZ">public Hashtable SetZ (double z)</a></td>
+                    <td class="summary">Sets the z.
+<br />  for the individual setting of the z axis</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetLookTime">public Hashtable SetLookTime (float lookTime)</a></td>
+                    <td class="summary">Sets the look time.
+<br /> for the time in seconds the object will take to look at either the "looktarget" or "orienttopath"</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetSpace">public Hashtable SetSpace (Space space)</a></td>
+                    <td class="summary">Sets the space.
+<br />for applying the transformation in either the world coordinate or local cordinate system. Defaults to local space</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetPosition">public Hashtable SetPosition (Transform transform)</a></td>
+                    <td class="summary">Sets the position.
+<br />for a point in space the GameObject will animate to.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetPosition">public Hashtable SetPosition (Vector3 vector3)</a></td>
+                    <td class="summary">Sets the position.
+<br />for a point in space the GameObject will animate to.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetPath">public Hashtable SetPath (Vector3[] vector3Array)</a></td>
+                    <td class="summary">Sets the path.
+<br /> for a list of points to draw a Catmull-Rom through for a curved animation path</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetPath">public Hashtable SetPath (Transform[] transformArray)</a></td>
+                    <td class="summary">Sets the path.
+<br /> for a list of points to draw a Catmull-Rom through for a curved animation path</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetMoveToPath">public Hashtable SetMoveToPath (bool isMoveToPath)</a></td>
+                    <td class="summary">Sets the move to path.
+<br />for whether to automatically generate a curve from the GameObject's current position to the beginning of the path. True by default.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetOrientToPath">public Hashtable SetOrientToPath (bool isOrientToPath)</a></td>
+                    <td class="summary">Sets the orient to path.
+<br />for whether or not the GameObject will orient to its direction of travel. False by default</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetLookAhead">public Hashtable SetLookAhead (float lookAhead)</a></td>
+                    <td class="summary">Sets the look ahead.
+<br />for how much of a percentage (from 0 to 1) to look ahead on a path to influence how strict "orienttopath" is and how much the object will anticipate each curve</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetLookAhead">public Hashtable SetLookAhead (double lookAhead)</a></td>
+                    <td class="summary">Sets the look ahead.
+<br />for how much of a percentage (from 0 to 1) to look ahead on a path to influence how strict "orienttopath" is and how much the object will anticipate each curve</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetIsLocal">public Hashtable SetIsLocal (bool isLocal)</a></td>
+                    <td class="summary">Sets the is local.
+<br />for whether to animate in world space or relative to the parent. False be default.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetRotation">public Hashtable SetRotation (Transform transform)</a></td>
+                    <td class="summary">Sets the rotation.
+<br />for the target Euler angles in degrees to rotate to.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetRotation">public Hashtable SetRotation (Vector3 vector3)</a></td>
+                    <td class="summary">Sets the rotation.
+<br /> for the target Euler angles in degrees to rotate to.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetScale">public Hashtable SetScale (Transform transform)</a></td>
+                    <td class="summary">Sets the scale.
+<br /> for the initial scale</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetScale">public Hashtable SetScale (Vector3 vector3)</a></td>
+                    <td class="summary">Sets the scale.
+<br />for the initial scale</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetAudioclip">public Hashtable SetAudioclip (AudioClip audioClip)</a></td>
+                    <td class="summary">Sets the audioclip.
+<br />for a reference to the AudioClip to be played.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetFrom">public Hashtable SetFrom (float from)</a></td>
+                    <td class="summary">Sets from.
+<br />[ValueTo ]for the starting value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetFrom">public Hashtable SetFrom (double from)</a></td>
+                    <td class="summary">Sets from.
+<br /> [ValueTo ]for the starting value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetFrom">public Hashtable SetFrom (Vector2 from)</a></td>
+                    <td class="summary">Sets from.
+<br />[ValueTo ]for the starting value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetFrom">public Hashtable SetFrom (Vector3 from)</a></td>
+                    <td class="summary">Sets from.
+<br />[ValueTo ]for the starting value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetFrom">public Hashtable SetFrom (Rect from)</a></td>
+                    <td class="summary">Sets from.
+<br />[ValueTo ]for the starting value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetFrom">public Hashtable SetFrom (Color from)</a></td>
+                    <td class="summary">Sets from.
+<br /> [ValueTo ]for the starting value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetTo">public Hashtable SetTo (float to)</a></td>
+                    <td class="summary">Sets to.
+<br />[ValueTo ]for the ending value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetTo">public Hashtable SetTo (double to)</a></td>
+                    <td class="summary">Sets to.
+<br />[ValueTo ]for the ending value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetTo">public Hashtable SetTo (Vector2 to)</a></td>
+                    <td class="summary">Sets to.
+<br />[ValueTo ]for the ending value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetTo">public Hashtable SetTo (Vector3 to)</a></td>
+                    <td class="summary">Sets to.
+<br />[ValueTo ]for the ending value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetTo">public Hashtable SetTo (Color to)</a></td>
+                    <td class="summary">Sets to.
+<br />[ValueTo ]for the ending value.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetTo">public Hashtable SetTo (Rect to)</a></td>
+                    <td class="summary">Sets to.
+<br />[ValueTo ]for the ending value.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+
+            <h2><a name="Functions"></a>Functions</h2>
+            <dl class="function">
+                <dt>
+                    <a name="SetName"></a>
+                    <strong>SetName</strong>
+                </dt>
+                <dd>
+                    Sets the iTween name.
+<br />an individual name useful for stopping iTweens by name
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> name</span>
+                            Name.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetAudioSource"></a>
+                    <strong>SetAudioSource</strong>
+                </dt>
+                <dd>
+                    Sets the audio source.
+<br />for which AudioSource to use
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>AudioSource<span class="parameter"> audioSource</span>
+                            Audio source.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetVolume"></a>
+                    <strong>SetVolume</strong>
+                </dt>
+                <dd>
+                    Sets the volume.
+<br />for the target level of volume
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> volume</span>
+                            Volume.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetVolume"></a>
+                    <strong>SetVolume</strong>
+                </dt>
+                <dd>
+                    Sets the volume.
+<br />for the target level of volume
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> volume</span>
+                            Volume.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetPitch"></a>
+                    <strong>SetPitch</strong>
+                </dt>
+                <dd>
+                    Sets the pitch.
+<br />for the target pitch
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> pitch</span>
+                            Pitch.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetPitch"></a>
+                    <strong>SetPitch</strong>
+                </dt>
+                <dd>
+                    Sets the pitch.
+<br />for the target pitch
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> pitch</span>
+                            Pitch.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetTime"></a>
+                    <strong>SetTime</strong>
+                </dt>
+                <dd>
+                    Sets the time.
+<br />for the time in seconds the animation will take to complete
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> time</span>
+                            Time.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetTime"></a>
+                    <strong>SetTime</strong>
+                </dt>
+                <dd>
+                    Sets the time.
+<br /> for the time in seconds the animation will take to complete
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> time</span>
+                            Time.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetDelay"></a>
+                    <strong>SetDelay</strong>
+                </dt>
+                <dd>
+                    Sets the delay.
+<br />for the time in seconds the animation will wait before beginning
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> delay</span>
+                            Delay.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetDelay"></a>
+                    <strong>SetDelay</strong>
+                </dt>
+                <dd>
+                    Sets the delay.
+<br />for the time in seconds the animation will wait before beginning
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> delay</span>
+                            Delay.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetEaseType"></a>
+                    <strong>SetEaseType</strong>
+                </dt>
+                <dd>
+                    Sets the type of the ease.
+<br />for the shape of the easing curve applied to the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>iTween.EaseType<span class="parameter"> easeType</span>
+                            Ease type.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetLoopType"></a>
+                    <strong>SetLoopType</strong>
+                </dt>
+                <dd>
+                    Sets the type of the loop.
+<br />for the type of loop to apply once the animation has completed
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>iTween.LoopType<span class="parameter"> looptype</span>
+                            Looptype.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnStart"></a>
+                    <strong>SetOnStart</strong>
+                </dt>
+                <dd>
+                    Sets the onStart callback.
+<br />a function to launch at the beginning of the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action <span class="parameter"> action</span>
+                            Action.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnStart"></a>
+                    <strong>SetOnStart</strong>
+                </dt>
+                <dd>
+                    Sets the onStart callback.
+<br />a function to launch at the beginning of the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action&lt;object&gt; <span class="parameter"> action</span>
+                            Action.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnStart"></a>
+                    <strong>SetOnStart</strong>
+                </dt>
+                <dd>
+                    Sets the onStart callback.
+<br /> a function to launch at the beginning of the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action&lt;float&gt; <span class="parameter"> action</span>
+                            Action.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnStartTarget"></a>
+                    <strong>SetOnStartTarget</strong>
+                </dt>
+                <dd>
+                    Sets the on start target.
+<br />for a reference to the GameObject that holds the "onstart" method
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>GameObject<span class="parameter"> go</span>
+                            GameObject
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnStartParams"></a>
+                    <strong>SetOnStartParams</strong>
+                </dt>
+                <dd>
+                    Sets the on start parameters.
+<br />for arguments to be sent to the "onstart" method
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>object<span class="parameter"> param</span>
+                            Parameter.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnUpdate"></a>
+                    <strong>SetOnUpdate</strong>
+                </dt>
+                <dd>
+                    Sets the on update.
+<br />a function to launch on every step of the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action<span class="parameter"> action</span>
+                            Action.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnUpdate"></a>
+                    <strong>SetOnUpdate</strong>
+                </dt>
+                <dd>
+                    Sets the on update.
+<br />a function to launch on every step of the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action&lt;float&gt;<span class="parameter"> action</span>
+                            Action.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnUpdate"></a>
+                    <strong>SetOnUpdate</strong>
+                </dt>
+                <dd>
+                    Sets the on update.
+<br />a function to launch on every step of the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action&lt;object&gt;<span class="parameter"> action</span>
+                            Action.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnUpdateTarget"></a>
+                    <strong>SetOnUpdateTarget</strong>
+                </dt>
+                <dd>
+                    Sets the on start target.
+<br />for a reference to the GameObject that holds the "onupdate" method
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>GameObject<span class="parameter"> go</span>
+                            GameObject
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnUpdateParams"></a>
+                    <strong>SetOnUpdateParams</strong>
+                </dt>
+                <dd>
+                    Sets the on start parameters.
+<br />for arguments to be sent to the "onupdate" method
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>object<span class="parameter"> param</span>
+                            Parameter.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnComplete"></a>
+                    <strong>SetOnComplete</strong>
+                </dt>
+                <dd>
+                    Sets the on complete.
+<br />a function to launch at the end of the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action<span class="parameter"> action</span>
+                            Action.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnComplete"></a>
+                    <strong>SetOnComplete</strong>
+                </dt>
+                <dd>
+                    Sets the on complete.
+<br />a function to launch at the end of the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action&lt;float&gt;<span class="parameter"> action</span>
+                            Action.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnComplete"></a>
+                    <strong>SetOnComplete</strong>
+                </dt>
+                <dd>
+                    Sets the on complete.
+<br />a function to launch at the end of the animation
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action&lt;object&gt;<span class="parameter"> action</span>
+                            Action.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnCompleteTarget"></a>
+                    <strong>SetOnCompleteTarget</strong>
+                </dt>
+                <dd>
+                    Sets the on complete target.
+<br />for a reference to the GameObject that holds the "oncomplete" method
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>GameObject<span class="parameter"> go</span>
+                            Go.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOnCompleteParams"></a>
+                    <strong>SetOnCompleteParams</strong>
+                </dt>
+                <dd>
+                    Sets the on complete parameters.
+<br />for arguments to be sent to the "oncomplete" method
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>object<span class="parameter"> param</span>
+                            Parameter.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetIgnoreTimeScale"></a>
+                    <strong>SetIgnoreTimeScale</strong>
+                </dt>
+                <dd>
+                    Sets the ignore time scale.
+<br />setting this to true will allow the animation to continue independent of the current time which is helpful for animating menus after a game has been paused by setting Time.timeScale=0
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>bool<span class="parameter"> b</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetAmount"></a>
+                    <strong>SetAmount</strong>
+                </dt>
+                <dd>
+                    Sets the amount.
+<br />[CameraFadeFrom|CameraFadeTo]for how transparent the Texture2D that the camera fade uses is
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> amount</span>
+                            Amount.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetAmount"></a>
+                    <strong>SetAmount</strong>
+                </dt>
+                <dd>
+                    Sets the amount.
+<br />[CameraFadeFrom|CameraFadeTo]for how transparent the Texture2D that the camera fade uses is
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> amount</span>
+                            Amount.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetColor"></a>
+                    <strong>SetColor</strong>
+                </dt>
+                <dd>
+                    Sets the color.
+<br />the color to fade the object to
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Color<span class="parameter"> color</span>
+                            Color.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetColorR"></a>
+                    <strong>SetColorR</strong>
+                </dt>
+                <dd>
+                    Sets the color r.
+<br /> for the individual setting of the color red
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> r</span>
+                            The red component.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetColorR"></a>
+                    <strong>SetColorR</strong>
+                </dt>
+                <dd>
+                    Sets the color r.
+<br />for the individual setting of the color red
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> r</span>
+                            The red component.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetColorG"></a>
+                    <strong>SetColorG</strong>
+                </dt>
+                <dd>
+                    Sets the color g.
+<br />for the individual setting of the color green
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> g</span>
+                            The green component.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetColorG"></a>
+                    <strong>SetColorG</strong>
+                </dt>
+                <dd>
+                    Sets the color g.
+<br /> for the individual setting of the color green
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> g</span>
+                            The green component.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetColorB"></a>
+                    <strong>SetColorB</strong>
+                </dt>
+                <dd>
+                    Sets the color b.
+<br /> for the individual setting of the color blue
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> b</span>
+                            The blue component.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetColorB"></a>
+                    <strong>SetColorB</strong>
+                </dt>
+                <dd>
+                    Sets the color b.
+<br /> for the individual setting of the color blue
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> b</span>
+                            The blue component.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetColorA"></a>
+                    <strong>SetColorA</strong>
+                </dt>
+                <dd>
+                    Sets the color a.
+<br />for the individual setting of the alpha
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> a</span>
+                            The alpha component.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetColorA"></a>
+                    <strong>SetColorA</strong>
+                </dt>
+                <dd>
+                    Sets the color a.
+<br /> for the individual setting of the alpha
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> a</span>
+                            The alpha component.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetNamedColorValue"></a>
+                    <strong>SetNamedColorValue</strong>
+                </dt>
+                <dd>
+                    Sets the named color value.
+<br /> for which color of a shader to use. Uses "_Color" by default.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>iTween.NamedValueColor<span class="parameter"> namedValueColor</span>
+                            Named value color.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetIncludeChildren"></a>
+                    <strong>SetIncludeChildren</strong>
+                </dt>
+                <dd>
+                    Sets the include children.
+<br />for whether or not to include children of this GameObject. True by default
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>bool<span class="parameter"> b</span>
+                            If set to <c>true</c> b.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetAlpha"></a>
+                    <strong>SetAlpha</strong>
+                </dt>
+                <dd>
+                    Sets the alpha.
+<br />for the initial alpha value of the animation.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> alpha</span>
+                            Alpha.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetLooktarget"></a>
+                    <strong>SetLooktarget</strong>
+                </dt>
+                <dd>
+                    Sets the looktarget.
+<br />for a target the GameObject will look at.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Transform<span class="parameter"> transform</span>
+                            Transform.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetLooktarget"></a>
+                    <strong>SetLooktarget</strong>
+                </dt>
+                <dd>
+                    Sets the looktarget.
+<br />for a target the GameObject will look at.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector3<span class="parameter"> vector3</span>
+                            Vector3.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetAxis"></a>
+                    <strong>SetAxis</strong>
+                </dt>
+                <dd>
+                    Sets the axis.
+<br />Restricts rotation to the supplied axis only.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Axis<span class="parameter"> axis</span>
+                            axis include [x  y  z]
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetSpeed"></a>
+                    <strong>SetSpeed</strong>
+                </dt>
+                <dd>
+                    Sets the speed.
+<br />can be used instead of time to allow animation based on speed
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> speed</span>
+                            Speed.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetSpeed"></a>
+                    <strong>SetSpeed</strong>
+                </dt>
+                <dd>
+                    Sets the speed.
+<br />can be used instead of time to allow animation based on speed
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> speed</span>
+                            Speed.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetAmount"></a>
+                    <strong>SetAmount</strong>
+                </dt>
+                <dd>
+                    Sets the amount.
+<br />[MoveAdd]for a point in space the GameObject will animate to.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector3<span class="parameter"> amount</span>
+                            Amount.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetX"></a>
+                    <strong>SetX</strong>
+                </dt>
+                <dd>
+                    Sets the x.
+<br />for the individual setting of the x axis
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> x</span>
+                            The x coordinate.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetX"></a>
+                    <strong>SetX</strong>
+                </dt>
+                <dd>
+                    Sets the x.
+<br />for the individual setting of the x axis
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> x</span>
+                            The x coordinate.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetY"></a>
+                    <strong>SetY</strong>
+                </dt>
+                <dd>
+                    Sets the y.
+<br /> for the individual setting of the y axis
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> y</span>
+                            The y coordinate.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetY"></a>
+                    <strong>SetY</strong>
+                </dt>
+                <dd>
+                    Sets the y.
+<br /> for the individual setting of the y axis
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> y</span>
+                            The y coordinate.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetZ"></a>
+                    <strong>SetZ</strong>
+                </dt>
+                <dd>
+                    Sets the z.
+<br />for the individual setting of the z axis
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> z</span>
+                            The z coordinate.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetZ"></a>
+                    <strong>SetZ</strong>
+                </dt>
+                <dd>
+                    Sets the z.
+<br />  for the individual setting of the z axis
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> z</span>
+                            The z coordinate.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetLookTime"></a>
+                    <strong>SetLookTime</strong>
+                </dt>
+                <dd>
+                    Sets the look time.
+<br /> for the time in seconds the object will take to look at either the "looktarget" or "orienttopath"
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> lookTime</span>
+                            Look time.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetSpace"></a>
+                    <strong>SetSpace</strong>
+                </dt>
+                <dd>
+                    Sets the space.
+<br />for applying the transformation in either the world coordinate or local cordinate system. Defaults to local space
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Space<span class="parameter"> space</span>
+                            Space.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetPosition"></a>
+                    <strong>SetPosition</strong>
+                </dt>
+                <dd>
+                    Sets the position.
+<br />for a point in space the GameObject will animate to.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Transform<span class="parameter"> transform</span>
+                            Transform.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetPosition"></a>
+                    <strong>SetPosition</strong>
+                </dt>
+                <dd>
+                    Sets the position.
+<br />for a point in space the GameObject will animate to.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector3<span class="parameter"> vector3</span>
+                            Vector3.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetPath"></a>
+                    <strong>SetPath</strong>
+                </dt>
+                <dd>
+                    Sets the path.
+<br /> for a list of points to draw a Catmull-Rom through for a curved animation path
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector3[]<span class="parameter"> vector3Array</span>
+                            Vector3 array.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetPath"></a>
+                    <strong>SetPath</strong>
+                </dt>
+                <dd>
+                    Sets the path.
+<br /> for a list of points to draw a Catmull-Rom through for a curved animation path
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Transform[]<span class="parameter"> transformArray</span>
+                            transformy array.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetMoveToPath"></a>
+                    <strong>SetMoveToPath</strong>
+                </dt>
+                <dd>
+                    Sets the move to path.
+<br />for whether to automatically generate a curve from the GameObject's current position to the beginning of the path. True by default.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>bool<span class="parameter"> isMoveToPath</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetOrientToPath"></a>
+                    <strong>SetOrientToPath</strong>
+                </dt>
+                <dd>
+                    Sets the orient to path.
+<br />for whether or not the GameObject will orient to its direction of travel. False by default
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>bool<span class="parameter"> isOrientToPath</span>
+                            If set to <c>true</c> is orient to path.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetLookAhead"></a>
+                    <strong>SetLookAhead</strong>
+                </dt>
+                <dd>
+                    Sets the look ahead.
+<br />for how much of a percentage (from 0 to 1) to look ahead on a path to influence how strict "orienttopath" is and how much the object will anticipate each curve
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> lookAhead</span>
+                            Look ahead.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetLookAhead"></a>
+                    <strong>SetLookAhead</strong>
+                </dt>
+                <dd>
+                    Sets the look ahead.
+<br />for how much of a percentage (from 0 to 1) to look ahead on a path to influence how strict "orienttopath" is and how much the object will anticipate each curve
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> lookAhead</span>
+                            Look ahead.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetIsLocal"></a>
+                    <strong>SetIsLocal</strong>
+                </dt>
+                <dd>
+                    Sets the is local.
+<br />for whether to animate in world space or relative to the parent. False be default.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>bool<span class="parameter"> isLocal</span>
+                            If set to <c>true</c> is local.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetRotation"></a>
+                    <strong>SetRotation</strong>
+                </dt>
+                <dd>
+                    Sets the rotation.
+<br />for the target Euler angles in degrees to rotate to.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Transform<span class="parameter"> transform</span>
+                            Transform.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetRotation"></a>
+                    <strong>SetRotation</strong>
+                </dt>
+                <dd>
+                    Sets the rotation.
+<br /> for the target Euler angles in degrees to rotate to.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector3<span class="parameter"> vector3</span>
+                            Vector3.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetScale"></a>
+                    <strong>SetScale</strong>
+                </dt>
+                <dd>
+                    Sets the scale.
+<br /> for the initial scale
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Transform<span class="parameter"> transform</span>
+                            Transform.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetScale"></a>
+                    <strong>SetScale</strong>
+                </dt>
+                <dd>
+                    Sets the scale.
+<br />for the initial scale
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector3<span class="parameter"> vector3</span>
+                            Vector3.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetAudioclip"></a>
+                    <strong>SetAudioclip</strong>
+                </dt>
+                <dd>
+                    Sets the audioclip.
+<br />for a reference to the AudioClip to be played.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>AudioClip<span class="parameter"> audioClip</span>
+                            Audio clip.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetFrom"></a>
+                    <strong>SetFrom</strong>
+                </dt>
+                <dd>
+                    Sets from.
+<br />[ValueTo ]for the starting value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> from</span>
+                            Value from.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetFrom"></a>
+                    <strong>SetFrom</strong>
+                </dt>
+                <dd>
+                    Sets from.
+<br /> [ValueTo ]for the starting value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> from</span>
+                            Value from.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetFrom"></a>
+                    <strong>SetFrom</strong>
+                </dt>
+                <dd>
+                    Sets from.
+<br />[ValueTo ]for the starting value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector2<span class="parameter"> from</span>
+                            Value from.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetFrom"></a>
+                    <strong>SetFrom</strong>
+                </dt>
+                <dd>
+                    Sets from.
+<br />[ValueTo ]for the starting value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector3<span class="parameter"> from</span>
+                            Value from.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetFrom"></a>
+                    <strong>SetFrom</strong>
+                </dt>
+                <dd>
+                    Sets from.
+<br />[ValueTo ]for the starting value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Rect<span class="parameter"> from</span>
+                            Value from.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetFrom"></a>
+                    <strong>SetFrom</strong>
+                </dt>
+                <dd>
+                    Sets from.
+<br /> [ValueTo ]for the starting value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Color<span class="parameter"> from</span>
+                            Value from.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetTo"></a>
+                    <strong>SetTo</strong>
+                </dt>
+                <dd>
+                    Sets to.
+<br />[ValueTo ]for the ending value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> to</span>
+                            Value to.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable The to.
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetTo"></a>
+                    <strong>SetTo</strong>
+                </dt>
+                <dd>
+                    Sets to.
+<br />[ValueTo ]for the ending value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>double<span class="parameter"> to</span>
+                            Value to.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable The to.
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetTo"></a>
+                    <strong>SetTo</strong>
+                </dt>
+                <dd>
+                    Sets to.
+<br />[ValueTo ]for the ending value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector2<span class="parameter"> to</span>
+                            Value to.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable The to.
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetTo"></a>
+                    <strong>SetTo</strong>
+                </dt>
+                <dd>
+                    Sets to.
+<br />[ValueTo ]for the ending value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Vector3<span class="parameter"> to</span>
+                            Value to.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable The to.
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetTo"></a>
+                    <strong>SetTo</strong>
+                </dt>
+                <dd>
+                    Sets to.
+<br />[ValueTo ]for the ending value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Color<span class="parameter"> to</span>
+                            Value to.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable The to.
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetTo"></a>
+                    <strong>SetTo</strong>
+                </dt>
+                <dd>
+                    Sets to.
+<br />[ValueTo ]for the ending value.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Rect<span class="parameter"> to</span>
+                            Value to.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Hashtable The to.
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div> <!-- id="content" -->
+    </div> <!-- id="main" -->
+    <div id="about">
+        <i>written by <a href="https://github.com/SES-xuelan">XueLan</a></i>
+    </div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

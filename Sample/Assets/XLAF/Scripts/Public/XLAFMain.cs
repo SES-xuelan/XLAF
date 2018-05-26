@@ -26,6 +26,9 @@ using XLAF.Private;
 
 namespace XLAF.Public
 {
+	/// <summary>
+	/// XLAF main script.
+	/// </summary>
 	public class XLAFMain
 	{
 		
@@ -76,7 +79,7 @@ namespace XLAF.Public
 		/// <summary>
 		/// Global Gameobject, used for XLAF inner classes in general
 		/// </summary>
-		public static GameObject XLAFGameObject;
+		public static GameObject XLAFGameObject{ get; set; }
 
 		#endregion
 

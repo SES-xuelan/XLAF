@@ -34,9 +34,6 @@ namespace XLAF.Public
 
 		#region constructed function & initialization
 
-		/// <summary>
-		/// Initializes the <see cref="XLAF.Public.Log"/> class.
-		/// </summary>
 		static  Log ()
 		{
 			debug_file = ModUtils.documentsDirectory + "/debug.log";
@@ -187,6 +184,7 @@ namespace XLAF.Public
 		{
 			return (num & (0x1 << index)) >> index;
 		}
+
 		/// <summary>
 		/// join parameterses to string.
 		/// </summary>

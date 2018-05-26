@@ -34,7 +34,7 @@ namespace XLAF.Public
 		/// <summary>
 		/// use toLua hot fix or not
 		/// </summary>
-		public static bool useHotFix = true;
+		public static bool useHotFix{ get; set; }
 
 		#endregion
 

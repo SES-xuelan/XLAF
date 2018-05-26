@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>XueLan's Application Framework</title>
+    <link rel="stylesheet" href="css.css" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="product">
+        <div id="product_logo"></div>
+        <div id="product_name"><big><b></b></big></div>
+        <div id="product_description"></div>
+    </div>
+
+    <div id="main">
+
+        <!-- Menu -->
+        <div id="navigation">
+            <br/>
+            <h1>XLAF Doc</h1>
+            <h2>Classes</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="3rd-party/iTweenHashBuilder.html">iTweenHashBuilder</a></li>
+                <li><a href="Public/Log.html">Log</a></li>
+                <li><a href="Public/MgrAssetBundle.html">MgrAssetBundle</a></li>
+                <li><a href="Public/MgrAudio.html">MgrAudio</a></li>
+                <li><a href="Public/MgrBackdoor.html">MgrBackdoor</a></li>
+                <li><a href="Public/MgrCoroutine.html">MgrCoroutine</a></li>
+                <li><a href="Public/MgrData.html">MgrData</a></li>
+                <li><a href="Public/MgrDialog.html">MgrDialog</a></li>
+                <li><a href="Public/MgrFPS.html">MgrFPS</a></li>
+                <li><a href="Public/MgrMultiLanguage.html">MgrMultiLanguage</a></li>
+                <li><a href="Public/MgrScene.html">MgrScene</a></li>
+                <li><a href="Public/ModCompress.html">ModCompress</a></li>
+                <li><a href="Public/ModDispatcher.html">ModDispatcher</a></li>
+                <li><a href="Public/ModEncryption.html">ModEncryption</a></li>
+                <li><a href="Public/ModUIUtils.html">ModUIUtils</a></li>
+                <li><a href="Public/ModUtils.html">ModUtils</a></li>
+                <li><a href="Public/SceneObject.html">SceneObject</a></li>
+                <li><a href="Public/Storyboard.html">Storyboard</a></li>
+                <li><a href="Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></li>
+                <li><a href="Public/XLAFHotFixImpl.html">XLAFHotFixImpl</a></li>
+                <li><a href="Public/XLAFMain.html">XLAFMain</a></li>
+                <li><a href="Public/XLAF_Event.html">XLAF_Event</a></li>
+
+            </ul>
+            <h2>ReadMe</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="Readme.md.html">Readme</a></li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+            <h2>XueLan's Application Framework</h2>
+
+            <h2>Classes</h2>
+            <table class="module_list">
+                <tr>
+                    <td class="name" nowrap><a href="3rd-party/iTweenHashBuilder.html">iTweenHashBuilder</a></td>
+                    <td class="summary">iTween hash builder.<br />
+All params: <br />
+name|audiosource|volume|pitch|time|delay|easetype|<br />
+looptype|onstart|onstarttarget|onstartparams|onupdate|<br />
+onupdatetarget|onupdateparams|oncomplete|<br />
+oncompletetarget|oncompleteparams|ignoretimescale|<br />
+amount|color|r|g|b|a|NamedColorValue|includechildren|<br />
+alpha|looktarget|axis|speed|x|y|z|looktime|space|position|<br />
+path|movetopath|orienttopath|lookahead|islocal|<br />
+rotation|scale|audioclip|from|to<br />
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/Log.html">Log</a></td>
+                    <td class="summary">Log
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/MgrAssetBundle.html">MgrAssetBundle</a></td>
+                    <td class="summary">Asset bundle manager.
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/MgrAudio.html">MgrAudio</a></td>
+                    <td class="summary">Audio manager.
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/MgrBackdoor.html">MgrBackdoor</a></td>
+                    <td class="summary">backdoor manager.<br />
+click  BACKDOOR_CLICK_TIMES in BACKDOOR_OUT_OF_SECONDS will show backdoor.<br />
+!!WARNNING!!<br />
+ONLY use back door for debug!!!
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/MgrCoroutine.html">MgrCoroutine</a></td>
+                    <td class="summary">coroutine manager. <br />
+use this, you should not create gameObject manual (this class will create automatic :)).
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/MgrData.html">MgrData</a></td>
+                    <td class="summary">data manager
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/MgrDialog.html">MgrDialog</a></td>
+                    <td class="summary">Dialog manager, the code is similar to <a href="Public/MgrScene.html">MgrScene</a>
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/MgrFPS.html">MgrFPS</a></td>
+                    <td class="summary">debug use, show FPS, memory info
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/MgrMultiLanguage.html">MgrMultiLanguage</a></td>
+                    <td class="summary">Multi language config.
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/MgrScene.html">MgrScene</a></td>
+                    <td class="summary">Scene manager, the code is similar to <a href="Public/MgrDialog.html">MgrDialog</a>
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/ModCompress.html">ModCompress</a></td>
+                    <td class="summary">compress & decompress.
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/ModDispatcher.html">ModDispatcher</a></td>
+                    <td class="summary">Dispatcher mod.
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/ModEncryption.html">ModEncryption</a></td>
+                    <td class="summary">Encrypt  Decrypt Mod
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/ModUIUtils.html">ModUIUtils</a></td>
+                    <td class="summary">UI Tools
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/ModUtils.html">ModUtils</a></td>
+                    <td class="summary">Tools
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/SceneObject.html">SceneObject</a></td>
+                    <td class="summary">Scene object, UI part.
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/Storyboard.html">Storyboard</a></td>
+                    <td class="summary">Storyboard, script part.
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></td>
+                    <td class="summary">Event trigger listener.<br />
+You can add other EventTrigger.
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/XLAFHotFixImpl.html">XLAFHotFixImpl</a></td>
+                    <td class="summary">XLAF hot fix config Base class, developer MUST inherit this class to create new class to enable hot fix
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/XLAFMain.html">XLAFMain</a></td>
+                    <td class="summary">XLAF main script.
+</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="Public/XLAF_Event.html">XLAF_Event</a></td>
+                    <td class="summary">Event for ModDispatcher.
+</td>
+                </tr>
+
+            </table>
+            <h2>Topics</h2>
+            <table class="module_list">
+                <tr>
+                    <td class="name" nowrap><a href="Readme.md.html">Readme.md</a></td>
+                    <td class="summary">Read me file</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <div id="about">
+        <i>written by <a href="https://github.com/SES-xuelan">XueLan</a></i>
+    </div>
+</div>
+</body>
+</html>

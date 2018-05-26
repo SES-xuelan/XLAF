@@ -3,11 +3,12 @@ using System.Collections;
 using XLAF.Public;
 using System.Collections.Generic;
 using System;
+using XLAF.Private;
 
 namespace XLAF.Public
 {
 	/// <summary>
-	///  Dialog manager, the code is similar to <see cref="MgrScene"/>
+	///  Dialog manager, the code is similar to <see cref="XLAF.Public.MgrScene"/>
 	/// </summary>
 	public class MgrDialog : MonoBehaviour
 	{
