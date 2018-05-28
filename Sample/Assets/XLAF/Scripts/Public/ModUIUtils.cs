@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
+using UnityEngine.EventSystems;
+using XLAF.Private;
 
 namespace XLAF.Public
 {
@@ -42,7 +45,7 @@ namespace XLAF.Public
 			if (t != null) {
 				return t.GetComponent<T> ();
 			} else {
-				Log.Error ("error! find child null");
+				XLAFInnerLog.Error ("error! find child null");
 				return default(T);
 			}
 
@@ -60,7 +63,7 @@ namespace XLAF.Public
 			if (t != null) {
 				return t;
 			} else {
-				Log.Error ("error! find child null");
+				XLAFInnerLog.Error ("error! find child null");
 				return null;
 			}
 
@@ -84,6 +87,7 @@ namespace XLAF.Public
 				rect.anchoredPosition = new Vector2 ((float)x, (float)y);
 
 		}
+
 		/// <summary>
 		/// Changes the position.
 		/// </summary>
@@ -94,7 +98,7 @@ namespace XLAF.Public
 		{
 			RectTransform rect = t.image.rectTransform;
 			if (rect == null)
-				Log.Error ("RectTransform is null");
+				XLAFInnerLog.Error ("RectTransform is null");
 			ChangePos (rect, x, y);
 		}
 
@@ -116,6 +120,7 @@ namespace XLAF.Public
 			else
 				rect.sizeDelta = new Vector2 ((float)width, (float)height);
 		}
+
 		/// <summary>
 		/// Changes the size.
 		/// </summary>
@@ -126,9 +131,10 @@ namespace XLAF.Public
 		{
 			RectTransform rect = t.GetComponent<RectTransform> ();
 			if (rect == null)
-				Log.Error ("RectTransform is null");
+				XLAFInnerLog.Error ("RectTransform is null");
 			ChangeSize (rect, width, height);
 		}
+
 		/// <summary>
 		/// Changes the size.
 		/// </summary>
@@ -139,8 +145,103 @@ namespace XLAF.Public
 		{
 			RectTransform rect = t.GetComponent<RectTransform> ();
 			if (rect == null)
-				Log.Error ("RectTransform is null");
+				XLAFInnerLog.Error ("RectTransform is null");
 			ChangeSize (rect, width, height);
+		}
+
+		/// <summary>
+		/// Bindings the all button click event in <c>parent</c>.
+		/// </summary>
+		/// <param name="parent">Parent.</param>
+		/// <param name="onUIEvent">Event.</param>
+		public static void BindingButtonClick (GameObject parent, Action<XLAF_UIEvent> onUIEvent)
+		{
+			Button[] buttons = parent.GetComponentsInChildren<Button> (true);
+			for (int i = 0; i < buttons.Length; i++) {
+				AddClick (buttons [i].gameObject, onUIEvent);
+			}
+		}
+
+		/// <summary>
+		/// Adds the click.
+		/// </summary>
+		/// <param name="go">GameObject.</param>
+		/// <param name="callback">Callback.</param>
+		public static void AddClick (GameObject go, Action<XLAF_UIEvent> onUIEvent)
+		{
+			XLAFEventTriggerListener.Get (go).onClick = (GameObject g, PointerEventData e) => {
+				XLAF_UIEvent evt = new XLAF_UIEvent ();
+				evt.eventData = e;
+				evt.target = g;
+				evt.phase = Phase.Click;
+				onUIEvent (evt);
+			};
+		}
+
+		/// <summary>
+		/// Removes the click.
+		/// </summary>
+		/// <param name="go">GameObject.</param>
+		public static void RemoveClick (GameObject go)
+		{
+			XLAFEventTriggerListener.Get (go).onClick = null;
+		}
+
+		/// <summary>
+		/// Adds the touch event.
+		/// </summary>
+		/// <param name="go">GameObject.</param>
+		/// <param name="onUIEvent">On user interface event.</param>
+		public static void AddTouchEvent (GameObject go, Action<XLAF_UIEvent> onUIEvent)
+		{
+			XLAFEventTriggerListener.Get (go).onBeginDrag = (GameObject g, PointerEventData e) => {
+				XLAF_UIEvent evt = new XLAF_UIEvent ();
+				evt.eventData = e;
+				evt.target = g;
+				evt.phase = Phase.BeginDrag;
+				onUIEvent (evt);
+			};
+			XLAFEventTriggerListener.Get (go).onDrag = (GameObject g, PointerEventData e) => {
+				XLAF_UIEvent evt = new XLAF_UIEvent ();
+				evt.eventData = e;
+				evt.target = g;
+				evt.phase = Phase.Dragging;
+				onUIEvent (evt);
+			};
+			XLAFEventTriggerListener.Get (go).onEndDrag = (GameObject g, PointerEventData e) => {
+				XLAF_UIEvent evt = new XLAF_UIEvent ();
+				evt.eventData = e;
+				evt.target = g;
+				evt.phase = Phase.EndDrag;
+				onUIEvent (evt);
+			};
+			XLAFEventTriggerListener.Get (go).onDown = (GameObject g, PointerEventData e) => {
+				XLAF_UIEvent evt = new XLAF_UIEvent ();
+				evt.eventData = e;
+				evt.target = g;
+				evt.phase = Phase.Down;
+				onUIEvent (evt);
+			};
+			XLAFEventTriggerListener.Get (go).onUp = (GameObject g, PointerEventData e) => {
+				XLAF_UIEvent evt = new XLAF_UIEvent ();
+				evt.eventData = e;
+				evt.target = g;
+				evt.phase = Phase.Up;
+				onUIEvent (evt);
+			};
+		}
+
+		/// <summary>
+		/// Removes the touch event.
+		/// </summary>
+		/// <param name="go">GameObject.</param>
+		public static void RemoveTouchEvent (GameObject go)
+		{
+			XLAFEventTriggerListener.Get (go).onBeginDrag = null;
+			XLAFEventTriggerListener.Get (go).onDrag = null;
+			XLAFEventTriggerListener.Get (go).onEndDrag = null;
+			XLAFEventTriggerListener.Get (go).onDown = null;
+			XLAFEventTriggerListener.Get (go).onUp = null;
 		}
 
 		#endregion

@@ -9,10 +9,10 @@ using UnityEngine.EventSystems;
 public class Scene1 : Storyboard
 {
     
-	public override void OnUIEvent (UIEvent e)
+	public override void OnUIEvent (XLAF_UIEvent e)
 	{
 		Log.Debug ("OnUIEvent", e);
-		if (e.phase == TouchPhase.Ended) {
+		if (e.phase == Phase.Click) {
 			if (e.target.name == "btn1") {
 
 				//        MgrAudio.PlaySound ("s_click");
@@ -76,6 +76,7 @@ public class Scene1 : Storyboard
     */
 	public override void CreatScene (object obj)
 	{
+		BindAllButtonsClickEvent ();
 		Log.Debug ("scene1 creat_scene", obj);
 
 //		string fn = ModUtils.documentsDirectory + "/test.jsn";
@@ -89,6 +90,8 @@ public class Scene1 : Storyboard
 		MgrBackdoor.SetBackdoor (ModUIUtils.GetChild (transform, "lbl_text"), (isHandled, cmd) => {
 			Log.Debug (isHandled, cmd);
 		});
+
+
 	}
 
 

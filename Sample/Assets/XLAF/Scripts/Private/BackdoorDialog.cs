@@ -14,29 +14,34 @@ namespace XLAF.Private
 		private void InvokeCallback (string cmd)
 		{
 			bool isHandled = false;
+			try {
 
-			if (cmd.StartsWith ("setdebug")) {
-				isHandled = true;
-				string level = cmd.Replace ("setdebug", "").Trim ();
-				int val = Convert.ToInt32 (level, 16);
-				Log.Debug (val);
-				Log.SetDebugLevel (val);
-			} else if (cmd == "") {
-			}
+				if (cmd.StartsWith ("setdebug")) {
+					isHandled = true;
+					string level = cmd.Replace ("setdebug", "").Trim ();
+					int val = Convert.ToInt32 (level, 16);
+					Log.Debug (val);
+					Log.SetDebugLevel (val);
+				} else if (cmd == "") {
+				}
 
 
 
 
-			if (callback != null) {
-				callback.Invoke (isHandled, cmd);
+			} catch (Exception e) {
+				XLAFInnerLog.Warning ("Backdoor error!! " + e.ToString ());
+			} finally {
+				if (callback != null) {
+					callback (isHandled, cmd);
+				}
 			}
 		}
 
 		#region  Storyboard Listeners
 
-		public override void OnUIEvent (UIEvent e)
+		public override void OnUIEvent (XLAF_UIEvent e)
 		{
-			if (e.phase == TouchPhase.Ended) {
+			if (e.phase == Phase.Click) {
 				if (e.target.name == "btn_ok") {
 					InvokeCallback (inputField.text.ToLower ());
 					MgrPopup.Hide ("XLAFBackdoor", SceneAnimation.none);
@@ -63,6 +68,7 @@ namespace XLAF.Private
     */
 		public override void CreatScene (object obj)
 		{
+			BindAllButtonsClickEvent ();
 			callback = (Action<bool,string>)obj;
 			inputField = ModUIUtils.GetChild<InputField> (transform, "cmd");
 		}
@@ -92,10 +98,10 @@ namespace XLAF.Private
 
 		}
 		#if UNITY_ANDROID
-	    public override void AndroidGoBack ()
-	    {
-	    }
-	    #endif
+		public override void AndroidGoBack ()
+		{
+		}
+		#endif
 		#endregion
 	}
 }

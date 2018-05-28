@@ -4,6 +4,7 @@ using System;
 using XLAF.Public;
 using SimpleJSON;
 using UnityEngine;
+using XLAF.Private;
 
 namespace XLAF.Public
 {
@@ -26,7 +27,7 @@ namespace XLAF.Public
 		static MgrMultiLanguage ()
 		{
 			currentLanguage = MgrData.GetString (MgrData.appSettingsName, "XLAF.language", DEFAULT_LANGUAGE);
-			Log.Debug ("currentLanguage", currentLanguage);
+			XLAFInnerLog.Debug ("currentLanguage", currentLanguage);
 			Load ();
 
 		}
@@ -94,7 +95,7 @@ namespace XLAF.Public
 				ret = LanguageConfigs [stringKeyName].Value;
 				ret = string.Format (ret, args);
 			} catch (Exception e) {
-				Log.Error ("error in MgrMutiLanguage|GetString:", e);
+				XLAFInnerLog.Error ("error in MgrMutiLanguage|GetString:", e);
 			}
 
 			return ret;
@@ -108,7 +109,7 @@ namespace XLAF.Public
 		{
 			TextAsset str = Resources.Load<TextAsset> ("Lang/" + currentLanguage);
 			LanguageConfigs = JSONNode.Parse (str.ToString ());
-			Log.Debug ("bytes", LanguageConfigs);
+			XLAFInnerLog.Debug ("bytes", LanguageConfigs);
 
 		}
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using XLAF.Private;
 
 namespace XLAF.Public {
 
@@ -52,7 +53,7 @@ namespace XLAF.Public {
 			string[] tmp = fullSceneNamePath.Split ('/');
 			this._sceneName = tmp [tmp.Length - 1];
 			UnityEngine.Object _prefab = Resources.Load (fullSceneNamePath);
-			Log.Debug (fullSceneNamePath);
+			XLAFInnerLog.Debug (fullSceneNamePath);
 			GameObject scene = (GameObject)UnityEngine.Object.Instantiate (_prefab);
 			initAttr (scene, _sceneName);
 		}
@@ -69,7 +70,7 @@ namespace XLAF.Public {
 			this.cg = scene.transform.GetComponent<CanvasGroup> ();
 			this.script = scene.GetComponent<Storyboard> ();
 			this.script.SetSceneName (this._sceneName);
-			this._BindingEvents ();
+			this.script.SetSceneObject (this);
 
 			startX = this.scene.transform.position.x;
 			startY = this.scene.transform.position.y;
@@ -159,9 +160,5 @@ namespace XLAF.Public {
 
 		private string _sceneName = "";
 
-		private void _BindingEvents ()
-		{
-			ModUtils.BindingUIEvents (this.scene, this.script.OnUIEvent);
-		}
 	}
 }

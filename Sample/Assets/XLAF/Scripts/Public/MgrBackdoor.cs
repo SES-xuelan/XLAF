@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
+using XLAF.Private;
 
 namespace XLAF.Public
 {
@@ -13,7 +15,11 @@ namespace XLAF.Public
 	/// </summary>
 	public class MgrBackdoor:MonoBehaviour
 	{
+		#if UNITY_EDITOR
+		private static readonly int BACKDOOR_CLICK_TIMES = 2;
+		#else
 		private static readonly int BACKDOOR_CLICK_TIMES = 30;
+		#endif
 		private static readonly int BACKDOOR_OUT_OF_SECONDS = 10;
 
 		#region private variables
@@ -73,9 +79,9 @@ namespace XLAF.Public
 
 		#region private functions
 
-		private static void OnClick (GameObject go)
+		private static void OnClick (GameObject go, PointerEventData e)
 		{
-//			Log.Debug ("backdoor click!");
+//			XLAFInnerLog.Debug ("backdoor click!");
 			clickedTimes++;
 			if (clickedTimes == 1) {
 				instance.TimeOutBegan ();
@@ -102,7 +108,7 @@ namespace XLAF.Public
 			if (!isRunning) {
 				return;
 			}
-			Log.Debug ("TimeOutEnded");
+			XLAFInnerLog.Debug ("TimeOutEnded");
 			isRunning = false;
 			MgrBackdoor.clickedTimes = 0;
 		}

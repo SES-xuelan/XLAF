@@ -9,9 +9,9 @@ public class Scene2 : Storyboard
 {
     
 
-	public override void OnUIEvent (UIEvent e)
+	public override void OnUIEvent (XLAF_UIEvent e)
 	{
-		if (e.phase == TouchPhase.Ended) {
+		if (e.phase == Phase.Click) {
 			if (e.target.name == "Button") {
 				btn_click ();
 			}
@@ -52,6 +52,7 @@ public class Scene2 : Storyboard
     */
 	public override void CreatScene (object obj)
 	{
+		BindAllButtonsClickEvent ();
 		Log.Debug ("scene2 creat_scene", obj);
 	}
 

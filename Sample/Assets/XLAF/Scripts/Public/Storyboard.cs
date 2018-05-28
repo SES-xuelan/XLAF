@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
+using XLAF.Private;
 
 namespace XLAF.Public
 {
@@ -18,15 +19,23 @@ namespace XLAF.Public
 		#region private variables
 
 		private string _sceneName;
+		private SceneObject _sceneObject = null;
 
 		#endregion
 
 		#region public properties
+
 		/// <summary>
 		/// Gets the name of the scene.
 		/// </summary>
 		/// <value>The name of the scene.</value>
 		public string sceneName { get { return this._sceneName; } }
+
+		/// <summary>
+		/// Gets the scene object.
+		/// </summary>
+		/// <value>The scene object.</value>
+		public SceneObject sceneObject{ get { return _sceneObject; } }
 
 		#endregion
 
@@ -42,7 +51,23 @@ namespace XLAF.Public
 			if (string.IsNullOrEmpty (this._sceneName)) {
 				this._sceneName = name;
 			} else {
-				Log.Warning ("You can't change sceneName");
+				XLAFInnerLog.Warning ("You can't change sceneName");
+			}
+		}
+
+		/// <summary>
+		/// Sets the scene object.<para></para>
+		/// !WAINNING!<para></para>
+		/// This function is use for SceneObject ONLY.
+		/// You should NOT call this function.
+		/// </summary>
+		/// <param name="obj">Object.</param>
+		internal void SetSceneObject (SceneObject obj)
+		{
+			if (_sceneObject == null) {
+				this._sceneObject = obj;
+			} else {
+				XLAFInnerLog.Warning ("You can't change sceneObject");
 			}
 		}
 
@@ -111,26 +136,18 @@ namespace XLAF.Public
 		/// user interface event.
 		/// </summary>
 		/// <param name="e">Event.</param>
-		public virtual void OnUIEvent (UIEvent e)
+		public virtual void OnUIEvent (XLAF_UIEvent e)
 		{
             
 		}
-
-	}
-
-	public class UIEvent
-	{
-		public GameObject target;
-		public string targetType;
-		public TouchPhase phase;
-
-		public override string ToString ()
+		/// <summary>
+		/// Auto bind user interface event.
+		/// </summary>
+		protected void BindAllButtonsClickEvent ()
 		{
-			string str = "\n";
-			str = str + "tatget:" + target.name + "\n";
-			str = str + "targetType:" + targetType + "\n";
-			str = str + "phase:" + phase.ToString () + "\n";
-			return str;
+			ModUIUtils.BindingButtonClick (gameObject, this.OnUIEvent);
 		}
+
 	}
+
 }

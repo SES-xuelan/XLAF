@@ -123,7 +123,7 @@ namespace XLAF.Public
 			if (_popupViewVisiblity == visiblity)
 				return;
 
-			Log.Debug ("SetPopupViewVisible", visiblity);
+			XLAFInnerLog.Debug ("SetPopupViewVisible", visiblity);
 			_popupViewVisiblity = visiblity;
 			_popupViewRoot.gameObject.SetActive (visiblity);
 		}
@@ -250,7 +250,7 @@ namespace XLAF.Public
 			object data = par.data;
 			float bgAlpha = par.bgAlpha;
 
-			Log.Debug ("Show (SceneParams par)", par.ToString ());
+			XLAFInnerLog.Debug ("Show (SceneParams par)", par.ToString ());
 
 			SceneObject currentPopup = GetPopup (sceneName);
 			if (currentPopup != null) {
@@ -279,26 +279,26 @@ namespace XLAF.Public
 				_instance._AnimationFromBottom (true, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.slideLeft:
-				Log.Warning ("SceneAnimation.slideLeft should not use in MgrPopup.Show, use fromRight instead");
+				XLAFInnerLog.Warning ("SceneAnimation.slideLeft should not use in MgrPopup.Show, use fromRight instead");
 				_instance._AnimationFromRight (true, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.slideRight:
-				Log.Warning ("SceneAnimation.slideRight should not use in MgrPopup.Show, use fromLeft instead");
+				XLAFInnerLog.Warning ("SceneAnimation.slideRight should not use in MgrPopup.Show, use fromLeft instead");
 				_instance._AnimationFromLeft (true, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.slideDown:
-				Log.Warning ("SceneAnimation.slideDown should not use in MgrPopup.Show, use fromTop instead");
+				XLAFInnerLog.Warning ("SceneAnimation.slideDown should not use in MgrPopup.Show, use fromTop instead");
 				_instance._AnimationFromTop (true, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.slideUp:
-				Log.Warning ("SceneAnimation.slideUp should not use in MgrPopup.Show, use fromBottom instead");
+				XLAFInnerLog.Warning ("SceneAnimation.slideUp should not use in MgrPopup.Show, use fromBottom instead");
 				_instance._AnimationFromBottom (true, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.zoomIn:
 				_instance._AnimationZoomIn (sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.zoomOut:
-				Log.Warning ("SceneAnimation.zoomOut should not use in MgrPopup.Show, use zoomIn instead");
+				XLAFInnerLog.Warning ("SceneAnimation.zoomOut should not use in MgrPopup.Show, use zoomIn instead");
 				_instance._AnimationZoomIn (sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			}
@@ -823,7 +823,7 @@ namespace XLAF.Public
 			object data = par.data;
 			float bgAlpha = par.bgAlpha;
 
-			Log.Debug ("Hide (SceneParams par)", par.ToString ());
+			XLAFInnerLog.Debug ("Hide (SceneParams par)", par.ToString ());
 
 			SceneObject currentPopup = GetPopup (sceneName);
 			if (currentPopup == null) {
@@ -853,23 +853,23 @@ namespace XLAF.Public
 				_instance._AnimationFromBottom (false, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.slideLeft:
-				Log.Warning ("SceneAnimation.slideLeft should not use in MgrPopup.Hide, use fromRight instead");
+				XLAFInnerLog.Warning ("SceneAnimation.slideLeft should not use in MgrPopup.Hide, use fromRight instead");
 				_instance._AnimationFromRight (false, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.slideRight:
-				Log.Warning ("SceneAnimation.slideRight should not use in MgrPopup.Hide, use fromLeft instead");
+				XLAFInnerLog.Warning ("SceneAnimation.slideRight should not use in MgrPopup.Hide, use fromLeft instead");
 				_instance._AnimationFromLeft (false, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.slideDown:
-				Log.Warning ("SceneAnimation.slideDown should not use in MgrPopup.Hide, use fromTop instead");
+				XLAFInnerLog.Warning ("SceneAnimation.slideDown should not use in MgrPopup.Hide, use fromTop instead");
 				_instance._AnimationFromTop (false, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.slideUp:
-				Log.Warning ("SceneAnimation.slideUp should not use in MgrPopup.Hide, use fromBottom instead");
+				XLAFInnerLog.Warning ("SceneAnimation.slideUp should not use in MgrPopup.Hide, use fromBottom instead");
 				_instance._AnimationFromBottom (false, sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.zoomIn:
-				Log.Warning ("SceneAnimation.zoomIn should not use in MgrPopup.Hide, use zoomOut instead");
+				XLAFInnerLog.Warning ("SceneAnimation.zoomIn should not use in MgrPopup.Hide, use zoomOut instead");
 				_instance._AnimationZoomOut (sceneName, data, bgAlpha, newSceneTime, ease, cb);
 				break;
 			case SceneAnimation.zoomOut:
@@ -1269,7 +1269,7 @@ namespace XLAF.Public
 
 				RectTransform tmpRT = currentPopup.scene.GetComponent<RectTransform> ();
 				tmpRT.position = new Vector3 (newSceneStartX, nomalY);
-				Log.Debug ("newSceneStartX", newSceneStartX);
+				XLAFInnerLog.Debug ("newSceneStartX", newSceneStartX);
 				iTween.MoveTo (currentPopup.scene, iTween.Hash (
 					"x", nomalX,
 					"time", newSceneTime,

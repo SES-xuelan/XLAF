@@ -31,6 +31,9 @@ namespace XLAF.Private
 
 		}
 
+		public static void SetShown(bool isShow){
+			_isShow = isShow;
+		}
 		#endregion
 
 		#region public functions

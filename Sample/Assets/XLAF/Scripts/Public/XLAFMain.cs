@@ -47,6 +47,7 @@ namespace XLAF.Public
 			
 			//MUST called below
 			Log4iOS.Init ();
+			XLAFInnerLog.SetShown (true);
 			MgrAssetBundle.Init ();
 
 			// In general, you should not call Init(), you can call  Init() in exceptional case.

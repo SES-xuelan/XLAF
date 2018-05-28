@@ -235,6 +235,7 @@
      <Compile Include="Assets\XLAF\Scripts\Public\SceneObject.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\Storyboard.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\XLAF_Event.cs" />
+     <Compile Include="Assets\XLAF\Scripts\Public\XLAF_UIEvent.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\XLAFEventTriggerListener.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\XLAFHotFixImpl.cs" />
      <Compile Include="Assets\XLAF\Scripts\Public\XLAFMain.cs" />

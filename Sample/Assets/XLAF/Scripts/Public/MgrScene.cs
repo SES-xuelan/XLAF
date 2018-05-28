@@ -57,7 +57,7 @@ namespace XLAF.Public
 			float aspectRatio = (float)Screen.width / Screen.height;
 			_screenWidth = _screenHeight * aspectRatio;
 
-			Log.Debug ("screenHeight,screenWidth", screenHeight, screenWidth);
+			XLAFInnerLog.Debug ("screenHeight,screenWidth", screenHeight, screenWidth);
 		}
 
 		/// <summary>
@@ -249,7 +249,7 @@ namespace XLAF.Public
 			object data = par.data;
 
 
-			Log.Debug ("GotoScene (SceneParams par)", par.ToString ());
+			XLAFInnerLog.Debug ("GotoScene (SceneParams par)", par.ToString ());
 
 			if (currentScene != null) {
 				currentScene.DisableUIListener ();
@@ -945,7 +945,7 @@ namespace XLAF.Public
 		private void _AnimationFromLeft (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
 		{
 			if (currentScene == null) {
-				//Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
+				//XLAFInnerLog.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
 				_AnimationNone (sceneName, data, cb);
 				return;
@@ -982,7 +982,7 @@ namespace XLAF.Public
 		private void _AnimationFromRight (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
 		{
 			if (currentScene == null) {
-				//Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
+				//XLAFInnerLog.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
 				_AnimationNone (sceneName, data, cb);
 				return;
@@ -1021,7 +1021,7 @@ namespace XLAF.Public
 		private void _AnimationFromTop (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
 		{
 			if (currentScene == null) {
-				//Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
+				//XLAFInnerLog.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
 				_AnimationNone (sceneName, data, cb);
 				return;
@@ -1060,7 +1060,7 @@ namespace XLAF.Public
 		private void _AnimationFromBottom (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
 		{
 			if (currentScene == null) {
-				//Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
+				//XLAFInnerLog.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
 				_AnimationNone (sceneName, data, cb);
 				return;
@@ -1099,7 +1099,7 @@ namespace XLAF.Public
 		private void _AnimationSlideLeft (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb = null)
 		{
 			if (currentScene == null) {
-				//Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
+				//XLAFInnerLog.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
 				_AnimationNone (sceneName, data, cb);
 				return;
@@ -1144,7 +1144,7 @@ namespace XLAF.Public
 		private void _AnimationSlideRight (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb = null)
 		{
 			if (currentScene == null) {
-				//Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
+				//XLAFInnerLog.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
 				_AnimationNone (sceneName, data, cb);
 				return;
@@ -1188,7 +1188,7 @@ namespace XLAF.Public
 		private void _AnimationSlideUp (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
 		{
 			if (currentScene == null) {
-				//Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
+				//XLAFInnerLog.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 
 				_AnimationNone (sceneName, data, cb);
 				return;
@@ -1233,7 +1233,7 @@ namespace XLAF.Public
 		private void _AnimationSlideDown (string sceneName, object data, float newSceneTime, iTween.EaseType easeType, Action cb)
 		{
 			if (currentScene == null) {
-				//Log.Error ("You should NOT use this anim in the first storyoard, use fade instead");
+				//XLAFInnerLog.Error ("You should NOT use this anim in the first storyoard, use fade instead");
 				_AnimationNone (sceneName, data, cb);
 				return;
 			}

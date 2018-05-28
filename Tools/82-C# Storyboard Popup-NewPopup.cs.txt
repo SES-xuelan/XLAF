@@ -22,9 +22,9 @@ public class #SCRIPTNAME# : Storyboard {
 
     #region  Storyboard Listeners
 
-    public override void OnUIEvent (UIEvent e)
+    public override void OnUIEvent (XLAF_UIEvent e)
     {
-        if (e.phase == TouchPhase.Ended) {
+        if (e.phase == Phase.Click) {
             if (e.target.name == "button1") {
 
             }
@@ -46,6 +46,9 @@ public class #SCRIPTNAME# : Storyboard {
     */
     public override void CreatScene (object obj)
     {
+		//Bind all button click event, callback is OnUIEvent
+		//If you don't want it, you can remove the line below
+		BindAllButtonsClickEvent ();
     }
 
     public override void WillEnterScene (object obj)

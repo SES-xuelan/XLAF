@@ -51,7 +51,7 @@ namespace XLAF.Public
 		public static void AddSetting (string settingsName, string filePathName, string defaultFilePathName)
 		{
 			if (DATA.ContainsKey (settingsName)) {
-				Log.Error (settingsName + " already exist!");
+				XLAFInnerLog.Error (settingsName + " already exist!");
 				return;
 			}
 
@@ -75,7 +75,7 @@ namespace XLAF.Public
 			if (DATA.TryGetValue (settingsName, out sd)) {
 				sd.Set (key, value, autoSave);
 			} else {
-				Log.Error (settingsName + " is not added, please call AddSetting before!");
+				XLAFInnerLog.Error (settingsName + " is not added, please call AddSetting before!");
 				return;
 			}
 		}
@@ -237,7 +237,7 @@ namespace XLAF.Public
 			if (DATA.TryGetValue (settingsName, out sd)) {
 				return true;
 			} else {
-				Log.Error (settingsName + " is not added, please call AddSetting before!");
+				XLAFInnerLog.Error (settingsName + " is not added, please call AddSetting before!");
 				return false;
 			}
 		}

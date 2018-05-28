@@ -16,10 +16,10 @@ public class Popup1 : Storyboard
 	}
 
 
-	public override void OnUIEvent (UIEvent e)
+	public override void OnUIEvent (XLAF_UIEvent e)
 	{
 		//        Log.Debug ("OnUIEvent", e);
-		if (e.phase == TouchPhase.Ended) {
+		if (e.phase == Phase.Click) {
 			if (e.target.name == "btn_button") {
 				btn_click ();
 			}
@@ -55,6 +55,7 @@ public class Popup1 : Storyboard
 
 	public override void CreatScene (object obj)
 	{
+		BindAllButtonsClickEvent ();
 	}
 
 	public override void WillEnterScene (object obj)

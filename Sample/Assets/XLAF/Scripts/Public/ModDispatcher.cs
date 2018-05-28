@@ -16,9 +16,12 @@ ModDispatcher usage：
 
         void test (XLAF_Event e)
         {
-               Log.Debug ("test", e, ModDispatcher.HasListener ("test", test));
+               XLAFInnerLog.Debug ("test", e, ModDispatcher.HasListener ("test", test));
         }
 */
+using XLAF.Private;
+
+
 namespace XLAF.Public
 {
 	/// <summary>
@@ -58,7 +61,7 @@ namespace XLAF.Public
 		{
 			List<XLAF_Event> list;
 			if (!listeners.TryGetValue (eventName, out list)) {
-				Log.Warning ("No callback functions names ", eventName);
+				XLAFInnerLog.Warning ("No callback functions names ", eventName);
 				return;
 			}
 			for (int i = 0; i < list.Count; i++) {
@@ -76,12 +79,12 @@ namespace XLAF.Public
 		public static void Dispatch (XLAF_Event e)
 		{
 			if (e.name == null) {
-				Log.Error ("Event is not right", e);
+				XLAFInnerLog.Error ("Event is not right", e);
 				return;
 			}
 			List<XLAF_Event> list;
 			if (!listeners.TryGetValue (e.name, out list)) {
-				Log.Warning ("No callback functions names ", e.name);
+				XLAFInnerLog.Warning ("No callback functions names ", e.name);
 				return;
 			}
 			for (int i = 0; i < list.Count; i++) {
@@ -117,7 +120,7 @@ namespace XLAF.Public
 		{
 			List<XLAF_Event> list;
 			if (!listeners.TryGetValue (eventName, out list)) {
-				Log.Warning ("No callback functions names ", eventName);
+				XLAFInnerLog.Warning ("No callback functions names ", eventName);
 				return;
 			}
 			for (int i = 0; i < list.Count; i++) {

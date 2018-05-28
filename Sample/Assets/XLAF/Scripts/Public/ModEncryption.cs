@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System;
 using System.IO;
 using System.Collections.Generic;
+using XLAF.Private;
 
 namespace XLAF.Public
 {
@@ -226,7 +227,7 @@ namespace XLAF.Public
 					int n = index + (int)Mathf.Floor (1.0f * index / _zzz_key_len);
 					n = (n - 1) % _zzz_key_len + 1;
 					int key = (int)_zzz_key_bytes [n - 1];
-//                    Log.Debug ("before:", n, r, key);
+//					XLAFInnerLog.Debug ("before:", n, r, key);
 					r = r - key - 88;
 					r = (r + 256) % 256;
 					lst.Add ((byte)r);

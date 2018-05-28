@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using SimpleJSON;
 using UnityEngine.UI;
+using XLAF.Private;
 
 namespace XLAF.Public
 {
@@ -43,9 +44,9 @@ namespace XLAF.Public
 
 		static ModUtils ()
 		{
-			Log.Info ("documentsDirectory", ModUtils.documentsDirectory);
-			Log.Info ("temporaryDirectory", ModUtils.temporaryDirectory);
-			Log.Info ("streamingDirectory", ModUtils.streamingDirectory);
+			XLAFInnerLog.Info ("documentsDirectory", ModUtils.documentsDirectory);
+			XLAFInnerLog.Info ("temporaryDirectory", ModUtils.temporaryDirectory);
+			XLAFInnerLog.Info ("streamingDirectory", ModUtils.streamingDirectory);
 		}
 
 		/// <summary>
@@ -206,7 +207,7 @@ namespace XLAF.Public
 		                              Action actionOK, Action actionCancel, Action actionNeutral)
 		{
 			//!!TODO!!
-			Log.Debug (title, message);
+			XLAFInnerLog.Debug (title, message);
 
 		}
 
@@ -223,7 +224,7 @@ namespace XLAF.Public
 		                              Action actionOK, Action actionCancel)
 		{
 			//!!TODO!!
-			Log.Debug (title, message);
+			XLAFInnerLog.Debug (title, message);
 		}
 
 		/// <summary>
@@ -236,70 +237,7 @@ namespace XLAF.Public
 		public static void ShowAlert (string title, string message, string okLabel, Action actionOK)
 		{
 			//!!TODO!!
-			Log.Debug (title, message);
-		}
-
-		/// <summary>
-		/// Bindings the button event.
-		/// </summary>
-		/// <param name="parent">Parent.</param>
-		/// <param name="OnUIEvent">On user interface event.</param>
-		public static void BindingButtonEvent (GameObject parent, Action<UIEvent> OnUIEvent)
-		{
-			Button[] buttons = parent.GetComponentsInChildren<Button> (true);
-			for (int i = 0; i < buttons.Length; i++) {
-				Button b = buttons [i];
-				b.onClick.AddListener (() => {
-					UIEvent e = new UIEvent ();
-					e.target = b.gameObject;
-					e.targetType = "button";
-					e.phase = TouchPhase.Ended;
-					OnUIEvent (e);
-				});
-			}
-			//!!TODO!! binding other events
-		}
-
-		/// <summary>
-		/// Replaces the button event (only onClick event now).
-		/// </summary>
-		/// <param name="parent">Parent.</param>
-		/// <param name="OnUIEvent">On user interface event.</param>
-		public static void ReplaceButtonEvent (GameObject parent, Action<UIEvent> OnUIEvent)
-		{
-			Button[] buttons = parent.GetComponentsInChildren<Button> (true);
-			for (int i = 0; i < buttons.Length; i++) {
-				Button b = buttons [i];
-				b.onClick.RemoveAllListeners ();
-				b.onClick.AddListener (() => {
-					UIEvent e = new UIEvent ();
-					e.target = b.gameObject;
-					e.targetType = "button";
-					e.phase = TouchPhase.Ended;
-					OnUIEvent (e);
-				});
-			}
-			//!!TODO!! binding other events
-		}
-
-		/// <summary>
-		/// Bindings the user interface events.
-		/// </summary>
-		/// <param name="parent">Parent.</param>
-		/// <param name="OnUIEvent">On user interface event.</param>
-		public static void BindingUIEvents (GameObject parent, Action<UIEvent> OnUIEvent)
-		{
-			BindingButtonEvent (parent, OnUIEvent);
-		}
-
-		/// <summary>
-		/// Replaces the user interface events.
-		/// </summary>
-		/// <param name="parent">Parent.</param>
-		/// <param name="OnUIEvent">On user interface event.</param>
-		public static void ReplaceUIEvents (GameObject parent, Action<UIEvent> OnUIEvent)
-		{
-			ReplaceButtonEvent (parent, OnUIEvent);
+			XLAFInnerLog.Debug (title, message);
 		}
 
 		/// <summary>

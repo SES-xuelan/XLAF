@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using XLAF.Private;
 
 
 namespace XLAF.Public
@@ -79,7 +80,7 @@ namespace XLAF.Public
         public static void PreloadAudio (string soundName)
         {
             if (soundName.IndexOf (".") < 0) {
-                Log.Warning ("You must use soundName's extension, for example \"click.mp3\"");
+				XLAFInnerLog.Warning ("You must use soundName's extension, for example \"click.mp3\"");
                 return;
             }
         int id = audioCenter.Call<int> ("LoadSound", _GetAudioSource (soundName));
@@ -92,7 +93,7 @@ namespace XLAF.Public
 				return;
 			}
 			if (musicName.IndexOf (".") < 0) {
-				Log.Warning ("You must use musicName's extension, for example \"click.mp3\"");
+				XLAFInnerLog.Warning ("You must use musicName's extension, for example \"click.mp3\"");
 				return;
 			}
 			AudioClip clip = Resources.Load<AudioClip> (_GetAudioSource (musicName.Split (new char[]{ '.' }) [0]));
@@ -164,7 +165,7 @@ namespace XLAF.Public
 				return;
 			}
 			if (soundName.IndexOf (".") < 0) {
-				Log.Warning ("You must use soundName's extension, for example \"click.mp3\"");
+				XLAFInnerLog.Warning ("You must use soundName's extension, for example \"click.mp3\"");
 				return;
 			}
 			#if UNITY_ANDROID  && !UNITY_EDITOR
