@@ -41,7 +41,7 @@ public class Main : MonoBehaviour
 		MgrScene.SetViewRoot (ModUIUtils.GetChild<Transform> (transform, "SceneViewRoot"));
 		MgrPopup.SetPopupRoot (ModUIUtils.GetChild<Transform> (transform, "PopupViewRoot"));
 
-		MgrScene.GotoScene ("Scene1", "main", SceneAnimation.fade, 0.3f, () => {
+		MgrScene.GotoScene ("Scene1", "main", SceneAnimation.none, 0.3f, () => {
 			
 			Log.Debug ("main Scene1 Done~",ModUtils.documentsDirectory);
 

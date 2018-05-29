@@ -229,6 +229,20 @@ namespace XLAF.Public
 				evt.phase = Phase.Up;
 				onUIEvent (evt);
 			};
+			XLAFEventTriggerListener.Get (go).onEnter = (GameObject g, PointerEventData e) => {
+				XLAF_UIEvent evt = new XLAF_UIEvent ();
+				evt.eventData = e;
+				evt.target = g;
+				evt.phase = Phase.Enter;
+				onUIEvent (evt);
+			};
+			XLAFEventTriggerListener.Get (go).onExit = (GameObject g, PointerEventData e) => {
+				XLAF_UIEvent evt = new XLAF_UIEvent ();
+				evt.eventData = e;
+				evt.target = g;
+				evt.phase = Phase.Exit;
+				onUIEvent (evt);
+			};
 		}
 
 		/// <summary>
@@ -242,6 +256,8 @@ namespace XLAF.Public
 			XLAFEventTriggerListener.Get (go).onEndDrag = null;
 			XLAFEventTriggerListener.Get (go).onDown = null;
 			XLAFEventTriggerListener.Get (go).onUp = null;
+			XLAFEventTriggerListener.Get (go).onEnter = null;
+			XLAFEventTriggerListener.Get (go).onExit = null;
 		}
 
 		#endregion

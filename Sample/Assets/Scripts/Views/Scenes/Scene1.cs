@@ -92,6 +92,14 @@ public class Scene1 : Storyboard
 		});
 
 
+//		Transform txt = ModUIUtils.GetChild (transform, "lbl_text");
+//		ModUIUtils.AddTouchEvent (txt.gameObject, e => {
+//			Log.Debug (e);
+//			if(e.phase==Phase.Up){
+//				ModUIUtils.RemoveTouchEvent(e.target);
+//			}
+//		});
+
 	}
 
 

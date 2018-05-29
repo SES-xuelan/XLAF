@@ -46,7 +46,6 @@ namespace XLAF.Public
 			#endif
 			
 			//MUST called below
-			Log4iOS.Init ();
 			XLAFInnerLog.SetShown (true);
 			MgrAssetBundle.Init ();
 

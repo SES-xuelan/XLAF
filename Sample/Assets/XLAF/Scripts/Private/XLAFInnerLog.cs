@@ -55,6 +55,7 @@ namespace XLAF.Private
 		{
 			if (!_isShow)
 				return;
+			Log.deep = 3;
 			Log.Debug (objs);
 		}
 
@@ -66,6 +67,7 @@ namespace XLAF.Private
 		{
 			if (!_isShow)
 				return;
+			Log.deep = 4;
 			Log.Error (objs);
 		}
 
@@ -77,6 +79,7 @@ namespace XLAF.Private
 		{
 			if (!_isShow)
 				return;
+			Log.deep = 4;
 			Log.Warning (objs);
 		}
 
@@ -88,6 +91,7 @@ namespace XLAF.Private
 		{
 			if (!_isShow)
 				return;
+			Log.deep = 4;
 			Log.Info (objs);
 		}
 

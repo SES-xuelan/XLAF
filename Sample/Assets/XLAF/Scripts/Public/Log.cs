@@ -3,6 +3,8 @@ using System.Collections;
 using System.Diagnostics;
 using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -14,10 +16,19 @@ using SimpleJSON;
 namespace XLAF.Public
 {
 	/// <summary>
-	/// Log
+	/// Log with java & object-C in mobile
 	/// </summary>
 	public class Log
 	{
+		private class LogLevel
+		{
+			public static readonly string v = "V";
+			public static readonly string d = "D";
+			public static readonly string i = "I";
+			public static readonly string w = "W";
+			public static readonly string e = "E";
+		}
+
 		#region private variables
 
 		private static bool _isWriteToFile = false;
@@ -26,6 +37,7 @@ namespace XLAF.Public
 		private static bool _isInfoOn = false;
 		private static bool _isDebugOn = false;
 		private static bool _isErrorOn = false;
+		private static int _deep = -1;
 
 		private static string debug_file;
 		private static string error_file;
@@ -84,6 +96,22 @@ namespace XLAF.Public
 		public static bool isWriteToFile{ get { return _isWriteToFile; } }
 
 		/// <summary>
+		/// Gets or sets the deep.<para></para>
+		/// when you get then set to -1 (only once effect).
+		/// </summary>
+		/// <value>The deep, when get then set to -1.</value>
+		public static int deep { 
+			get {
+				int tmp = _deep;
+				_deep = -1;
+				return tmp;
+			}
+			set { 
+				_deep = value;
+			}
+		}
+
+		/// <summary>
 		/// Sets the debug level.<para></para>
 		/// e.g. <para></para>
 		/// set 0xF to enable all log;<para></para>
@@ -117,9 +145,12 @@ namespace XLAF.Public
 			if (!_isDebugOn)
 				return;
 			string time = System.DateTime.Now.ToString ("MM-dd HH:mm:ss:fff");
-			string line = _GetCodeLineAndFile ();
+			int deepth = deep;
+			if (deepth == -1)
+				deepth = 2;
+			string line = _GetCodeLineAndFile (deepth);
 			string s = time + "|" + line + _ParamsToString (objs);
-			UnityEngine.Debug.Log (s);
+			_NativeLog (LogLevel.d, s);
 			if (_isWriteToFile)
 				ModUtils.WriteToFile (debug_file, s + "\n");
 		}
@@ -134,9 +165,12 @@ namespace XLAF.Public
 				return;
 			
 			string time = System.DateTime.Now.ToString ("MM-dd HH:mm:ss:fff");
-			string line = _GetCodeLineAndFile (3);
+			int deepth = deep;
+			if (deepth == -1)
+				deepth = 3;
+			string line = _GetCodeLineAndFile (deepth);
 			string s = time + "|" + line + _ParamsToString (objs);
-			UnityEngine.Debug.LogError (s);
+			_NativeLog (LogLevel.e, s);
 			if (_isWriteToFile)
 				ModUtils.WriteToFile (error_file, s + "\n");
 		}
@@ -150,9 +184,12 @@ namespace XLAF.Public
 			if (!_isWarnOn)
 				return;
 			string time = System.DateTime.Now.ToString ("MM-dd HH:mm:ss:fff");
-			string line = _GetCodeLineAndFile (3);
+			int deepth = deep;
+			if (deepth == -1)
+				deepth = 3;
+			string line = _GetCodeLineAndFile (deepth);
 			string s = time + "|warning|" + line + _ParamsToString (objs);
-			UnityEngine.Debug.LogWarning (s);
+			_NativeLog (LogLevel.w, s);
 			if (_isWriteToFile)
 				ModUtils.WriteToFile (debug_file, s + "\n");
 		}
@@ -167,14 +204,64 @@ namespace XLAF.Public
 				return;
             
 			string time = System.DateTime.Now.ToString ("MM-dd HH:mm:ss:fff");
-			string line = _GetCodeLineAndFile (3);
+			int deepth = deep;
+			if (deepth == -1)
+				deepth = 3;
+			string line = _GetCodeLineAndFile (deepth);
 			string s = time + "|PrintInfo|" + line + _ParamsToString (objs);
-			UnityEngine.Debug.Log (s);
+			_NativeLog (LogLevel.i, s);
+			if (_isWriteToFile)
+				ModUtils.WriteToFile (debug_file, s + "\n");
 		}
 
 		#endregion
 
 		#region private functions
+
+		#if UNITY_IPHONE && !UNITY_EDITOR
+		[DllImport ("__Internal")]
+		static extern void _log (string log);
+		#endif
+
+		/// <summary>
+		/// Natives log java or obj-C.
+		/// </summary>
+		/// <param name="logLevel">Log level <c>V,D,I,W,E</c>.</param>
+		/// <param name="msg">Message.</param>
+		private static void _NativeLog (string logLevel, string msg)
+		{
+			#if UNITY_EDITOR
+			if (logLevel == LogLevel.v) {
+				UnityEngine.Debug.Log (msg);
+			} else if (logLevel == LogLevel.d) {
+				UnityEngine.Debug.Log (msg);
+			} else if (logLevel == LogLevel.i) {
+				UnityEngine.Debug.Log (msg);
+			} else if (logLevel == LogLevel.w) {
+				UnityEngine.Debug.LogWarning (msg);
+			} else if (logLevel == LogLevel.e) {
+				UnityEngine.Debug.LogError (msg);
+			}
+			#elif UNITY_ANDROID
+			AndroidJavaClass jc = new AndroidJavaClass ("plugintest.albert.mylibrary.AndroidLog"); 
+			jc.CallStatic (logLevel, msg);
+			#elif UNITY_IPHONE
+			_log (logLevel+" | "+msg);
+			#else
+			if (logLevel == LogLevel.v) {
+			UnityEngine.Debug.Log (msg);
+			} else if (logLevel == LogLevel.d) {
+			UnityEngine.Debug.Log (msg);
+			} else if (logLevel == LogLevel.i) {
+			UnityEngine.Debug.Log (msg);
+			} else if (logLevel == LogLevel.w) {
+			UnityEngine.Debug.LogWarning (msg);
+			} else if (logLevel == LogLevel.e) {
+			UnityEngine.Debug.LogError (msg);
+			}
+			#endif
+
+		}
 
 		/// <summary>
 		/// Gets the byte info.
@@ -219,8 +306,6 @@ namespace XLAF.Public
 		}
 
 		#endregion
-
-		#region UNITY_EDITOR functions
 
 		#if UNITY_EDITOR
 		[UnityEditor.Callbacks.OnOpenAssetAttribute (0)]
@@ -280,7 +365,8 @@ namespace XLAF.Public
 			return null;
 		}
 		#endif
-		#endregion
+
+
 	}
 
 }

@@ -83,6 +83,8 @@
 
                 <li><a href="../Public/XLAF_Event.html">XLAF_Event</a></li>
 
+                <li><a href="../Public/XLAF_UIEvent.html">XLAF_UIEvent</a></li>
+
 
             </ul>
             <h2>ReadMe</h2>
@@ -149,6 +151,26 @@
                 <tr>
                     <td class="name" nowrap><a href="#ChangeSize">public static void ChangeSize (GameObject t, float? width = null, float? height = null)</a></td>
                     <td class="summary">Changes the size.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#BindingButtonClick">public static void BindingButtonClick (GameObject parent, Action&lt;XLAF_UIEvent&gt; onUIEvent)</a></td>
+                    <td class="summary">Bindings the all button click event in <code>parent</code>.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#AddClick">public static void AddClick (GameObject go, Action&lt;XLAF_UIEvent&gt; onUIEvent)</a></td>
+                    <td class="summary">Adds the click.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#RemoveClick">public static void RemoveClick (GameObject go)</a></td>
+                    <td class="summary">Removes the click.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#AddTouchEvent">public static void AddTouchEvent (GameObject go, Action&lt;XLAF_UIEvent&gt; onUIEvent)</a></td>
+                    <td class="summary">Adds the touch event.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#RemoveTouchEvent">public static void RemoveTouchEvent (GameObject go)</a></td>
+                    <td class="summary">Removes the touch event.</td>
                 </tr>
 
             </table>
@@ -321,6 +343,100 @@ none
                         </li>
                         <li>float? height<span class="parameter"> =</span>
                             
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="BindingButtonClick"></a>
+                    <strong>BindingButtonClick</strong>
+                </dt>
+                <dd>
+                    Bindings the all button click event in <code>parent</code>.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>GameObject<span class="parameter"> parent</span>
+                            Parent.
+                        </li>
+                        <li>Action&lt;XLAF_UIEvent&gt;<span class="parameter"> onUIEvent</span>
+                            Event.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="AddClick"></a>
+                    <strong>AddClick</strong>
+                </dt>
+                <dd>
+                    Adds the click.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>GameObject<span class="parameter"> go</span>
+                            GameObject.
+                        </li>
+                        <li>Action&lt;XLAF_UIEvent&gt;<span class="parameter"> onUIEvent</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="RemoveClick"></a>
+                    <strong>RemoveClick</strong>
+                </dt>
+                <dd>
+                    Removes the click.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>GameObject<span class="parameter"> go</span>
+                            GameObject.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="AddTouchEvent"></a>
+                    <strong>AddTouchEvent</strong>
+                </dt>
+                <dd>
+                    Adds the touch event.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>GameObject<span class="parameter"> go</span>
+                            GameObject.
+                        </li>
+                        <li>Action&lt;XLAF_UIEvent&gt;<span class="parameter"> onUIEvent</span>
+                            On user interface event.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="RemoveTouchEvent"></a>
+                    <strong>RemoveTouchEvent</strong>
+                </dt>
+                <dd>
+                    Removes the touch event.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>GameObject<span class="parameter"> go</span>
+                            GameObject.
                         </li>
 
                     </ul>

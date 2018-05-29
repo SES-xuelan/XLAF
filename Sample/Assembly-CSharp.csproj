@@ -213,7 +213,6 @@
      <Compile Include="Assets\XLAF\3rd-party\iTweenHashBuilder.cs" />
      <Compile Include="Assets\XLAF\3rd-party\SimpleJSON.cs" />
      <Compile Include="Assets\XLAF\Scripts\Private\BackdoorDialog.cs" />
-     <Compile Include="Assets\XLAF\Scripts\Private\Log4iOS.cs" />
      <Compile Include="Assets\XLAF\Scripts\Private\SceneParams.cs" />
      <Compile Include="Assets\XLAF\Scripts\Private\SettingsData.cs" />
      <Compile Include="Assets\XLAF\Scripts\Private\XLAFInnerLog.cs" />
