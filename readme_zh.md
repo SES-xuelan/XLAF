@@ -18,6 +18,7 @@ XLAF(XueLan's Application Framework) 是一个简单的2D框架，包含完整�
 * iTween
 * SharpZipLib
 * ToLua
+* Texture Packer
 
 ## 项目目录及相关约定
 一般的，一个项目会是以下结构：<br />
@@ -25,39 +26,39 @@ XLAF(XueLan's Application Framework) 是一个简单的2D框架，包含完整�
 注：标*的文件名不要修改，否则可能会出错
 
 ```
-Assets
-|-- 3rd-party【C#写的第三方插件】
-|-- *Editor【编辑器的目录】
-|-- Images【美术原始图片】
-|   |--Common【多个场景都用到的图片、能共用的】
-|   `--View1【View1中用到的图片，此处的View1仅为示例】
-|-- *Lua 【Lua脚本目录，热更新相关的，Editor的Lua插件会处理这个目录】
-|-- Materials【存放材质的目录】
-|-- *Plugins【原生插件目录  *.so  *.a等文件】
-|    |--Android【Android原生写的插件，一般是*.aar或者*.jar】
-|    `--IOS【iOS写的原生插件，一般是*.mm和*.h】
-|-- *Resources【Unity的资源目录】
-|    |--*Audios【存放音频，一般的m_代表music  s_代表sound】
-|    `--*Views【存放各个界面的prefabs】
-|        |--*Popups【存放弹窗界面的prefabs】
-|        `--*Scenes【存放界面的prefabs】
-|-- *Scripts【存放C#脚本文件】
-|    |--*Views【存放各个界面的prefabs】
-|    |    |--*Popups【存放弹窗界面的prefabs】
-|    |    `--*Scenes【存放界面的prefabs】
-|    `--自定义的其他存放脚本的目录
-|-- *StreamingAssets【Unity默认目录，里面的文件不会被压缩，只读的】
-|-- *ToLua【ToLua插件目录】
-`-- *XLAF【本框架目录，里面的内容尽量不要修改；如果要修改，请确保你已经理解了内部结构和相互调用关系】
-     |-- 3rd-party【第三方插件目录】
-     |-- Editor【编辑器脚本/插件】
-     |-- Plugins【原生插件目录  *.so  *.a等文件】
-     |    |--Android【Android原生写的插件】
-     |    `--IOS【iOS写的原生插件】
-     |-- Resources【内置资源目录，目前只有后门界面】
-     `-- Scripts【脚本目录】
-         |-- Public【对外暴露的脚本，namespace:XLAF.Public】
-         `-- Private【一般不对外暴露的脚本，namespace:XLAF.Private】
+ProjectFolder
+    |-- Assets
+    |     |-- 3rd-party【C#写的第三方插件】
+    |     |-- *Editor【编辑器的目录】
+    |     |-- *Lua 【Lua脚本目录，热更新相关的，Editor的Lua插件会处理这个目录】
+    |     |-- Materials【存放材质的目录】
+    |     |-- *Plugins【原生插件目录  *.so  *.a等文件】
+    |     |    |--Android【Android原生写的插件，一般是*.aar或者*.jar】
+    |     |    `--IOS【iOS写的原生插件，一般是*.mm和*.h】
+    |     |-- *Resources【Unity的资源目录】
+    |     |    |--*Audios【存放音频，一般的m_代表music  s_代表sound】
+    |     |    |--*ImageSheets【Texture Packer 打包的图集】
+    |     |    `--*Views【存放各个界面的prefabs】
+    |     |        |--*Popups【存放弹窗界面的prefabs】
+    |     |        `--*Scenes【存放界面的prefabs】
+    |     |-- *Scripts【存放C#脚本文件】
+    |     |    |--*Views【存放各个界面的prefabs】
+    |     |    |    |--*Popups【存放弹窗界面的prefabs】
+    |     |    |    `--*Scenes【存放界面的prefabs】
+    |     |    `--自定义的其他存放脚本的目录
+    |     |-- *StreamingAssets【Unity默认目录，里面的文件不会被压缩，只读的】
+    |     |-- *ToLua【ToLua插件目录】
+    |     `-- *XLAF【本框架目录，里面的内容尽量不要修改；如果要修改，请确保你已经理解了内部结构和相互调用关系】
+    |          |-- 3rd-party【第三方插件目录】
+    |          |-- Editor【编辑器脚本/插件】
+    |          |-- Plugins【原生插件目录  *.so  *.a等文件】
+    |          |    |--Android【Android原生写的插件】
+    |          |    `--IOS【iOS写的原生插件】
+    |          |-- Resources【内置资源目录，目前只有后门界面】
+    |          `-- Scripts【脚本目录】
+    |              |-- Public【对外暴露的脚本，namespace:XLAF.Public】
+    |              `-- Private【一般不对外暴露的脚本，namespace:XLAF.Private】
+    `-- *Resources-Images【图片，如果放到Assets目录下，则会和图集冲突】
 ```
 
 

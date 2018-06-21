@@ -1,0 +1,56 @@
+--require 'functions'
+
+#SCRIPTNAME# = {
+    name = "#SCRIPTNAME#"
+}
+
+function #SCRIPTNAME#:New(gameObject)
+    local o = {}
+    setmetatable(o, self)
+    self.__index = self
+    self.transform = gameObject.transform
+    self.gameObject = gameObject
+    self.luaProxy = nil
+    return o
+end
+
+function #SCRIPTNAME#:OnUIEvent(event)
+    if tostring(event.phase) == "Click" then
+        if event.target.name == "BtnBack" then
+            
+        end
+    end
+end
+
+function #SCRIPTNAME#:CreateScene(obj)
+    self.luaProxy = self.gameObject:GetComponent("LuaSceneProxy")
+--    self.luaProxy:BindAllButtonsClickEvent()
+end
+
+function #SCRIPTNAME#:WillEnterScene(obj)
+end
+
+function #SCRIPTNAME#:EnterScene(obj)
+
+end
+
+function #SCRIPTNAME#:WillExitScene()
+end
+
+function #SCRIPTNAME#:ExitScene()
+end
+
+function #SCRIPTNAME#:DestroyScene()
+end
+
+function #SCRIPTNAME#:OverlayBegan(overlaySceneceneName)
+end
+
+function #SCRIPTNAME#:OverlayEnded(overlaySceneceneName)
+end
+
+function #SCRIPTNAME#:UpdateLanguage()
+end
+
+function #SCRIPTNAME#:AndroidGoBack()
+end
