@@ -20,6 +20,7 @@ namespace XLAF.Public
 
 		private string _sceneName;
 		private SceneObject _sceneObject = null;
+		private float _preventTime = 1f;
 
 		#endregion
 
@@ -36,6 +37,12 @@ namespace XLAF.Public
 		/// </summary>
 		/// <value>The scene object.</value>
 		public SceneObject sceneObject{ get { return _sceneObject; } }
+
+		/// <summary>
+		/// Gets or sets the prevent double click time (seconds).
+		/// </summary>
+		/// <value>The prevent double click time.</value>
+		public float preventDoubleClickTime{ get { return _preventTime; } set { _preventTime = value; } }
 
 		#endregion
 
@@ -75,8 +82,8 @@ namespace XLAF.Public
 
 		/*
 	    Each storyboard function called moment:
-        CreatScene     => after finish load scene before play enter animation(only call after load from prefab or asset bundle, read cache from MgrScene will not called).
-        WillEnterScene => after CreatScene, at the begin of play enter animation.
+        CreateScene     => after finish load scene before play enter animation(only call after load from prefab or asset bundle, read cache from MgrScene will not called).
+        WillEnterScene => after CreateScene, at the begin of play enter animation.
         EnterScene     => at the end of play enter animation.
 
         WillExitScene  => at the begin of play exit animation.
@@ -86,9 +93,9 @@ namespace XLAF.Public
         OverlayBegan   => when scene overlaid(only XLAF popup).
         OverlayEnded   => when scene overlaid object disappear(only XLAF popup).
         AndroidGoBack  => in Android, user press back button.
-        UpdateLanguage => when update language or after CreatScene.
+        UpdateLanguage => when update language or after CreateScene.
         */
-		public virtual void CreatScene (object obj)
+		public virtual void CreateScene (object obj)
 		{
 		}
 
@@ -140,12 +147,26 @@ namespace XLAF.Public
 		{
             
 		}
+
+		/// <summary>
+		/// Dispatch the XLAF_Event.
+		/// </summary>
+		/// <param name="e">Event.</param>
+		public virtual void OnXLAFEvent (XLAF_Event e)
+		{
+
+		}
+
 		/// <summary>
 		/// Auto bind user interface event.
 		/// </summary>
-		protected void BindAllButtonsClickEvent ()
+		public void BindAllButtonsClickEvent ()
 		{
-			ModUIUtils.BindingButtonClick (gameObject, this.OnUIEvent);
+			if (preventDoubleClickTime <= 0) {
+				ModUIUtils.BindingButtonClick (gameObject, this.OnUIEvent);
+			} else {
+				ModUIUtils.BindingButtonClick (gameObject, preventDoubleClickTime, this.OnUIEvent);
+			}
 		}
 
 	}

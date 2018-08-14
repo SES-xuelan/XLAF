@@ -17,12 +17,26 @@ namespace XLAF.Public
 
 		#endregion
 
+		#region public variables
+
+		/// <summary>
+		/// Gets the assetbundle config file.
+		/// </summary>
+		/// <value>The assetbundle.config file.</value>
+		public static string assetbundleConfigFile {
+			get { 
+				string path = ModUtils.documentsDirectory;
+				return path + "/assetbundle.config";
+			}
+		}
+
+		#endregion
+
 		#region constructed function & initialization
 
 		static MgrAssetBundle ()
 		{
-			string path = ModUtils.documentsDirectory;
-			LoadAssetBundleConfig (path + "/assetbundle.config");
+			ReloadConfig ();
 		}
 
 		/// <summary>
@@ -36,22 +50,40 @@ namespace XLAF.Public
 
 		#region public functions
 
-		public static JSONNode  LoadAssetBundleConfig (string filePathName)
+		/// <summary>
+		/// Reloads the config file.
+		/// </summary>
+		public static void ReloadConfig ()
 		{
-			jsonData = null;
-			jsonData = ModUtils.ReadJsonFromFile (filePathName, JSONNode.Parse ("{}"));
-			return jsonData;
+			jsonData = ModUtils.ReadJsonFromFile (assetbundleConfigFile, JSONNode.Parse ("{}"));
 		}
 
+		/// <summary>
+		/// Gets the asset bundle path.
+		/// </summary>
+		/// <returns>The asset bundle path.</returns>
+		/// <param name="sceneName">Scene name.</param>
 		public static string GetAssetBundlePath (string sceneName)
 		{
 			if (jsonData == null) {
 				XLAFInnerLog.Error ("please call LoadAssetBundleConfig(path) first");
 				return "";
 			}
-			return jsonData [sceneName].Value;
+			string v = jsonData [sceneName].Value;
+			if (string.IsNullOrEmpty (v)) {
+				return "";
+			}
+			if (!v.StartsWith ("/")) {
+				v = "/" + v;
+			}
+			return v;
 		}
 
+		/// <summary>
+		/// Determines if has asset bundle the specified sceneName.
+		/// </summary>
+		/// <returns><c>true</c> if has asset bundle the specified sceneName; otherwise, <c>false</c>.</returns>
+		/// <param name="sceneName">Scene name.</param>
 		public static bool HasAssetBundle (string sceneName)
 		{
 			XLAFInnerLog.Debug ("HasAssetBundle()", jsonData, sceneName, GetAssetBundlePath (sceneName) != "");

@@ -1,0 +1,313 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>XueLan's Application Framework</title>
+    <link rel="stylesheet" href="../css.css" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="product">
+        <div id="product_logo"></div>
+        <div id="product_name"><big><b></b></big></div>
+        <div id="product_description"></div>
+    </div> <!-- id="product" -->
+
+
+    <div id="main">
+
+
+        <!-- Menu -->
+
+        <div id="navigation">
+            <br/>
+            <h1>XLAF Doc</h1>
+
+            <ul>
+                <li><a href="../index.html">Index</a></li>
+            </ul>
+
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#Functions">Functions</a></li>
+            </ul>
+
+
+            <h2>Classes</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../3rd-party/iTweenHashBuilder.html">iTweenHashBuilder</a></li>
+
+                <li><a href="../Public/Log.html">Log</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrAssetBundle.html">MgrAssetBundle</a></li>
+
+                <li><a href="../Public/MgrAudio.html">MgrAudio</a></li>
+
+                <li><a href="../Public/MgrBackdoor.html">MgrBackdoor</a></li>
+
+                <li><a href="../Public/MgrCoroutine.html">MgrCoroutine</a></li>
+
+                <li><a href="../Public/MgrData.html">MgrData</a></li>
+
+                <li><a href="../Public/MgrFPS.html">MgrFPS</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrLevel.html">MgrLevel</a></li>
+
+                <li><a href="../Public/MgrLoading.html">MgrLoading</a></li>
+
+                <li><a href="../Public/MgrMultiLanguage.html">MgrMultiLanguage</a></li>
+
+                <li><a href="../Public/MgrPopup.html">MgrPopup</a></li>
+
+                <li><a href="../Public/MgrScene.html">MgrScene</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/ModCompress.html">ModCompress</a></li>
+
+                <li><a href="../Public/ModDispatcher.html">ModDispatcher</a></li>
+
+                <li><strong>ModEncryption</strong></li>
+
+                <li><a href="../Public/ModUIUtils.html">ModUIUtils</a></li>
+
+                <li><a href="../Public/ModUtils.html">ModUtils</a></li>
+
+                <li><a href="../Public/SceneObject.html">SceneObject</a></li>
+
+                <li><a href="../Public/Storyboard.html">Storyboard</a></li>
+
+                <li><a href="../Public/XLAFDataManagerImpl.html">XLAFDataManagerImpl</a></li>
+
+                <li><a href="../Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></li>
+
+                <li><a href="../Public/XLAFHotFixImpl.html">XLAFHotFixImpl</a></li>
+
+                <li><a href="../Public/XLAFMain.html">XLAFMain</a></li>
+
+                <li><a href="../Public/XLAF_Event.html">XLAF_Event</a></li>
+
+                <li><a href="../Public/XLAF_UIEvent.html">XLAF_UIEvent</a></li>
+
+
+            </ul>
+            <h2>ReadMe</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../Readme.md.html">Readme</a></li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+
+            <h1>Class <code>ModEncryption</code></h1>
+            <p>Encrypt  Decrypt Mod
+</p>
+            <p>
+
+
+            </p>
+            <h3>Info:</h3>
+            <ul>
+                <li><strong>Copyright</strong>: 2017</li>
+                <li><strong>Author</strong>: Albert Feng (SES XueLan)</li>
+            </ul>
+
+
+            <h2><a href="#">Properties</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><strong>aes_key</strong></td>
+                    <td class="summary">Gets or sets the aes key.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>aes_IV</strong></td>
+                    <td class="summary">Gets or sets the aes IV (16 bytes).</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>zzz_key</strong></td>
+                    <td class="summary">Gets or sets the zzz key.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+            <h2><a href="#Functions">Functions</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><a href="#Init">public static void Init ()</a></td>
+                    <td class="summary">call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#MD5Encrypt16">public static string MD5Encrypt16 (string str)</a></td>
+                    <td class="summary">MD5 encode, return 16 upper letters</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#MD5Encrypt32">public static string MD5Encrypt32 (string str)</a></td>
+                    <td class="summary">3MD5 encode, return 32 upper letters</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#EncodeBase64">public static string EncodeBase64 (string str)</a></td>
+                    <td class="summary">Base64 encoder</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#DecodeBase64">public static string DecodeBase64 (string str)</a></td>
+                    <td class="summary">Base64 decoder</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#EncodeAES">public static string EncodeAES (string str)</a></td>
+                    <td class="summary">AES encoder</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#DecodeAES">public static string DecodeAES (string base64Str)</a></td>
+                    <td class="summary">AES decoder</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+
+            <h2><a name="Functions"></a>Functions</h2>
+            <dl class="function">
+                <dt>
+                    <a name="Init"></a>
+                    <strong>Init</strong>
+                </dt>
+                <dd>
+                    call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="MD5Encrypt16"></a>
+                    <strong>MD5Encrypt16</strong>
+                </dt>
+                <dd>
+                    MD5 encode, return 16 upper letters
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> str</span>
+                            String you want to encode.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string string(upper)
+                    </ul>
+                </dd>                <dt>
+                    <a name="MD5Encrypt32"></a>
+                    <strong>MD5Encrypt32</strong>
+                </dt>
+                <dd>
+                    3MD5 encode, return 32 upper letters
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> str</span>
+                            String you want to encode.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string string(upper)
+                    </ul>
+                </dd>                <dt>
+                    <a name="EncodeBase64"></a>
+                    <strong>EncodeBase64</strong>
+                </dt>
+                <dd>
+                    Base64 encoder
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> str</span>
+                            String.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string string
+                    </ul>
+                </dd>                <dt>
+                    <a name="DecodeBase64"></a>
+                    <strong>DecodeBase64</strong>
+                </dt>
+                <dd>
+                    Base64 decoder
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> str</span>
+                            String.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string string
+                    </ul>
+                </dd>                <dt>
+                    <a name="EncodeAES"></a>
+                    <strong>EncodeAES</strong>
+                </dt>
+                <dd>
+                    AES encoder
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> str</span>
+                            string you want to encode.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string encode string with Base64.
+                    </ul>
+                </dd>                <dt>
+                    <a name="DecodeAES"></a>
+                    <strong>DecodeAES</strong>
+                </dt>
+                <dd>
+                    AES decoder
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> base64Str</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string string
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div> <!-- id="content" -->
+    </div> <!-- id="main" -->
+    <div id="about">
+        <i>written by <a href="https://github.com/SES-xuelan">XueLan</a></i>
+    </div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

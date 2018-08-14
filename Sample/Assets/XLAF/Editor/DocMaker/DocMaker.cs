@@ -65,19 +65,17 @@ public class DocMaker
 	}
 
 
-	public static readonly string DOC_PATH = Application.dataPath + "/../../Docs/";
+	public static readonly string DOC_PATH = Application.dataPath + "/XLAF/Docs/";
 	public static List<DocFileInfo> allDocs;
 
 	[MenuItem ("XLAF/DocTools/GenDocs")]
 	static void GenDocs ()
 	{
 		allDocs = new List<DocFileInfo> ();
-		if (!Directory.Exists (DOC_PATH)) {
-			Directory.CreateDirectory (DOC_PATH);
-		} else {
-			string dest = DOC_PATH + "../Docs_backup_" + System.DateTime.Now.ToString ("yyyy_MM_dd_hh_mm_ss_fff");
-			Directory.Move (DOC_PATH, dest);
+		if (Directory.Exists (DOC_PATH)) {
+			Directory.Delete (DOC_PATH, true);
 		}
+		Directory.CreateDirectory (DOC_PATH);
 		
 		string scriptPath = Application.dataPath + "/XLAF/Scripts/Public/";
 		// C Sharp 3rd-party file
@@ -92,6 +90,7 @@ public class DocMaker
 		GenCSS ();
 		GenIndex ();
 		GenFiles ();
+		AssetDatabase.Refresh ();
 		Debug.Log ("Gen documents finished!");
 	}
 
@@ -132,7 +131,7 @@ public class DocMaker
 		int functionsBeginLines = 0;
 		for (int i = 0; i < data.Count; i++) {
 			string s = data [i];
-			if (s.Contains ("public class ")) {
+			if (!start && s.Contains ("public class ")) {
 				dfi.mainClassName = s.Replace ("public class", "").Trim ();
 				if (dfi.mainClassName.Contains (":")) {
 					dfi.mainClassName = dfi.mainClassName.Split (':') [0].Trim ();
@@ -385,6 +384,7 @@ public class DocMaker
 				functions,
 				functionsInfo
 			));
+
 		}
 
 	}
@@ -405,7 +405,7 @@ public class DocMaker
 		}
 
 		ret = ret.Replace ("<para></para>", "<br />");
-		ret = ret.Replace ("<c>", "<code>").Replace("</c>","</code>");
+		ret = ret.Replace ("<c>", "<code>").Replace ("</c>", "</code>");
 		return ret;
 	}
 }

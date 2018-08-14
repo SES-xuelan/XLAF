@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using XLAF.Private;
 
-namespace XLAF.Public {
+namespace XLAF.Public
+{
 
 	/// <summary>
 	/// Scene object, UI part. 
@@ -34,9 +35,9 @@ namespace XLAF.Public {
 		/// <param name="sceneName">Scene name.  e.g. Pop1</param>
 		public SceneObject (string assetBundleFullPathName, string sceneName)
 		{
+			XLAFInnerLog.Debug ("New SceneObject:", assetBundleFullPathName, sceneName);
 			//use async load will cause setParent not right
 			//MgrCoroutine.DoCoroutine (LoadBundle (assetBundleFullPathName, sceneName));
-
 			WWW bundle = new WWW (assetBundleFullPathName);
 			GameObject scene = (GameObject)UnityEngine.Object.Instantiate (bundle.assetBundle.LoadAsset (sceneName));
 			bundle.assetBundle.Unload (false);

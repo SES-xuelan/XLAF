@@ -44,6 +44,7 @@ namespace XLAF.Public
 		#endregion
 
 		#region public functions
+
 		/// <summary>
 		/// Gets the current language.
 		/// </summary>
@@ -81,6 +82,7 @@ namespace XLAF.Public
 			string ret = LanguageConfigs [stringKeyName].Value;
 			return ret;
 		}
+
 		/// <summary>
 		/// Gets the string from current language config file with placeholder.<para></para>
 		/// e.g. <code>"congratulations! you have got {0} points! rank No. {1}"</code>
@@ -95,7 +97,7 @@ namespace XLAF.Public
 				ret = LanguageConfigs [stringKeyName].Value;
 				ret = string.Format (ret, args);
 			} catch (Exception e) {
-				XLAFInnerLog.Error ("error in MgrMutiLanguage|GetString:", e);
+				XLAFInnerLog.Error ("error in MgrMultiLanguage|GetString:", e);
 			}
 
 			return ret;

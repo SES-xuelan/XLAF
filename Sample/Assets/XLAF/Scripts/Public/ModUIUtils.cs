@@ -163,6 +163,20 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
+		/// Bindings the all button click event in <c>parent</c>.
+		/// </summary>
+		/// <param name="parent">Parent.</param>
+		/// <param name="preventDoubleClickTime">Prevent double click time (second).</param>
+		/// <param name="onUIEvent">Event.</param>
+		public static void BindingButtonClick (GameObject parent, float preventDoubleClickTime, Action<XLAF_UIEvent> onUIEvent)
+		{
+			Button[] buttons = parent.GetComponentsInChildren<Button> (true);
+			for (int i = 0; i < buttons.Length; i++) {
+				AddClick (buttons [i].gameObject, preventDoubleClickTime, onUIEvent);
+			}
+		}
+
+		/// <summary>
 		/// Adds the click.
 		/// </summary>
 		/// <param name="go">GameObject.</param>
@@ -170,6 +184,32 @@ namespace XLAF.Public
 		public static void AddClick (GameObject go, Action<XLAF_UIEvent> onUIEvent)
 		{
 			XLAFEventTriggerListener.Get (go).onClick = (GameObject g, PointerEventData e) => {
+				XLAF_UIEvent evt = new XLAF_UIEvent ();
+				evt.eventData = e;
+				evt.target = g;
+				evt.phase = Phase.Click;
+				onUIEvent (evt);
+			};
+		}
+
+		/// <summary>
+		/// Adds the click.
+		/// </summary>
+		/// <param name="go">Go.</param>
+		/// <param name="preventDoubleClickTime">Prevent double click time (second).</param>
+		/// <param name="onUIEvent">On user interface event.</param>
+		public static void AddClick (GameObject go, float preventDoubleClickTime, Action<XLAF_UIEvent> onUIEvent)
+		{
+			bool isDelaying = false;
+			XLAFEventTriggerListener.Get (go).onClick = (GameObject g, PointerEventData e) => {
+				if (isDelaying) {
+					XLAFInnerLog.Warning (string.Format ("You pressed {0} in {1} second(s), will not response.", g.name, preventDoubleClickTime));
+					return;
+				}
+				isDelaying = true;
+				ModUtils.DelayCall (preventDoubleClickTime, () => {
+					isDelaying = false;
+				});
 				XLAF_UIEvent evt = new XLAF_UIEvent ();
 				evt.eventData = e;
 				evt.target = g;

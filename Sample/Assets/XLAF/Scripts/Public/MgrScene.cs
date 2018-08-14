@@ -149,7 +149,7 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// Loads the scene, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
+		/// Loads the scene, this function will call CreateScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
 		/// </summary>
 		/// <param name="sceneName">Scene name.</param>
 		/// <param name="data">the data you want to transmit</param>
@@ -159,12 +159,12 @@ namespace XLAF.Public
 				return;
 			SceneObject sceneObj = null;
 			if (MgrAssetBundle.HasAssetBundle (sceneName)) {
-				sceneObj = new SceneObject (ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
+				sceneObj = new SceneObject ("file://"+ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
 			} else {
 				sceneObj = new SceneObject (string.Format (scenePathFormat, sceneName));
 			}
 			SCENES.Add (sceneName, sceneObj);
-			sceneObj.script.CreatScene (data);
+			sceneObj.script.CreateScene (data);
 			sceneObj.script.UpdateLanguage ();
 
 			sceneObj.scene.transform.SetParent (sceneViewRoot, false);
@@ -174,7 +174,7 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// Loads the scene, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
+		/// Loads the scene, this function will call CreateScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
 		/// </summary>
 		/// <param name="sceneName">Scene name.</param>
 		public static void LoadScene (string sceneName)
@@ -250,6 +250,12 @@ namespace XLAF.Public
 
 
 			XLAFInnerLog.Debug ("GotoScene (SceneParams par)", par.ToString ());
+			if (currentScene != null && currentScene.sceneName == par.sceneName) {
+				animating = true;
+				instance._GotoSelfScene (sceneName, data, cb);
+				return;
+			}
+
 
 			if (currentScene != null) {
 				currentScene.DisableUIListener ();
@@ -848,13 +854,13 @@ namespace XLAF.Public
 			if (!SCENES.ContainsKey (sceneName)) {
 				SceneObject sceneObj;
 				if (MgrAssetBundle.HasAssetBundle (sceneName)) {
-					sceneObj = new SceneObject (ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
+					sceneObj = new SceneObject ("file://"+ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
 				} else {
 					sceneObj = new SceneObject (string.Format (scenePathFormat, sceneName));
 				}
 				currentScene = sceneObj;
 				SCENES.Add (sceneName, sceneObj);
-				currentScene.script.CreatScene (data);
+				currentScene.script.CreateScene (data);
 				currentScene.script.UpdateLanguage ();
 			} else {
 				currentScene = SCENES [sceneName];
@@ -865,6 +871,16 @@ namespace XLAF.Public
 			currentScene.scene.transform.SetAsLastSibling ();//set top
 			//currentScene.SendMessage ("WillEnterScene", data);
 			currentScene.script.WillEnterScene (data);
+		}
+
+		private void _GotoSelfScene (string sceneName, object data, Action cb)
+		{
+			currentScene.script.WillEnterScene (data);
+			if (cb != null)
+				cb ();
+			currentScene.script.EnterScene (data);
+			animating = false;
+
 		}
 
 		private void _AnimationNone (string sceneName, object data, Action cb)
@@ -896,29 +912,29 @@ namespace XLAF.Public
 					"to", 0,
 					"time", fadeInTime,
 					"onupdate", (Action<float>)((alpha) => {
-						oldScene.ChangeAlpha (alpha);
-					}),
+					oldScene.ChangeAlpha (alpha);
+				}),
 					"oncomplete", (Action)(() => {
-						oldScene.script.ExitScene ();
-						_UnloadOldScene (oldScene);
-						_LoadNewScene (sceneName, data);
-						currentScene.ChangeAlpha (0f);
-						iTween.ValueTo (currentScene.scene, iTween.Hash (
-							"from", 0,
-							"to", 1,
-							"time", fadeOutTime,
-							"onupdate", (Action<float>)((alpha) => {
-								currentScene.ChangeAlpha (alpha);
-							}),
-							"oncomplete", (Action)(() => {
-								if (cb != null)
-									cb ();
-								currentScene.script.EnterScene (data);
-								currentScene.EnableUIListener ();
-								animating = false;
-							})
-						));
+					oldScene.script.ExitScene ();
+					_UnloadOldScene (oldScene);
+					_LoadNewScene (sceneName, data);
+					currentScene.ChangeAlpha (0f);
+					iTween.ValueTo (currentScene.scene, iTween.Hash (
+						"from", 0,
+						"to", 1,
+						"time", fadeOutTime,
+						"onupdate", (Action<float>)((alpha) => {
+						currentScene.ChangeAlpha (alpha);
+					}),
+						"oncomplete", (Action)(() => {
+						if (cb != null)
+							cb ();
+						currentScene.script.EnterScene (data);
+						currentScene.EnableUIListener ();
+						animating = false;
 					})
+					));
+				})
 				));
 			} else {
 				_LoadNewScene (sceneName, data);// load new scene  or   set exise scene
@@ -928,15 +944,15 @@ namespace XLAF.Public
 					"to", 1,
 					"time", fadeOutTime,
 					"onupdate", (Action<float>)((alpha) => {
-						currentScene.ChangeAlpha (alpha);
-					}),
+					currentScene.ChangeAlpha (alpha);
+				}),
 					"oncomplete", (Action)(() => {
-						if (cb != null)
-							cb ();
-						currentScene.script.EnterScene (data);
-						currentScene.EnableUIListener ();
-						animating = false;
-					})
+					if (cb != null)
+						cb ();
+					currentScene.script.EnterScene (data);
+					currentScene.EnableUIListener ();
+					animating = false;
+				})
 				));
 			}
 
@@ -968,14 +984,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 		}
 
@@ -1007,14 +1023,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 		}
 
@@ -1046,14 +1062,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 		}
 
@@ -1085,14 +1101,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 		}
 
@@ -1130,14 +1146,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 		}
 
@@ -1174,14 +1190,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 		}
 
@@ -1219,14 +1235,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 		}
 
@@ -1263,14 +1279,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 		}
 
@@ -1287,14 +1303,14 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 
 		}
@@ -1313,23 +1329,24 @@ namespace XLAF.Public
 				"time", newSceneTime,
 				"easetype", ease,
 				"oncomplete", (Action)(() => {
-					oldScene.script.ExitScene ();
-					_UnloadOldScene (oldScene);
-					if (!destroyOnSceneChange) {
-						oldScene.scene.transform.localScale = new Vector3 (1f, 1f);
-					}
-					if (cb != null)
-						cb ();
-					currentScene.script.EnterScene (data);
-					currentScene.EnableUIListener ();
-					animating = false;
-				})
+				oldScene.script.ExitScene ();
+				_UnloadOldScene (oldScene);
+				if (!destroyOnSceneChange) {
+					oldScene.scene.transform.localScale = new Vector3 (1f, 1f);
+				}
+				if (cb != null)
+					cb ();
+				currentScene.script.EnterScene (data);
+				currentScene.EnableUIListener ();
+				animating = false;
+			})
 			));
 		}
 
 		#endregion
 
 	}
+
 	/// <summary>
 	/// Scene animation.
 	/// </summary>

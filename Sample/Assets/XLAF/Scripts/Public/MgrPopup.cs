@@ -139,7 +139,7 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// Loads the popup, this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
+		/// Loads the popup, this function will call CreateScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
 		/// </summary>
 		/// <param name="sceneName">Scene name.</param>
 		/// <param name="data">the data you want to transmit</param>
@@ -150,13 +150,13 @@ namespace XLAF.Public
 
 			SceneObject sceneObj = null;
 			if (MgrAssetBundle.HasAssetBundle (sceneName)) {
-				sceneObj = new SceneObject (ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
+				sceneObj = new SceneObject ("file://"+ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
 			} else {
 				sceneObj = new SceneObject (string.Format (_popupPathFormat, sceneName));
 			}
 
 			_POPUPS.Add (sceneName, sceneObj);
-			sceneObj.script.CreatScene (data);
+			sceneObj.script.CreateScene (data);
 			sceneObj.script.UpdateLanguage ();
 
 			sceneObj.scene.transform.SetParent (_popupViewRoot, false);
@@ -166,7 +166,7 @@ namespace XLAF.Public
 
 		/// <summary>
 		/// Loads the popup.
-		/// this function will call CreatScene(params) but not call other functions (e.g. WillEnterScene/EnterScene) .
+		/// this function will call CreateScene(params) but not call other functions (e.g. WillEnterScene/EnterScene) .
 		/// </summary>
 		/// <param name="sceneName">Scene name.</param>
 		public static void LoadPopup (string sceneName)
@@ -1144,6 +1144,7 @@ namespace XLAF.Public
 			}
 			Destroy (sceneObj.scene.gameObject);
 			_POPUPS.Remove (sceneName);
+			_animating = false;
 		}
 
 		private static SceneObject _LoadNewScene (string sceneName, object data, float bgAlpha)
@@ -1155,14 +1156,14 @@ namespace XLAF.Public
 			SceneObject sceneObj;
 			if (!_POPUPS.ContainsKey (sceneName)) {
 				if (MgrAssetBundle.HasAssetBundle (sceneName)) {
-					sceneObj = new SceneObject (ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
+					sceneObj = new SceneObject ("file://"+ModUtils.documentsDirectory + MgrAssetBundle.GetAssetBundlePath (sceneName), sceneName);
 				} else {
 					sceneObj = new SceneObject (string.Format (_popupPathFormat, sceneName));
 				}
 				sceneObj.AddPopupBackground (bgAlpha);
 				_POPUPS_STACK.Add (sceneObj);
 				_POPUPS.Add (sceneName, sceneObj);
-				sceneObj.script.CreatScene (data);
+				sceneObj.script.CreateScene (data);
 				sceneObj.script.UpdateLanguage ();
 			} else {
 				sceneObj = _POPUPS [sceneName];

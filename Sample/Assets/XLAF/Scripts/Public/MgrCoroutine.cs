@@ -43,10 +43,11 @@ namespace XLAF.Public
 		/// Usage:<para></para>
 		/// <code>MgrCoroutine.DoCoroutine (IEnumeratorFunc (param1,param2,etc));</code>
 		/// </summary>
+		/// <returns>The coroutine.</returns>
 		/// <param name="routine">Routine.</param>
-		public static void DoCoroutine (IEnumerator routine)
+		public static Coroutine DoCoroutine (IEnumerator routine)
 		{
-			_CoroutineManagerMonoBehaviour.StartCoroutine (routine);
+			return _CoroutineManagerMonoBehaviour.StartCoroutine (routine);
 		}
 
 		#endregion

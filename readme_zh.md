@@ -17,7 +17,6 @@ XLAF(XueLan's Application Framework) 是一个简单的2D框架，包含完整�
 * SimpleJson
 * iTween
 * SharpZipLib
-* ToLua
 * Texture Packer
 
 ## 项目目录及相关约定
@@ -30,7 +29,6 @@ ProjectFolder
     |-- Assets
     |     |-- 3rd-party【C#写的第三方插件】
     |     |-- *Editor【编辑器的目录】
-    |     |-- *Lua 【Lua脚本目录，热更新相关的，Editor的Lua插件会处理这个目录】
     |     |-- Materials【存放材质的目录】
     |     |-- *Plugins【原生插件目录  *.so  *.a等文件】
     |     |    |--Android【Android原生写的插件，一般是*.aar或者*.jar】
@@ -42,12 +40,11 @@ ProjectFolder
     |     |        |--*Popups【存放弹窗界面的prefabs】
     |     |        `--*Scenes【存放界面的prefabs】
     |     |-- *Scripts【存放C#脚本文件】
-    |     |    |--*Views【存放各个界面的prefabs】
-    |     |    |    |--*Popups【存放弹窗界面的prefabs】
-    |     |    |    `--*Scenes【存放界面的prefabs】
+    |     |    |--Views【存放各个界面的scripts】
+    |     |    |    |--Popups【存放弹窗界面的scripts】
+    |     |    |    `--Scenes【存放界面的scripts】
     |     |    `--自定义的其他存放脚本的目录
     |     |-- *StreamingAssets【Unity默认目录，里面的文件不会被压缩，只读的】
-    |     |-- *ToLua【ToLua插件目录】
     |     `-- *XLAF【本框架目录，里面的内容尽量不要修改；如果要修改，请确保你已经理解了内部结构和相互调用关系】
     |          |-- 3rd-party【第三方插件目录】
     |          |-- Editor【编辑器脚本/插件】
@@ -72,10 +69,6 @@ ProjectFolder
     1. public enum EaseType  中增加了一项defaultType
     2. void CallBack (string callbackType) 函数中，增加了Action的callback
     ```
-
+* DocMaker 还不完善，生成的文档仅供参考，如有排版错误，请直接查看代码中的注释
 
 <br /><br /><br />
-
----
-文档不断完善中……
-

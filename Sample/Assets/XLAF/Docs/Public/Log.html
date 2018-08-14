@@ -1,0 +1,355 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>XueLan's Application Framework</title>
+    <link rel="stylesheet" href="../css.css" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="product">
+        <div id="product_logo"></div>
+        <div id="product_name"><big><b></b></big></div>
+        <div id="product_description"></div>
+    </div> <!-- id="product" -->
+
+
+    <div id="main">
+
+
+        <!-- Menu -->
+
+        <div id="navigation">
+            <br/>
+            <h1>XLAF Doc</h1>
+
+            <ul>
+                <li><a href="../index.html">Index</a></li>
+            </ul>
+
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#Functions">Functions</a></li>
+            </ul>
+
+
+            <h2>Classes</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../3rd-party/iTweenHashBuilder.html">iTweenHashBuilder</a></li>
+
+                <li><strong>Log</strong></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrAssetBundle.html">MgrAssetBundle</a></li>
+
+                <li><a href="../Public/MgrAudio.html">MgrAudio</a></li>
+
+                <li><a href="../Public/MgrBackdoor.html">MgrBackdoor</a></li>
+
+                <li><a href="../Public/MgrCoroutine.html">MgrCoroutine</a></li>
+
+                <li><a href="../Public/MgrData.html">MgrData</a></li>
+
+                <li><a href="../Public/MgrFPS.html">MgrFPS</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrLevel.html">MgrLevel</a></li>
+
+                <li><a href="../Public/MgrLoading.html">MgrLoading</a></li>
+
+                <li><a href="../Public/MgrMultiLanguage.html">MgrMultiLanguage</a></li>
+
+                <li><a href="../Public/MgrPopup.html">MgrPopup</a></li>
+
+                <li><a href="../Public/MgrScene.html">MgrScene</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/ModCompress.html">ModCompress</a></li>
+
+                <li><a href="../Public/ModDispatcher.html">ModDispatcher</a></li>
+
+                <li><a href="../Public/ModEncryption.html">ModEncryption</a></li>
+
+                <li><a href="../Public/ModUIUtils.html">ModUIUtils</a></li>
+
+                <li><a href="../Public/ModUtils.html">ModUtils</a></li>
+
+                <li><a href="../Public/SceneObject.html">SceneObject</a></li>
+
+                <li><a href="../Public/Storyboard.html">Storyboard</a></li>
+
+                <li><a href="../Public/XLAFDataManagerImpl.html">XLAFDataManagerImpl</a></li>
+
+                <li><a href="../Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></li>
+
+                <li><a href="../Public/XLAFHotFixImpl.html">XLAFHotFixImpl</a></li>
+
+                <li><a href="../Public/XLAFMain.html">XLAFMain</a></li>
+
+                <li><a href="../Public/XLAF_Event.html">XLAF_Event</a></li>
+
+                <li><a href="../Public/XLAF_UIEvent.html">XLAF_UIEvent</a></li>
+
+
+            </ul>
+            <h2>ReadMe</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../Readme.md.html">Readme</a></li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+
+            <h1>Class <code>Log</code></h1>
+            <p>Log with java & object-C in mobile
+</p>
+            <p>
+
+
+            </p>
+            <h3>Info:</h3>
+            <ul>
+                <li><strong>Copyright</strong>: 2017</li>
+                <li><strong>Author</strong>: Albert Feng (SES XueLan)</li>
+            </ul>
+
+
+            <h2><a href="#">Properties</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><strong>isWarnOn</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/Log.html">Log</a> is warn on.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>isInfoOn</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/Log.html">Log</a> is info on.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>isDebugOn</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/Log.html">Log</a> is debug on.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>isErrorOn</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/Log.html">Log</a> is error on.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>isWriteToFile</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/Log.html">Log</a> is write to file.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>deep</strong></td>
+                    <td class="summary">Gets or sets the deep.<br />
+when you get then set to -1 (only once effect).</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+            <h2><a href="#Functions">Functions</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><a href="#Init">public static void Init ()</a></td>
+                    <td class="summary">call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetDebugLevel">public static void SetDebugLevel (int level)</a></td>
+                    <td class="summary">Sets the debug level.<br />
+e.g. <br />
+set 0xF to enable all log;<br />
+set 0x0 to close all log; <br />
+set 0xE means Error closed and others opened.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetWriteToFile">public static void SetWriteToFile (bool isOn)</a></td>
+                    <td class="summary">Write to file or not.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetInnerLogShown">public static void SetInnerLogShown (bool isShow)</a></td>
+                    <td class="summary">Sets the XLAF inner log shown.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#Debug">public static void Debug (params object[] objs)</a></td>
+                    <td class="summary">Debug.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#Error">public static void Error (params object[] objs)</a></td>
+                    <td class="summary">Error.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#Warning">public static void Warning (params object[] objs)</a></td>
+                    <td class="summary">Warning.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#Info">public static void Info (params object[] objs)</a></td>
+                    <td class="summary">Info.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+
+            <h2><a name="Functions"></a>Functions</h2>
+            <dl class="function">
+                <dt>
+                    <a name="Init"></a>
+                    <strong>Init</strong>
+                </dt>
+                <dd>
+                    call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetDebugLevel"></a>
+                    <strong>SetDebugLevel</strong>
+                </dt>
+                <dd>
+                    Sets the debug level.<br />
+e.g. <br />
+set 0xF to enable all log;<br />
+set 0x0 to close all log; <br />
+set 0xE means Error closed and others opened.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>int<span class="parameter"> level</span>
+                            Level, after convert to binary, each byte means isWarnOn，isInfoOn，isDebugOn，isErrorOn
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetWriteToFile"></a>
+                    <strong>SetWriteToFile</strong>
+                </dt>
+                <dd>
+                    Write to file or not.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>bool<span class="parameter"> isOn</span>
+                            If set to <c>true</c> is on.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetInnerLogShown"></a>
+                    <strong>SetInnerLogShown</strong>
+                </dt>
+                <dd>
+                    Sets the XLAF inner log shown.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>bool<span class="parameter"> isShow</span>
+                            If set to <c>true</c> is show.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="Debug"></a>
+                    <strong>Debug</strong>
+                </dt>
+                <dd>
+                    Debug.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>params object[]<span class="parameter"> objs</span>
+                            Objects.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="Error"></a>
+                    <strong>Error</strong>
+                </dt>
+                <dd>
+                    Error.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>params object[]<span class="parameter"> objs</span>
+                            Objects.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="Warning"></a>
+                    <strong>Warning</strong>
+                </dt>
+                <dd>
+                    Warning.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>params object[]<span class="parameter"> objs</span>
+                            Objects.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="Info"></a>
+                    <strong>Info</strong>
+                </dt>
+                <dd>
+                    Info.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>params object[]<span class="parameter"> objs</span>
+                            Objects.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div> <!-- id="content" -->
+    </div> <!-- id="main" -->
+    <div id="about">
+        <i>written by <a href="https://github.com/SES-xuelan">XueLan</a></i>
+    </div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

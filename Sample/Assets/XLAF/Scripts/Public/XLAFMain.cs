@@ -42,11 +42,10 @@ namespace XLAF.Public
 
 			#if UNITY_EDITOR
 			#elif UNITY_ANDROID
-            MgrAudio.PreloadAudio("s_click.mp3");
+            //MgrAudio.PreloadAudio("s_click.mp3");
 			#endif
 			
 			//MUST called below
-			XLAFInnerLog.SetShown (true);
 			MgrAssetBundle.Init ();
 
 			// In general, you should not call Init(), you can call  Init() in exceptional case.

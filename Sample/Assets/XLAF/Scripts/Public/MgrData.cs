@@ -219,7 +219,7 @@ namespace XLAF.Public
 		}
 
 
-		public new static string ToString ()
+		public static string ToLogString ()
 		{
 			string str = "\n";
 			foreach (KeyValuePair<string,SettingsData> kv in DATA) {

@@ -37,7 +37,7 @@ public class Scene2 : Storyboard
 
 	/*
 	    Each storyboard function called moment:
-        CreatScene     => after finish load scene before play enter animation(only call after load from prefab or asset bundle, read cache from MgrScene will not called).
+        CreateScene     => after finish load scene before play enter animation(only call after load from prefab or asset bundle, read cache from MgrScene will not called).
         WillEnterScene => after CreatScene, at the begin of play enter animation.
         EnterScene     => at the end of play enter animation.
 
@@ -50,7 +50,7 @@ public class Scene2 : Storyboard
         AndroidGoBack  => in Android, user press back button.
         UpdateLanguage => when update language or after CreatScene.
     */
-	public override void CreatScene (object obj)
+	public override void CreateScene (object obj)
 	{
 		BindAllButtonsClickEvent ();
 		Log.Debug ("scene2 creat_scene", obj);

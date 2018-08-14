@@ -18,9 +18,10 @@ namespace XLAF.Public
 		#region private variables
 
 		/// <summary>
-		/// The aes key, default is 《白金ディスコ》Lyrics.
+		/// The aes key string, default is 《白金ディスコ》Lyrics.
 		/// </summary>
-		private static string _aes_key = "Kawatte ku mono kawaranai mono aki ppoi atashi ga hajimete shitta kono e ien o kimi ni chikau yo purachina ureshiinoni purachina setsunaku natte purachina nami daga de chau no wa nande dooshite disukotikku";
+		private static string _aes_key_str = "Kawatte ku mono kawaranai mono aki ppoi atashi ga hajimete shitta kono e ien o kimi ni chikau yo purachina ureshiinoni purachina setsunaku natte purachina nami daga de chau no wa nande dooshite disukotikku";
+		private static string _aes_key = "";
 		private static byte[] _aes_IV = {
 			0x12,
 			0x34,
@@ -49,7 +50,7 @@ namespace XLAF.Public
 
 		static ModEncryption ()
 		{
-			_aes_key = MD5Encrypt16 (_aes_key);
+			_aes_key = MD5Encrypt16 (_aes_key_str);
 			_zzz_key_len = _zzz_key.Length;
 			_zzz_key_bytes = Encoding.UTF8.GetBytes (_zzz_key);
 		}
@@ -72,17 +73,18 @@ namespace XLAF.Public
 		/// <value>The aes key.</value>
 		public static string aes_key { 
 			get {
-				return _aes_key;
+				return _aes_key_str;
 			} 
 			set {
-				_aes_key = value;
+				_aes_key_str = value;
+				_aes_key = MD5Encrypt16 (value);
 			} 
 		}
 
 		/// <summary>
-		/// Gets or sets the aes IV.
+		/// Gets or sets the aes IV (16 bytes).
 		/// </summary>
-		/// <value>The aes I.</value>
+		/// <value>The aes IV.</value>
 		public static byte[] aes_IV { 
 			get {
 				return _aes_IV;
@@ -102,6 +104,8 @@ namespace XLAF.Public
 			} 
 			set {
 				_zzz_key = value;
+				_zzz_key_len = _zzz_key.Length;
+				_zzz_key_bytes = Encoding.UTF8.GetBytes (_zzz_key);
 			} 
 		}
 
@@ -178,21 +182,26 @@ namespace XLAF.Public
 		/// <returns>encode string with Base64.</returns>
 		public static string EncodeAES (string str)
 		{
-			SymmetricAlgorithm des = Rijndael.Create ();
-			byte[] inputBytes = Encoding.UTF8.GetBytes (str);
-			des.Key = Encoding.UTF8.GetBytes (_aes_key);
-			des.IV = _aes_IV;
-			byte[] cipherBytes = null;
-			using (MemoryStream ms = new MemoryStream ()) {
-				using (CryptoStream cs = new CryptoStream (ms, des.CreateEncryptor (), CryptoStreamMode.Write)) {
-					cs.Write (inputBytes, 0, inputBytes.Length);
-					cs.FlushFinalBlock ();
-					cipherBytes = ms.ToArray ();//get byte array
-					cs.Close ();
-					ms.Close ();
+			try {
+				SymmetricAlgorithm des = Rijndael.Create ();
+				byte[] inputBytes = Encoding.UTF8.GetBytes (str);
+				des.Key = Encoding.UTF8.GetBytes (_aes_key);
+				des.IV = _aes_IV;
+				byte[] cipherBytes = null;
+				using (MemoryStream ms = new MemoryStream ()) {
+					using (CryptoStream cs = new CryptoStream (ms, des.CreateEncryptor (), CryptoStreamMode.Write)) {
+						cs.Write (inputBytes, 0, inputBytes.Length);
+						cs.FlushFinalBlock ();
+						cipherBytes = ms.ToArray ();//get byte array
+						cs.Close ();
+						ms.Close ();
+					}
 				}
+				return Convert.ToBase64String (cipherBytes);
+			} catch (Exception e) {
+				XLAFInnerLog.Error (e.ToString ());
 			}
-			return Convert.ToBase64String (cipherBytes);
+			return "";
 		}
 
 		/// <summary>
@@ -202,37 +211,46 @@ namespace XLAF.Public
 		/// <returns>string </returns>
 		public static string DecodeAES (string base64Str)
 		{
-			byte[] cipherText = Convert.FromBase64String (base64Str);
-			SymmetricAlgorithm des = Rijndael.Create ();
-			des.Key = Encoding.UTF8.GetBytes (_aes_key);
-			des.IV = _aes_IV;
-			byte[] decryptBytes = new byte[cipherText.Length];
-			using (MemoryStream ms = new MemoryStream (cipherText)) {
-				using (CryptoStream cs = new CryptoStream (ms, des.CreateDecryptor (), CryptoStreamMode.Read)) {
-					cs.Read (decryptBytes, 0, decryptBytes.Length);
-					cs.Close ();
-					ms.Close ();
+			try {
+				byte[] cipherText = Convert.FromBase64String (base64Str);
+				SymmetricAlgorithm des = Rijndael.Create ();
+				des.Key = Encoding.UTF8.GetBytes (_aes_key);
+				des.IV = _aes_IV;
+				byte[] decryptBytes = new byte[cipherText.Length];
+				using (MemoryStream ms = new MemoryStream (cipherText)) {
+					using (CryptoStream cs = new CryptoStream (ms, des.CreateDecryptor (), CryptoStreamMode.Read)) {
+						cs.Read (decryptBytes, 0, decryptBytes.Length);
+						cs.Close ();
+						ms.Close ();
+					}
 				}
+				return Encoding.UTF8.GetString (decryptBytes).Replace ("\0", "");   ///remove \0
+			} catch (Exception e) {
+				XLAFInnerLog.Error (e.ToString ());
 			}
-			return Encoding.UTF8.GetString (decryptBytes).Replace ("\0", "");   ///remove \0
+			return "";
 		}
 
 		public static string DecodeZZZ (byte[] bytes)
 		{
 			string res = "";
-			if (Encoding.UTF8.GetString (bytes, 0, 3) == "zzz") {
-				List<byte> lst = new List<byte> ();
-				for (int i = 3, index = 1; i < bytes.Length; i++,index++) {
-					int r = (int)bytes [i];
-					int n = index + (int)Mathf.Floor (1.0f * index / _zzz_key_len);
-					n = (n - 1) % _zzz_key_len + 1;
-					int key = (int)_zzz_key_bytes [n - 1];
+			try {
+				if (Encoding.UTF8.GetString (bytes, 0, 3) == "zzz") {
+					List<byte> lst = new List<byte> ();
+					for (int i = 3, index = 1; i < bytes.Length; i++,index++) {
+						int r = (int)bytes [i];
+						int n = index + (int)Mathf.Floor (1.0f * index / _zzz_key_len);
+						n = (n - 1) % _zzz_key_len + 1;
+						int key = (int)_zzz_key_bytes [n - 1];
 //					XLAFInnerLog.Debug ("before:", n, r, key);
-					r = r - key - 88;
-					r = (r + 256) % 256;
-					lst.Add ((byte)r);
+						r = r - key - 88;
+						r = (r + 256) % 256;
+						lst.Add ((byte)r);
+					}
+					res = Encoding.UTF8.GetString (lst.ToArray ());
 				}
-				res = Encoding.UTF8.GetString (lst.ToArray ());
+			} catch (Exception e) {
+				XLAFInnerLog.Error (e.ToString ());
 			}
 			return res;
 		}

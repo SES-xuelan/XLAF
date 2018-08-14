@@ -1,0 +1,292 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>XueLan's Application Framework</title>
+    <link rel="stylesheet" href="../css.css" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="product">
+        <div id="product_logo"></div>
+        <div id="product_name"><big><b></b></big></div>
+        <div id="product_description"></div>
+    </div> <!-- id="product" -->
+
+
+    <div id="main">
+
+
+        <!-- Menu -->
+
+        <div id="navigation">
+            <br/>
+            <h1>XLAF Doc</h1>
+
+            <ul>
+                <li><a href="../index.html">Index</a></li>
+            </ul>
+
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#Functions">Functions</a></li>
+            </ul>
+
+
+            <h2>Classes</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../3rd-party/iTweenHashBuilder.html">iTweenHashBuilder</a></li>
+
+                <li><a href="../Public/Log.html">Log</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrAssetBundle.html">MgrAssetBundle</a></li>
+
+                <li><a href="../Public/MgrAudio.html">MgrAudio</a></li>
+
+                <li><a href="../Public/MgrBackdoor.html">MgrBackdoor</a></li>
+
+                <li><a href="../Public/MgrCoroutine.html">MgrCoroutine</a></li>
+
+                <li><a href="../Public/MgrData.html">MgrData</a></li>
+
+                <li><a href="../Public/MgrFPS.html">MgrFPS</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrLevel.html">MgrLevel</a></li>
+
+                <li><a href="../Public/MgrLoading.html">MgrLoading</a></li>
+
+                <li><a href="../Public/MgrMultiLanguage.html">MgrMultiLanguage</a></li>
+
+                <li><a href="../Public/MgrPopup.html">MgrPopup</a></li>
+
+                <li><a href="../Public/MgrScene.html">MgrScene</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/ModCompress.html">ModCompress</a></li>
+
+                <li><strong>ModDispatcher</strong></li>
+
+                <li><a href="../Public/ModEncryption.html">ModEncryption</a></li>
+
+                <li><a href="../Public/ModUIUtils.html">ModUIUtils</a></li>
+
+                <li><a href="../Public/ModUtils.html">ModUtils</a></li>
+
+                <li><a href="../Public/SceneObject.html">SceneObject</a></li>
+
+                <li><a href="../Public/Storyboard.html">Storyboard</a></li>
+
+                <li><a href="../Public/XLAFDataManagerImpl.html">XLAFDataManagerImpl</a></li>
+
+                <li><a href="../Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></li>
+
+                <li><a href="../Public/XLAFHotFixImpl.html">XLAFHotFixImpl</a></li>
+
+                <li><a href="../Public/XLAFMain.html">XLAFMain</a></li>
+
+                <li><a href="../Public/XLAF_Event.html">XLAF_Event</a></li>
+
+                <li><a href="../Public/XLAF_UIEvent.html">XLAF_UIEvent</a></li>
+
+
+            </ul>
+            <h2>ReadMe</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../Readme.md.html">Readme</a></li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+
+            <h1>Class <code>ModDispatcher</code></h1>
+            <p>Dispatcher mod.
+</p>
+            <p>
+
+
+            </p>
+            <h3>Info:</h3>
+            <ul>
+                <li><strong>Copyright</strong>: 2017</li>
+                <li><strong>Author</strong>: Albert Feng (SES XueLan)</li>
+            </ul>
+
+
+            <h2><a href="#">Properties</a></h2>
+            <table class="function_list">
+
+            </table>
+
+            <br/>
+            <br/>
+
+            <h2><a href="#Functions">Functions</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><a href="#Init">public static void Init ()</a></td>
+                    <td class="summary">call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#Dispatch">public static void Dispatch (object eventName, object data = null)</a></td>
+                    <td class="summary">Dispatch the data with event name.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#Dispatch">public static void Dispatch (XLAF_Event e)</a></td>
+                    <td class="summary">Dispatch the XLAF_Event.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#AddListener">public static void AddListener (object eventName, Action&lt;XLAF_Event&gt; handler)</a></td>
+                    <td class="summary">Adds the listener.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#RemoveListener">public static void RemoveListener (object eventName, Action&lt;XLAF_Event&gt; handler)</a></td>
+                    <td class="summary">Removes the listener.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#HasListener">public static bool HasListener (object eventName, Action&lt;XLAF_Event&gt; handler)</a></td>
+                    <td class="summary">Determines if has listener the specified eventName handler.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+
+            <h2><a name="Functions"></a>Functions</h2>
+            <dl class="function">
+                <dt>
+                    <a name="Init"></a>
+                    <strong>Init</strong>
+                </dt>
+                <dd>
+                    call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="Dispatch"></a>
+                    <strong>Dispatch</strong>
+                </dt>
+                <dd>
+                    Dispatch the data with event name.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>object<span class="parameter"> eventName</span>
+                            Event name.
+                        </li>
+                        <li>object data<span class="parameter"> =</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="Dispatch"></a>
+                    <strong>Dispatch</strong>
+                </dt>
+                <dd>
+                    Dispatch the XLAF_Event.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>XLAF_Event<span class="parameter"> e</span>
+                            XLAF_Event.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="AddListener"></a>
+                    <strong>AddListener</strong>
+                </dt>
+                <dd>
+                    Adds the listener.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>object<span class="parameter"> eventName</span>
+                            Event name.
+                        </li>
+                        <li>Action&lt;XLAF_Event&gt;<span class="parameter"> handler</span>
+                            Handler.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="RemoveListener"></a>
+                    <strong>RemoveListener</strong>
+                </dt>
+                <dd>
+                    Removes the listener.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>object<span class="parameter"> eventName</span>
+                            Event name.
+                        </li>
+                        <li>Action&lt;XLAF_Event&gt;<span class="parameter"> handler</span>
+                            Handler.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="HasListener"></a>
+                    <strong>HasListener</strong>
+                </dt>
+                <dd>
+                    Determines if has listener the specified eventName handler.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>object<span class="parameter"> eventName</span>
+                            Event name.
+                        </li>
+                        <li>Action&lt;XLAF_Event&gt;<span class="parameter"> handler</span>
+                            Handler.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+bool <code>true</code> if has listener the specified eventName handler; otherwise, <code>false</code>.
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div> <!-- id="content" -->
+    </div> <!-- id="main" -->
+    <div id="about">
+        <i>written by <a href="https://github.com/SES-xuelan">XueLan</a></i>
+    </div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

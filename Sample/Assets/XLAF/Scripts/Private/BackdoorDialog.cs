@@ -53,8 +53,8 @@ namespace XLAF.Private
 
 		/*
 	    Each storyboard function called moment:
-        CreatScene     => after finish load scene before play enter animation(only call after load from prefab or asset bundle, read cache from MgrScene will not called).
-        WillEnterScene => after CreatScene, at the begin of play enter animation.
+        CreateScene     => after finish load scene before play enter animation(only call after load from prefab or asset bundle, read cache from MgrScene will not called).
+        WillEnterScene => after CreateScene, at the begin of play enter animation.
         EnterScene     => at the end of play enter animation.
 
         WillExitScene  => at the begin of play exit animation.
@@ -64,9 +64,9 @@ namespace XLAF.Private
         OverlayBegan   => when scene overlaid(only XLAF dialog).
         OverlayEnded   => when scene overlaid object disappear(only XLAF dialog).
         AndroidGoBack  => in Android, user press back button.
-        UpdateLanguage => when update language or after CreatScene.
+        UpdateLanguage => when update language or after CreateScene.
     */
-		public override void CreatScene (object obj)
+		public override void CreateScene (object obj)
 		{
 			BindAllButtonsClickEvent ();
 			callback = (Action<bool,string>)obj;

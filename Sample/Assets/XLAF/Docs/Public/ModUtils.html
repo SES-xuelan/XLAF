@@ -1,0 +1,613 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>XueLan's Application Framework</title>
+    <link rel="stylesheet" href="../css.css" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="product">
+        <div id="product_logo"></div>
+        <div id="product_name"><big><b></b></big></div>
+        <div id="product_description"></div>
+    </div> <!-- id="product" -->
+
+
+    <div id="main">
+
+
+        <!-- Menu -->
+
+        <div id="navigation">
+            <br/>
+            <h1>XLAF Doc</h1>
+
+            <ul>
+                <li><a href="../index.html">Index</a></li>
+            </ul>
+
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#Functions">Functions</a></li>
+            </ul>
+
+
+            <h2>Classes</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../3rd-party/iTweenHashBuilder.html">iTweenHashBuilder</a></li>
+
+                <li><a href="../Public/Log.html">Log</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrAssetBundle.html">MgrAssetBundle</a></li>
+
+                <li><a href="../Public/MgrAudio.html">MgrAudio</a></li>
+
+                <li><a href="../Public/MgrBackdoor.html">MgrBackdoor</a></li>
+
+                <li><a href="../Public/MgrCoroutine.html">MgrCoroutine</a></li>
+
+                <li><a href="../Public/MgrData.html">MgrData</a></li>
+
+                <li><a href="../Public/MgrFPS.html">MgrFPS</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrLevel.html">MgrLevel</a></li>
+
+                <li><a href="../Public/MgrLoading.html">MgrLoading</a></li>
+
+                <li><a href="../Public/MgrMultiLanguage.html">MgrMultiLanguage</a></li>
+
+                <li><a href="../Public/MgrPopup.html">MgrPopup</a></li>
+
+                <li><a href="../Public/MgrScene.html">MgrScene</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/ModCompress.html">ModCompress</a></li>
+
+                <li><a href="../Public/ModDispatcher.html">ModDispatcher</a></li>
+
+                <li><a href="../Public/ModEncryption.html">ModEncryption</a></li>
+
+                <li><a href="../Public/ModUIUtils.html">ModUIUtils</a></li>
+
+                <li><strong>ModUtils</strong></li>
+
+                <li><a href="../Public/SceneObject.html">SceneObject</a></li>
+
+                <li><a href="../Public/Storyboard.html">Storyboard</a></li>
+
+                <li><a href="../Public/XLAFDataManagerImpl.html">XLAFDataManagerImpl</a></li>
+
+                <li><a href="../Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></li>
+
+                <li><a href="../Public/XLAFHotFixImpl.html">XLAFHotFixImpl</a></li>
+
+                <li><a href="../Public/XLAFMain.html">XLAFMain</a></li>
+
+                <li><a href="../Public/XLAF_Event.html">XLAF_Event</a></li>
+
+                <li><a href="../Public/XLAF_UIEvent.html">XLAF_UIEvent</a></li>
+
+
+            </ul>
+            <h2>ReadMe</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../Readme.md.html">Readme</a></li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+
+            <h1>Class <code>ModUtils</code></h1>
+            <p>Tools
+</p>
+            <p>
+
+
+            </p>
+            <h3>Info:</h3>
+            <ul>
+                <li><strong>Copyright</strong>: 2017</li>
+                <li><strong>Author</strong>: Albert Feng (SES XueLan)</li>
+            </ul>
+
+
+            <h2><a href="#">Properties</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><strong>streamingDirectory</strong></td>
+                    <td class="summary">StreamingAssets folder<para>></para>
+e.g. Assets/StreamingAssets</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>documentsDirectory</strong></td>
+                    <td class="summary">documents  folder<para>></para>
+in mobile this folder will backup automatic with iCloud or google</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>temporaryDirectory</strong></td>
+                    <td class="summary">temporary folder <br />
+in mobile this folder will NOT backup with iCloud or google. <br />
+when user clear cache, files in this folder will be removed!</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong></strong></td>
+                    <td class="summary">Android ext sdcard path</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>storagePath</strong></td>
+                    <td class="summary">Android inner storage(inner sdcard) path</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+            <h2><a href="#Functions">Functions</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><a href="#Init">public static void Init ()</a></td>
+                    <td class="summary">call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#WriteToFile">public static void WriteToFile (string filePathName, string content, bool overWrite = false)</a></td>
+                    <td class="summary">Writes string to file.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#DeleteFile">public static void DeleteFile (string filePathName)</a></td>
+                    <td class="summary">Deletes the file.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#ReadFile">public static string ReadFile (string filePathName)</a></td>
+                    <td class="summary">Reads the file (don't use this in android, File.Exists often return false).</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#ReadFileByWWW">public static string ReadFileByWWW (string filePathName)</a></td>
+                    <td class="summary">Reads the file by WWW.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#CreateDirectorys">public static bool CreateDirectorys (string fullFilePathOrDirectoryPath, bool isFile)</a></td>
+                    <td class="summary">Creates the directorys.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#WriteJsonToFile">public static void WriteJsonToFile (string filePathName, JSONNode json)</a></td>
+                    <td class="summary">Writes the json object to file.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#ReadJsonFromFile">public static JSONNode ReadJsonFromFile (string filePathName, JSONNode def = null)</a></td>
+                    <td class="summary">Reads the json from file (don't use this in android, File.Exists often return false).</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#ReadJsonFromFileByWWW">public static JSONNode ReadJsonFromFileByWWW (string filePathName, JSONNode def = null)</a></td>
+                    <td class="summary">Reads the json from file by WWW.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#ShowToast">public static void ShowToast ()</a></td>
+                    <td class="summary">Shows the toast.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#ShowAlert">public static void ShowAlert (string title, string message, string okLabel, string cancelLabel, string neutralLabel,/// &lt;summary&gt;/// Shows the alert./// &lt;/summary&gt;/// &lt;param name="title"&gt;Title.&lt;/param&gt;/// &lt;param name="message"&gt;Message.&lt;/param&gt;/// &lt;param name="okLabel"&gt;Ok label.&lt;/param&gt;/// &lt;param name="cancelLabel"&gt;Cancel label.&lt;/param&gt;/// &lt;param name="actionOK"&gt;Action O.&lt;/param&gt;/// &lt;param name="actionCancel"&gt;Action cancel.&lt;/param&gt;public static void ShowAlert (string title, string message, string okLabel, string cancelLabel,/// &lt;summary&gt;/// Shows the alert./// &lt;/summary&gt;/// &lt;param name="title"&gt;Title.&lt;/param&gt;/// &lt;param name="message"&gt;Message.&lt;/param&gt;/// &lt;param name="okLabel"&gt;Ok label.&lt;/param&gt;/// &lt;param name="actionOK"&gt;Action O.&lt;/param&gt;public static void ShowAlert (string title, string message, string okLabel, Action actionOK)</a></td>
+                    <td class="summary">Shows the alert.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#ShowAlert">public static void ShowAlert (string title, string message, string okLabel, string cancelLabel,/// &lt;summary&gt;/// Shows the alert./// &lt;/summary&gt;/// &lt;param name="title"&gt;Title.&lt;/param&gt;/// &lt;param name="message"&gt;Message.&lt;/param&gt;/// &lt;param name="okLabel"&gt;Ok label.&lt;/param&gt;/// &lt;param name="actionOK"&gt;Action O.&lt;/param&gt;public static void ShowAlert (string title, string message, string okLabel, Action actionOK)</a></td>
+                    <td class="summary">Shows the alert.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#ShowAlert">public static void ShowAlert (string title, string message, string okLabel, Action actionOK)</a></td>
+                    <td class="summary">Shows the alert.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#Character2Ascii">public static int Character2Ascii (string character)</a></td>
+                    <td class="summary">Convert character to the ASCII int code.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#Ascii2Character">public static string Ascii2Character (int asciiCode)</a></td>
+                    <td class="summary">Convert ASCII code to the character.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetPlatformLowerString">public static string GetPlatformLowerString ()</a></td>
+                    <td class="summary">Gets the platform lower string.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#DelayCall">public static vp_Timer.Handle DelayCall (float delaySeconds, Action callback)</a></td>
+                    <td class="summary">Delay call.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#RepeatCall">public static vp_Timer.Handle RepeatCall (float delaySeconds, int repeatTimes, Action callback)</a></td>
+                    <td class="summary">Repeat call.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+
+            <h2><a name="Functions"></a>Functions</h2>
+            <dl class="function">
+                <dt>
+                    <a name="Init"></a>
+                    <strong>Init</strong>
+                </dt>
+                <dd>
+                    call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="WriteToFile"></a>
+                    <strong>WriteToFile</strong>
+                </dt>
+                <dd>
+                    Writes string to file.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> filePathName</span>
+                            File path name.
+                        </li>
+                        <li>string<span class="parameter"> content</span>
+                            Content.
+                        </li>
+                        <li>bool overWrite<span class="parameter"> =</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="DeleteFile"></a>
+                    <strong>DeleteFile</strong>
+                </dt>
+                <dd>
+                    Deletes the file.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> filePathName</span>
+                            File path name.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="ReadFile"></a>
+                    <strong>ReadFile</strong>
+                </dt>
+                <dd>
+                    Reads the file (don't use this in android, File.Exists often return false).
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> filePathName</span>
+                            File path name.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string The file contents.
+                    </ul>
+                </dd>                <dt>
+                    <a name="ReadFileByWWW"></a>
+                    <strong>ReadFileByWWW</strong>
+                </dt>
+                <dd>
+                    Reads the file by WWW.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> filePathName</span>
+                            File path name.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string The file by WWW.
+                    </ul>
+                </dd>                <dt>
+                    <a name="CreateDirectorys"></a>
+                    <strong>CreateDirectorys</strong>
+                </dt>
+                <dd>
+                    Creates the directorys.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> fullFilePathOrDirectoryPath</span>
+                            Full file path or directory path.
+                        </li>
+                        <li>bool<span class="parameter"> isFile</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+bool <code>true</code>, if directorys was created, <code>false</code> otherwise.
+                    </ul>
+                </dd>                <dt>
+                    <a name="WriteJsonToFile"></a>
+                    <strong>WriteJsonToFile</strong>
+                </dt>
+                <dd>
+                    Writes the json object to file.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> filePathName</span>
+                            File path name.
+                        </li>
+                        <li>JSONNode<span class="parameter"> json</span>
+                            Json object.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="ReadJsonFromFile"></a>
+                    <strong>ReadJsonFromFile</strong>
+                </dt>
+                <dd>
+                    Reads the json from file (don't use this in android, File.Exists often return false).
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> filePathName</span>
+                            File path name.
+                        </li>
+                        <li>JSONNode def<span class="parameter"> =</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+JSONNode The JSONNode from file.
+                    </ul>
+                </dd>                <dt>
+                    <a name="ReadJsonFromFileByWWW"></a>
+                    <strong>ReadJsonFromFileByWWW</strong>
+                </dt>
+                <dd>
+                    Reads the json from file by WWW.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> filePathName</span>
+                            File path name.
+                        </li>
+                        <li>JSONNode def<span class="parameter"> =</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+JSONNode The JSONNode from file.
+                    </ul>
+                </dd>                <dt>
+                    <a name="ShowToast"></a>
+                    <strong>ShowToast</strong>
+                </dt>
+                <dd>
+                    Shows the toast.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="ShowAlert"></a>
+                    <strong>ShowAlert</strong>
+                </dt>
+                <dd>
+                    Shows the alert.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> title</span>
+                            Title.
+                        </li>
+                        <li>string<span class="parameter"> message</span>
+                            Message.
+                        </li>
+                        <li>string<span class="parameter"> okLabel</span>
+                            Ok label.
+                        </li>
+                        <li>string<span class="parameter"> cancelLabel</span>
+                            Cancel label.
+                        </li>
+                        <li>string<span class="parameter"> neutralLabel</span>
+                            Neutral label.
+                        </li>
+                        <li>/// &lt;summary&gt;///<span class="parameter"> Shows</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="ShowAlert"></a>
+                    <strong>ShowAlert</strong>
+                </dt>
+                <dd>
+                    Shows the alert.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> title</span>
+                            Title.
+                        </li>
+                        <li>string<span class="parameter"> message</span>
+                            Message.
+                        </li>
+                        <li>string<span class="parameter"> okLabel</span>
+                            Ok label.
+                        </li>
+                        <li>string<span class="parameter"> cancelLabel</span>
+                            Cancel label.
+                        </li>
+                        <li>/// &lt;summary&gt;///<span class="parameter"> Shows</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="ShowAlert"></a>
+                    <strong>ShowAlert</strong>
+                </dt>
+                <dd>
+                    Shows the alert.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> title</span>
+                            Title.
+                        </li>
+                        <li>string<span class="parameter"> message</span>
+                            Message.
+                        </li>
+                        <li>string<span class="parameter"> okLabel</span>
+                            Ok label.
+                        </li>
+                        <li>Action<span class="parameter"> actionOK</span>
+                            Action O.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="Character2Ascii"></a>
+                    <strong>Character2Ascii</strong>
+                </dt>
+                <dd>
+                    Convert character to the ASCII int code.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> character</span>
+                            Character.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+int The ASCII.
+                    </ul>
+                </dd>                <dt>
+                    <a name="Ascii2Character"></a>
+                    <strong>Ascii2Character</strong>
+                </dt>
+                <dd>
+                    Convert ASCII code to the character.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>int<span class="parameter"> asciiCode</span>
+                            ASCII code.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string The character.
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetPlatformLowerString"></a>
+                    <strong>GetPlatformLowerString</strong>
+                </dt>
+                <dd>
+                    Gets the platform lower string.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+string The platform lower string.
+                    </ul>
+                </dd>                <dt>
+                    <a name="DelayCall"></a>
+                    <strong>DelayCall</strong>
+                </dt>
+                <dd>
+                    Delay call.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> delaySeconds</span>
+                            Delay seconds.
+                        </li>
+                        <li>Action<span class="parameter"> callback</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+vp_Timer.Handle 
+                    </ul>
+                </dd>                <dt>
+                    <a name="RepeatCall"></a>
+                    <strong>RepeatCall</strong>
+                </dt>
+                <dd>
+                    Repeat call.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>float<span class="parameter"> delaySeconds</span>
+                            Delay(seconds).
+                        </li>
+                        <li>int<span class="parameter"> repeatTimes</span>
+                            Repeat times, set <c>1</c> for no repeat .
+                        </li>
+                        <li>Action<span class="parameter"> callback</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+vp_Timer.Handle 
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div> <!-- id="content" -->
+    </div> <!-- id="main" -->
+    <div id="about">
+        <i>written by <a href="https://github.com/SES-xuelan">XueLan</a></i>
+    </div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

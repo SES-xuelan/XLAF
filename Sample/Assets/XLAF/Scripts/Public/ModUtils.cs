@@ -6,6 +6,7 @@ using System;
 using SimpleJSON;
 using UnityEngine.UI;
 using XLAF.Private;
+using System.Collections.Generic;
 
 namespace XLAF.Public
 {
@@ -91,14 +92,13 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// Reads the file.
+		/// Reads the file (don't use this in android, File.Exists often return false).
 		/// </summary>
 		/// <returns>The file contents.</returns>
 		/// <param name="filePathName">File path name.</param>
 		public static string ReadFile (string filePathName)
-		{     
-			FileInfo t = new FileInfo (filePathName);          
-			if (!t.Exists) {
+		{       
+			if (!File.Exists (filePathName)) {
 				return null;
 			}
 			StreamReader sr = null;    
@@ -107,6 +107,49 @@ namespace XLAF.Public
 			sr.Close ();
 			sr.Dispose ();
 			return str;
+		}
+
+		/// <summary>
+		/// Reads the file by WWW.
+		/// </summary>
+		/// <returns>The file by WWW.</returns>
+		/// <param name="filePathName">File path name.</param>
+		public static string ReadFileByWWW (string filePathName)
+		{
+			if (filePathName.StartsWith ("jar:")) {
+				//filePathName = filePathName;
+			} else {
+				filePathName = "file://" + filePathName;
+			}
+			WWW www = new WWW (filePathName);
+			if (www.error == null) {
+				return www.text;
+			} else {
+				Log.Warning ("error while ReadFileByWWW", www.error);
+				return null;
+			}
+		}
+
+		/// <summary>
+		/// Creates the directorys.
+		/// </summary>
+		/// <returns><c>true</c>, if directorys was created, <c>false</c> otherwise.</returns>
+		/// <param name="fullFilePathOrDirectoryPath">Full file path or directory path.</param>
+		public static bool CreateDirectorys (string fullFilePathOrDirectoryPath, bool isFile)
+		{
+			if (isFile) {
+				// is file
+				FileInfo f = new FileInfo (fullFilePathOrDirectoryPath);
+				return CreateDirectorys (f.DirectoryName, false);
+			} else {
+				//is dirctory
+				DirectoryInfo di = new DirectoryInfo (fullFilePathOrDirectoryPath);
+				if (!di.Exists) {
+					di.Create ();
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/// <summary>
@@ -120,7 +163,7 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
-		/// Reads the json from file.
+		/// Reads the json from file (don't use this in android, File.Exists often return false).
 		/// </summary>
 		/// <returns>The JSONNode from file.</returns>
 		/// <param name="filePathName">File path name.</param>
@@ -137,13 +180,30 @@ namespace XLAF.Public
 		}
 
 		/// <summary>
+		/// Reads the json from file by WWW.
+		/// </summary>
+		/// <returns>The JSONNode from file.</returns>
+		/// <param name="filePathName">File path name.</param>
+		/// <param name="def">Default JSONNode (return this if filePathName not exist)</param>
+		public static JSONNode ReadJsonFromFileByWWW (string filePathName, JSONNode def = null)
+		{
+			string str = ModUtils.ReadFileByWWW (filePathName);
+			if (str != null) {
+				JSONNode jsn = JSONNode.Parse (str);
+				return jsn;
+			} else {
+				return def;
+			}
+		}
+
+		/// <summary>
 		/// StreamingAssets folder<para>></para>
 		/// e.g. Assets/StreamingAssets
 		/// </summary>
 		/// <value>The streaming directory.</value>
 		public static string streamingDirectory {
 			get {
-				return  Application.streamingAssetsPath;
+				return Application.streamingAssetsPath + "/";
 			}
 		}
 
@@ -273,7 +333,71 @@ namespace XLAF.Public
 			}
 		}
 
+		/// <summary>
+		/// Gets the platform lower string.
+		/// </summary>
+		/// <returns>The platform lower string.</returns>
+		public static string GetPlatformLowerString ()
+		{
+			if (Application.platform == RuntimePlatform.Android) {
+				return "android";
+			} else if (Application.platform == RuntimePlatform.IPhonePlayer) {
+				return "ios";
+			} else if (Application.platform == RuntimePlatform.WindowsPlayer) {
+				return "windows";
+			} else if (Application.platform == RuntimePlatform.OSXPlayer) {
+				return "osx";
+			} else if (Application.platform == RuntimePlatform.LinuxPlayer) {
+				return "linux";
+			} else if (Application.platform == RuntimePlatform.PS4) {
+				return "ps4";
+			} else if (Application.platform == RuntimePlatform.Switch) {
+				return "switch";
+			} else if (Application.platform == RuntimePlatform.tvOS) {
+				return "tv";
+			} else {
+				return "unknown";
+			}
+		}
+
+		#region Timer Delay
+
+		/// <summary>
+		/// Delay call.
+		/// </summary>
+		/// <param name="delaySeconds">Delay seconds.</param>
+		/// <param name="callBack">Call back.</param>
+		public static vp_Timer.Handle DelayCall (float delaySeconds, Action callback)
+		{
+			vp_Timer.Handle handle = new vp_Timer.Handle ();
+			vp_Timer.In (delaySeconds, () => {
+				handle.Cancel ();
+				callback ();
+			}, 1, handle);
+			return handle;
+		}
+
+		/// <summary>
+		/// Repeat call.
+		/// </summary>
+		/// <param name="delaySeconds">Delay(seconds).</param>
+		/// <param name="repeatTimes">Repeat times, set <c>1</c> for no repeat .</param>
+		/// <param name="callBack">Call back.</param>
+		public static vp_Timer.Handle RepeatCall (float delaySeconds, int repeatTimes, Action callback)
+		{
+			vp_Timer.Handle handle = new vp_Timer.Handle ();
+			vp_Timer.In (delaySeconds, () => {
+				handle.Cancel ();
+				callback ();
+			}, 1, handle);
+			return handle;
+		}
+
 		#endregion
+
+		#endregion
+
+
 	}
 
 

@@ -39,15 +39,6 @@ namespace XLAF.Private
 		#region public functions
 
 		/// <summary>
-		/// Show or hide inner log.
-		/// </summary>
-		/// <param name="showOrHide">If set to <c>true</c> show.</param>
-		public static void ShowOrHide (bool showOrHide)
-		{
-			_isShow = showOrHide;
-		}
-
-		/// <summary>
 		/// Debug.
 		/// </summary>
 		/// <param name="objs">Objects.</param>

@@ -1,0 +1,273 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>XueLan's Application Framework</title>
+    <link rel="stylesheet" href="../css.css" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="product">
+        <div id="product_logo"></div>
+        <div id="product_name"><big><b></b></big></div>
+        <div id="product_description"></div>
+    </div> <!-- id="product" -->
+
+
+    <div id="main">
+
+
+        <!-- Menu -->
+
+        <div id="navigation">
+            <br/>
+            <h1>XLAF Doc</h1>
+
+            <ul>
+                <li><a href="../index.html">Index</a></li>
+            </ul>
+
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#Functions">Functions</a></li>
+            </ul>
+
+
+            <h2>Classes</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../3rd-party/iTweenHashBuilder.html">iTweenHashBuilder</a></li>
+
+                <li><a href="../Public/Log.html">Log</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrAssetBundle.html">MgrAssetBundle</a></li>
+
+                <li><a href="../Public/MgrAudio.html">MgrAudio</a></li>
+
+                <li><a href="../Public/MgrBackdoor.html">MgrBackdoor</a></li>
+
+                <li><a href="../Public/MgrCoroutine.html">MgrCoroutine</a></li>
+
+                <li><a href="../Public/MgrData.html">MgrData</a></li>
+
+                <li><a href="../Public/MgrFPS.html">MgrFPS</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrLevel.html">MgrLevel</a></li>
+
+                <li><a href="../Public/MgrLoading.html">MgrLoading</a></li>
+
+                <li><a href="../Public/MgrMultiLanguage.html">MgrMultiLanguage</a></li>
+
+                <li><a href="../Public/MgrPopup.html">MgrPopup</a></li>
+
+                <li><a href="../Public/MgrScene.html">MgrScene</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/ModCompress.html">ModCompress</a></li>
+
+                <li><a href="../Public/ModDispatcher.html">ModDispatcher</a></li>
+
+                <li><a href="../Public/ModEncryption.html">ModEncryption</a></li>
+
+                <li><a href="../Public/ModUIUtils.html">ModUIUtils</a></li>
+
+                <li><a href="../Public/ModUtils.html">ModUtils</a></li>
+
+                <li><a href="../Public/SceneObject.html">SceneObject</a></li>
+
+                <li><a href="../Public/Storyboard.html">Storyboard</a></li>
+
+                <li><a href="../Public/XLAFDataManagerImpl.html">XLAFDataManagerImpl</a></li>
+
+                <li><a href="../Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></li>
+
+                <li><strong>XLAFHotFixImpl</strong></li>
+
+                <li><a href="../Public/XLAFMain.html">XLAFMain</a></li>
+
+                <li><a href="../Public/XLAF_Event.html">XLAF_Event</a></li>
+
+                <li><a href="../Public/XLAF_UIEvent.html">XLAF_UIEvent</a></li>
+
+
+            </ul>
+            <h2>ReadMe</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../Readme.md.html">Readme</a></li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+
+            <h1>Class <code>XLAFHotFixImpl</code></h1>
+            <p>XLAF hot fix config Base class, developer MUST inherit this class to create new class to enable hot fix
+</p>
+            <p>
+
+
+            </p>
+            <h3>Info:</h3>
+            <ul>
+                <li><strong>Copyright</strong>: 2017</li>
+                <li><strong>Author</strong>: Albert Feng (SES XueLan)</li>
+            </ul>
+
+
+            <h2><a href="#">Properties</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><strong>useHotFix</strong></td>
+                    <td class="summary">use toLua hot fix or not</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>callback)</strong></td>
+                    <td class="summary">First run the app, you should copy resources from streaming to document.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+            <h2><a href="#Functions">Functions</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><a href="#Init">public static void Init ()</a></td>
+                    <td class="summary">call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#MakeFileHash">public virtual string MakeFileHash (string filePathName)</a></td>
+                    <td class="summary">Makes the file hash code.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#CheckUpdate">public virtual void CheckUpdate (string url, Action&lt;int&gt; callback)</a></td>
+                    <td class="summary">Checks the update from url.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#DownloadResources">public virtual void DownloadResources (Action&lt;float,bool&gt; callback)</a></td>
+                    <td class="summary">Downloads the resources in <code>filesToDownload</code>.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#MakeLocalFileHashs">public virtual Dictionary&lt;string ,string&gt; MakeLocalFileHashs (string sourcePath = null, Dictionary&lt;string,string&gt; dic = null)</a></td>
+                    <td class="summary">Makes the local file hashs.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+
+            <h2><a name="Functions"></a>Functions</h2>
+            <dl class="function">
+                <dt>
+                    <a name="Init"></a>
+                    <strong>Init</strong>
+                </dt>
+                <dd>
+                    call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="MakeFileHash"></a>
+                    <strong>MakeFileHash</strong>
+                </dt>
+                <dd>
+                    Makes the file hash code.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> filePathName</span>
+                            File path name.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+virtual string The file hash code.
+                    </ul>
+                </dd>                <dt>
+                    <a name="CheckUpdate"></a>
+                    <strong>CheckUpdate</strong>
+                </dt>
+                <dd>
+                    Checks the update from url.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> url</span>
+                            
+                        </li>
+                        <li>Action&lt;int&gt;<span class="parameter"> callback</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+virtual void 
+                    </ul>
+                </dd>                <dt>
+                    <a name="DownloadResources"></a>
+                    <strong>DownloadResources</strong>
+                </dt>
+                <dd>
+                    Downloads the resources in <code>filesToDownload</code>.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Action&lt;float|bool&gt;<span class="parameter"> callback</span>
+                            Callback<percent, isError>.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+virtual void 
+                    </ul>
+                </dd>                <dt>
+                    <a name="MakeLocalFileHashs"></a>
+                    <strong>MakeLocalFileHashs</strong>
+                </dt>
+                <dd>
+                    Makes the local file hashs.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string sourcePath<span class="parameter"> =</span>
+                            
+                        </li>
+                        <li>Dictionary&lt;string|string&gt; dic<span class="parameter"> =</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+virtual Dictionary<string ,string> The local file hashs.
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div> <!-- id="content" -->
+    </div> <!-- id="main" -->
+    <div id="about">
+        <i>written by <a href="https://github.com/SES-xuelan">XueLan</a></i>
+    </div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,4 +1,4 @@
-XLAF —— A sample 2D game/app framework
+XLAF —— A simple 2D game/app framework
 ====================================================
  [中文说明](https://github.com/SES-xuelan/XLAF/blob/master/readme_zh.md)
 
@@ -17,7 +17,7 @@ XLAF often use to develop games or apps for only one unity scene but many prefab
 * SimpleJson
 * iTween
 * SharpZipLib
-* ToLua
+* Texture Packer
 
 ## Project file list & illustration
 Normally a project structure like this:<br />
@@ -25,42 +25,38 @@ note 1: "【】" include folder illustration.<br />
 note 2: do NOT change name for marked star "\*" folders, or project will get errors.
 
 ```
-Assets
-|-- 3rd-party【plugins written by C#】
-|-- *Editor【editor folder, unity built-in】
-|-- Images【images】
-|   |--Common【common images/many prefab use the same image】
-|   `--View1【images in "View1"("View1" is an example)】
-|-- *Lua 【Lua script folder, often used to do hotfix,Lua plugins in  Editor may handle this folder】
-|-- Materials【materials】
-|-- *Plugins【Native code plugins, such as   *.so  *.a files】
-|    |--Android【Android native code, usually *.aar or *.jar】
-|    `--IOS【iOS native code, usually *.mm & *.h】
-|-- *Resources【Unity resources folder】
-|    |--*Audios【Audios, start with "m_" means music, "s_" means sound】
-|    `--*Views【Prefabs】
-|        |--*Popups【Popup prefabs】
-|        `--*Scenes【Scene prefabs】
-|-- *Scripts【C# scripts】
-|    |--*Views
-|    |    |--*Popups【Scripts for popup prefabs】
-|    |    `--*Scenes【Scripts for scene prefabs】
-|    `--Any other C# code folders
-|-- *StreamingAssets【Unity default folder, read only, not compressed】
-|-- *ToLua【ToLua plugin folder】
-`-- *XLAF【If you want to modify code, ensure you know the relationship with each other】
-     |-- 3rd-party【The third party plugin】
-     |-- Editor【editor folder, unity built-in】
-     |-- Plugins【Native code plugins, such as   *.so  *.a files】
-     |    |--Android【Android native code, usually *.aar or *.jar】
-     |    `--IOS【iOS native code, usually *.mm & *.h】
-     |-- Resources【Unity resources folder in XLAF, only backdoor resources currently】
-     `-- Scripts
-         |-- Public【Developer often use, namespace is XLAF.Public】
-         `-- Private【XLAF private scripts, ONLY use for XLAF, namespace is XLAF.Private】
+ProjectFolder
+    |-- Assets
+    |     |-- 3rd-party【plugins written by C#】
+    |     |-- *Editor【editor folder, unity built-in】
+    |     |-- Materials【materials】
+    |     |-- *Plugins【Native code plugins, such as   *.so  *.a files】
+    |     |    |--Android【Android native code, usually *.aar or *.jar】
+    |     |    `--IOS【iOS native code, usually *.mm & *.h】
+    |     |-- *Resources【Unity resources folder】
+    |     |    |--*Audios【Audios, usually start with "m_" means music, "s_" means sound】
+    |     |    |--*ImageSheets【image sheets that TexturePacker made】
+    |     |    `--*Views【prefabs】
+    |     |        |--*Popups【Popup prefabs】
+    |     |        `--*Scenes【Scene prefabs】
+    |     |-- *Scripts【C# scripts】
+    |     |    |--Views
+    |     |    |    |--Popups【Scripts for popup prefabs】
+    |     |    |    `--Scenes【Scripts for scene prefabs】
+    |     |    `--Any other C# code folders
+    |     |-- *StreamingAssets【Unity default folder, read only, not compressed】
+    |     `-- *XLAF【This repertory, if you want to modify code, ensure you know the relationship with each other】
+    |          |-- 3rd-party【The third party plugin】
+    |          |-- Editor【editor folder, unity built-in】
+    |          |-- Plugins【Native code plugins, such as   *.so  *.a files】
+    |          |    |--Android【Android native code, usually *.aar or *.jar】
+    |          |    `--IOS【iOS native code, usually *.mm & *.h】
+    |          |-- Resources【Unity resources folder in XLAF, only backdoor resources currently】
+    |          `-- Scripts
+    |              |-- Public【Developer often use, namespace is XLAF.Public】
+    |              `-- Private【XLAF private scripts, ONLY use for XLAF, namespace is XLAF.Private】
+    `-- *Resources-Images【Images for TexturePacker, if you don't want to use TP, ignore】
 ```
-
-
 -----
 ## Others
 * At the beginning, when I wrote this framework, I follow the previous habits, so in document "scene" means a prefab contains view, not unity scene.
@@ -69,10 +65,6 @@ Assets
     1. `public enum EaseType`   add   `defaultType`
     2. function `void CallBack (string callbackType)`  add callback with `Action`
     ```
-
+* DocMacker is incomplete, see the comments is better.
 
 <br /><br /><br />
-
----
-Continuous improvement ...
-

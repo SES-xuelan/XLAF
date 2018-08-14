@@ -1,0 +1,427 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>XueLan's Application Framework</title>
+    <link rel="stylesheet" href="../css.css" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="product">
+        <div id="product_logo"></div>
+        <div id="product_name"><big><b></b></big></div>
+        <div id="product_description"></div>
+    </div> <!-- id="product" -->
+
+
+    <div id="main">
+
+
+        <!-- Menu -->
+
+        <div id="navigation">
+            <br/>
+            <h1>XLAF Doc</h1>
+
+            <ul>
+                <li><a href="../index.html">Index</a></li>
+            </ul>
+
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#Functions">Functions</a></li>
+            </ul>
+
+
+            <h2>Classes</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../3rd-party/iTweenHashBuilder.html">iTweenHashBuilder</a></li>
+
+                <li><a href="../Public/Log.html">Log</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrAssetBundle.html">MgrAssetBundle</a></li>
+
+                <li><a href="../Public/MgrAudio.html">MgrAudio</a></li>
+
+                <li><a href="../Public/MgrBackdoor.html">MgrBackdoor</a></li>
+
+                <li><a href="../Public/MgrCoroutine.html">MgrCoroutine</a></li>
+
+                <li><a href="../Public/MgrData.html">MgrData</a></li>
+
+                <li><a href="../Public/MgrFPS.html">MgrFPS</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/MgrLevel.html">MgrLevel</a></li>
+
+                <li><a href="../Public/MgrLoading.html">MgrLoading</a></li>
+
+                <li><a href="../Public/MgrMultiLanguage.html">MgrMultiLanguage</a></li>
+
+                <li><strong>MgrPopup</strong></li>
+
+                <li><a href="../Public/MgrScene.html">MgrScene</a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/.html"></a></li>
+
+                <li><a href="../Public/ModCompress.html">ModCompress</a></li>
+
+                <li><a href="../Public/ModDispatcher.html">ModDispatcher</a></li>
+
+                <li><a href="../Public/ModEncryption.html">ModEncryption</a></li>
+
+                <li><a href="../Public/ModUIUtils.html">ModUIUtils</a></li>
+
+                <li><a href="../Public/ModUtils.html">ModUtils</a></li>
+
+                <li><a href="../Public/SceneObject.html">SceneObject</a></li>
+
+                <li><a href="../Public/Storyboard.html">Storyboard</a></li>
+
+                <li><a href="../Public/XLAFDataManagerImpl.html">XLAFDataManagerImpl</a></li>
+
+                <li><a href="../Public/XLAFEventTriggerListener.html">XLAFEventTriggerListener</a></li>
+
+                <li><a href="../Public/XLAFHotFixImpl.html">XLAFHotFixImpl</a></li>
+
+                <li><a href="../Public/XLAFMain.html">XLAFMain</a></li>
+
+                <li><a href="../Public/XLAF_Event.html">XLAF_Event</a></li>
+
+                <li><a href="../Public/XLAF_UIEvent.html">XLAF_UIEvent</a></li>
+
+
+            </ul>
+            <h2>ReadMe</h2>
+            <ul class="$(kind=='Topics' and '' or 'nowrap'">
+                <li><a href="../Readme.md.html">Readme</a></li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+
+            <h1>Class <code>MgrPopup</code></h1>
+            <p>Popup manager, the code is similar to <a href="../Public/MgrScene.html">MgrScene</a>
+</p>
+            <p>
+
+
+            </p>
+            <h3>Info:</h3>
+            <ul>
+                <li><strong>Copyright</strong>: 2017</li>
+                <li><strong>Author</strong>: Albert Feng (SES XueLan)</li>
+            </ul>
+
+
+            <h2><a href="#">Properties</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><strong>isPopupChanging</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/MgrPopup.html">MgrPopup</a> is scene changing.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>isSceneOrPopupChanging</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/MgrPopup.html">MgrPopup</a> is scene or popup changing.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>hasPopup</strong></td>
+                    <td class="summary">Gets a value indicating whether this <a href="../Public/MgrPopup.html">MgrPopup</a> has popup.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><strong>popupCount</strong></td>
+                    <td class="summary">Gets the popup count.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+            <h2><a href="#Functions">Functions</a></h2>
+            <table class="function_list">
+                <tr>
+                    <td class="name" nowrap><a href="#Init">public static void Init ()</a></td>
+                    <td class="summary">call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetPopupRoot">public static void SetPopupRoot (Transform grp)</a></td>
+                    <td class="summary">Sets the popup root.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetPopupRoot">public static Transform GetPopupRoot ()</a></td>
+                    <td class="summary">Gets the popup root.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetPopupRootCanvas">public static CanvasGroup GetPopupRootCanvas ()</a></td>
+                    <td class="summary">Gets the popup root canvas.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetPopupViewVisiblity">public static bool GetPopupViewVisiblity ()</a></td>
+                    <td class="summary">Gets the popup view visible.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#SetPopupViewVisiblity">public static void SetPopupViewVisiblity (bool visiblity)</a></td>
+                    <td class="summary">Sets the popup view visible.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetAllPopups">public static Dictionary&lt;string,SceneObject&gt; GetAllPopups ()</a></td>
+                    <td class="summary">Gets all popups.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#LoadPopup">public static void LoadPopup (string sceneName, object data)</a></td>
+                    <td class="summary">Loads the popup, this function will call CreateScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#LoadPopup">public static void LoadPopup (string sceneName)</a></td>
+                    <td class="summary">Loads the popup.
+this function will call CreateScene(params) but not call other functions (e.g. WillEnterScene/EnterScene) .</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetPopup">public static SceneObject GetPopup (string sceneName)</a></td>
+                    <td class="summary">Gets the popup.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#HideAll">public static void HideAll ()</a></td>
+                    <td class="summary">Hides all popups.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#HideTop">public static void HideTop ()</a></td>
+                    <td class="summary">Hides the top popup.</td>
+                </tr>
+                <tr>
+                    <td class="name" nowrap><a href="#GetTop">public static SceneObject GetTop ()</a></td>
+                    <td class="summary">Gets the top popup.</td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <br/>
+
+
+            <h2><a name="Functions"></a>Functions</h2>
+            <dl class="function">
+                <dt>
+                    <a name="Init"></a>
+                    <strong>Init</strong>
+                </dt>
+                <dd>
+                    call Init() will trigger constructed function, you can call Init() to ensure this class finished initialization
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetPopupRoot"></a>
+                    <strong>SetPopupRoot</strong>
+                </dt>
+                <dd>
+                    Sets the popup root.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>Transform<span class="parameter"> grp</span>
+                            Group.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetPopupRoot"></a>
+                    <strong>GetPopupRoot</strong>
+                </dt>
+                <dd>
+                    Gets the popup root.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Transform The popup root.
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetPopupRootCanvas"></a>
+                    <strong>GetPopupRootCanvas</strong>
+                </dt>
+                <dd>
+                    Gets the popup root canvas.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+CanvasGroup The popup root canvas.
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetPopupViewVisiblity"></a>
+                    <strong>GetPopupViewVisiblity</strong>
+                </dt>
+                <dd>
+                    Gets the popup view visible.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+bool <code>true</code>, if popup view visible was gotten, <code>false</code> otherwise.
+                    </ul>
+                </dd>                <dt>
+                    <a name="SetPopupViewVisiblity"></a>
+                    <strong>SetPopupViewVisiblity</strong>
+                </dt>
+                <dd>
+                    Sets the popup view visible.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>bool<span class="parameter"> visiblity</span>
+                            
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetAllPopups"></a>
+                    <strong>GetAllPopups</strong>
+                </dt>
+                <dd>
+                    Gets all popups.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+Dictionary<string,SceneObject> The all popups.
+                    </ul>
+                </dd>                <dt>
+                    <a name="LoadPopup"></a>
+                    <strong>LoadPopup</strong>
+                </dt>
+                <dd>
+                    Loads the popup, this function will call CreateScene(params) but not call other functions (e.g. WillEnterScene/EnterScene).
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> sceneName</span>
+                            Scene name.
+                        </li>
+                        <li>object<span class="parameter"> data</span>
+                            the data you want to transmit
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="LoadPopup"></a>
+                    <strong>LoadPopup</strong>
+                </dt>
+                <dd>
+                    Loads the popup.
+this function will call CreateScene(params) but not call other functions (e.g. WillEnterScene/EnterScene) .
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> sceneName</span>
+                            Scene name.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetPopup"></a>
+                    <strong>GetPopup</strong>
+                </dt>
+                <dd>
+                    Gets the popup.
+                    <h3>Parameters:</h3>
+                    <ul>
+                        <li>string<span class="parameter"> sceneName</span>
+                            Scene name.
+                        </li>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+SceneObject The popup. return null if the popup not exists
+                    </ul>
+                </dd>                <dt>
+                    <a name="HideAll"></a>
+                    <strong>HideAll</strong>
+                </dt>
+                <dd>
+                    Hides all popups.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="HideTop"></a>
+                    <strong>HideTop</strong>
+                </dt>
+                <dd>
+                    Hides the top popup.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+none 
+                    </ul>
+                </dd>                <dt>
+                    <a name="GetTop"></a>
+                    <strong>GetTop</strong>
+                </dt>
+                <dd>
+                    Gets the top popup.
+                    <h3>Parameters:</h3>
+                    <ul>
+
+                    </ul>
+					<h3>Returns:</h3>
+                    <ul>
+SceneObject The top.
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div> <!-- id="content" -->
+    </div> <!-- id="main" -->
+    <div id="about">
+        <i>written by <a href="https://github.com/SES-xuelan">XueLan</a></i>
+    </div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
