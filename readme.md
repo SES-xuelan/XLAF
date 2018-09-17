@@ -5,6 +5,9 @@ XLAF —— A simple 2D game/app framework
 XLAF(XueLan's Application Framework) is a simple 2D framework, contains scene manager, audio manager, multi language manager and so on. Developers have more time to develop their games or apps.<br />
 XLAF often use to develop games or apps for only one unity scene but many prefabs(views), developers can modify  code to support mutilple unity scenes.
 
+## Usages
+See *Sample* folder.
+
 ## Naming Conventions
 * Variables => camelCase. such as thisIsVariable.
 * Functions => PascalCase. such as  ThisIsFunction.

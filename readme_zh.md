@@ -5,6 +5,9 @@ XLAF —— 一个简单的2D游戏/应用框架
 XLAF(XueLan's Application Framework) 是一个简单的2D框架，包含完整的场景管理、声音管理、多语言切换、热更新(ToLua)等，开发者可以有更多的时间去开发游戏、应用的内部逻辑。<br />
 一般用于只有一个Unity scene但是多个view(prefab)的游戏/应用，或者经过简单的修改，开发者也可以使用多个Unity Scene，更好地适应项目。
 
+## 使用方法：
+参考 *Sample* 目录的例子。
+
 ## 命名规则：
 * 一般变量使用小驼峰 thisIsVariable；
 * 方法/函数使用大驼峰 ThisIsFunction；
